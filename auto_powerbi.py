@@ -819,6 +819,24 @@ def run_gui_mode():
                         bg="#6c5ce7", fg="white", font=("Arial", 11, "bold"), width=25, height=2, bd=0, activebackground="#5b4bc4", activeforeground="white")
     btn_run.pack(side=tk.LEFT, padx=10)
 
+    def sync_sheets_and_web():
+        btn_sync.config(state=tk.DISABLED, text="Đang đồng bộ...")
+        def _th():
+            try:
+                update_status("📡 Đang đồng bộ số liệu từ Google Sheets lên Web...", "#3498db")
+                import sync_sheets_to_web
+                sync_sheets_to_web.sync_sheets_to_dashboard(push_github=True)
+                update_status("🎉 Đã đồng bộ số liệu mới nhất từ Google Sheets lên Web thành công!", "#00b894")
+            except Exception as e:
+                update_status(f"❌ Lỗi đồng bộ Google Sheets: {e}", "#ef4444")
+            finally:
+                root.after(0, lambda: btn_sync.config(state=tk.NORMAL, text="🔄 Đồng bộ từ GG Sheet"))
+        threading.Thread(target=_th, daemon=True).start()
+
+    btn_sync = tk.Button(btn_frame, text="🔄 Đồng bộ từ GG Sheet", command=sync_sheets_and_web,
+                         bg="#10b981", fg="white", font=("Arial", 10, "bold"), height=2, bd=0, activebackground="#059669", activeforeground="white")
+    btn_sync.pack(side=tk.LEFT, padx=8)
+
     btn_chrome = tk.Button(btn_frame, text="Mở Chrome Login", command=open_manual_chrome,
                            bg="#f39c12", fg="white", font=("Arial", 10), height=2, bd=0, activebackground="#e67e22", activeforeground="white")
     btn_chrome.pack(side=tk.LEFT, padx=8)

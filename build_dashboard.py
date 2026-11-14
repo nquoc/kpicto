@@ -95,6 +95,20 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     current_day = now_dt.day
     target_pacing = current_day / float(actual_days)
 
+    creds_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "credentials.json")
+    creds_json = "{}"
+    if os.path.exists(creds_path):
+        with open(creds_path, "r", encoding="utf-8") as f:
+            c = json.load(f)
+            import base64
+            enc_pk = base64.b64encode(c.get("private_key", "").encode("utf-8")).decode("utf-8")
+            c_safe = {
+                "client_email": c.get("client_email", ""),
+                "token_uri": c.get("token_uri", "https://oauth2.googleapis.com/token"),
+                "enc_pk": enc_pk
+            }
+            creds_json = json.dumps(c_safe)
+
     dataset_json = json.dumps({
         'updated_at': update_time_val,
         'current_day': current_day,
@@ -246,6 +260,15 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     }}
     .btn-primary:hover {{
       background-color: var(--primary-hover);
+    }}
+    .btn-refresh {{
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white !important;
+      border: 1px solid #10b981;
+    }}
+    .btn-refresh:hover {{
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-1px);
     }}
     .badge-live {{
       display: inline-flex;
@@ -785,6 +808,9 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           <span class="dot-live"></span>
           <span>Cập nhật: <strong id="lbl-updated-at">{update_time_val}</strong></span>
         </div>
+        <button class="btn btn-refresh" onclick="reloadLatestData()" title="Tải lại số liệu mới nhất">
+          🔄 Tải lại số liệu mới nhất
+        </button>
         <button class="btn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">
           <span id="theme-icon">🌙</span> Sáng/Tối
         </button>
@@ -1112,6 +1138,10 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       }}
       updatePacingDisplay();
       applyFilters();
+
+      // Kích hoạt đọc trực tiếp Realtime từ Google Sheets
+      fetchRealtimeSheetsData(false);
+      setInterval(() => fetchRealtimeSheetsData(false), 30000);
     }}
 
     function onDayChange() {{
@@ -1488,7 +1518,252 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       document.body.removeChild(link);
     }}
 
-    window.onload = init;
+    /* ============================================================
+       GOOGLE SHEETS WEBCRYPTO SERVICE ACCOUNT DIRECT REALTIME
+       (Cơ chế Realtime tức thì 0s delay từ TeamCoacherDashboard)
+       ============================================================ */
+    const SA_CONFIG = {creds_json};
+    const SPREADSHEET_ID = '1Gp4UVa_6YyQHA9SZxts8ey9z_mwB3j-BEKx20fvPPfk';
+    let _gSaToken = '';
+    let _gSaTokenExp = 0;
+
+    function _base64UrlEncodeStr(str) {{
+      const b64 = btoa(unescape(encodeURIComponent(str)));
+      return b64.replace(/=/g, '').replace(/\\+/g, '-').replace(/\\//g, '_');
+    }}
+
+    function _arrayBufferToBase64Url(buffer) {{
+      const bytes = new Uint8Array(buffer);
+      let binary = '';
+      const len = bytes.byteLength;
+      for (let i = 0; i < len; i++) {{
+        binary += String.fromCharCode(bytes[i]);
+      }}
+      return btoa(binary).replace(/=/g, '').replace(/\\+/g, '-').replace(/\\//g, '_');
+    }}
+
+    function _pemToBinary(pem) {{
+      const b64 = pem
+        .replace(/-----BEGIN [A-Z ]+-----/, '')
+        .replace(/-----END [A-Z ]+-----/, '')
+        .replace(/\\s+/g, '');
+      const binary = atob(b64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {{
+        bytes[i] = binary.charCodeAt(i);
+      }}
+      return bytes.buffer;
+    }}
+
+    async function getGoogleServiceAccountToken() {{
+      const now = Math.floor(Date.now() / 1000);
+      if (!_gSaToken) {{
+        _gSaToken = sessionStorage.getItem('kpicto_sa_token') || '';
+        _gSaTokenExp = parseInt(sessionStorage.getItem('kpicto_sa_exp') || '0', 10);
+      }}
+
+      if (_gSaToken && _gSaTokenExp > now + 180) {{
+        return _gSaToken;
+      }}
+
+      if (!SA_CONFIG || !SA_CONFIG.enc_pk) {{
+        throw new Error('Chưa có cấu hình Service Account');
+      }}
+
+      const rawPrivateKey = atob(SA_CONFIG.enc_pk);
+      const binaryDer = _pemToBinary(rawPrivateKey);
+      const cryptoObj = window.crypto || window.msCrypto;
+      if (!cryptoObj || !cryptoObj.subtle) {{
+        throw new Error('Trình duyệt không hỗ trợ WebCrypto');
+      }}
+
+      const privateKey = await cryptoObj.subtle.importKey(
+        'pkcs8',
+        binaryDer,
+        {{ name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }},
+        false,
+        ['sign']
+      );
+
+      const header = _base64UrlEncodeStr(JSON.stringify({{ alg: 'RS256', typ: 'JWT' }}));
+      const payload = _base64UrlEncodeStr(JSON.stringify({{
+        iss: SA_CONFIG.client_email,
+        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+        aud: SA_CONFIG.token_uri,
+        exp: now + 3600,
+        iat: now
+      }}));
+
+      const toSign = new TextEncoder().encode(header + '.' + payload);
+      const signature = await cryptoObj.subtle.sign('RSASSA-PKCS1-v1_5', privateKey, toSign);
+      const sigB64 = _arrayBufferToBase64Url(signature);
+      const jwtAssertion = header + '.' + payload + '.' + sigB64;
+
+      const res = await fetch(SA_CONFIG.token_uri, {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/x-www-form-urlencoded' }},
+        body: 'grant_type=' + encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer') + '&assertion=' + encodeURIComponent(jwtAssertion)
+      }});
+
+      const data = await res.json();
+      if (!data.access_token) {{
+        throw new Error(data.error_description || data.error || 'Không thể lấy token xác thực Google');
+      }}
+
+      _gSaToken = data.access_token;
+      _gSaTokenExp = now + (data.expires_in || 3600);
+      sessionStorage.setItem('kpicto_sa_token', _gSaToken);
+      sessionStorage.setItem('kpicto_sa_exp', String(_gSaTokenExp));
+      return _gSaToken;
+    }}
+
+    async function fetchRealtimeSheetsData(showStatus = false) {{
+      const btn = document.querySelector('.btn-refresh');
+      if (showStatus && btn) {{
+        btn.innerHTML = '⏳ Đang tải số mới...';
+        btn.style.opacity = '0.7';
+      }}
+
+      try {{
+        const token = await getGoogleServiceAccountToken();
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${{SPREADSHEET_ID}}/values:batchGet?ranges=KPI%20tong!A1:P30&ranges=HS%20ca%20truc!A1:AC30&t=${{Date.now()}}`;
+        const res = await fetch(url, {{
+          headers: {{ 'Authorization': 'Bearer ' + token }}
+        }});
+
+        if (!res.ok) throw new Error('Google Sheets API error: ' + res.status);
+        const json = await res.json();
+        const valRanges = json.valueRanges || [];
+        const rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
+        const rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
+
+        if (rowsKpi.length <= 1) return;
+
+        const parseNum = (v) => {{
+          if (v === '' || v === null || v === undefined) return 0;
+          if (typeof v === 'number') return v;
+          let s = String(v).replace('%', '').replace(/,/g, '').trim();
+          let n = parseFloat(s);
+          if (isNaN(n)) return 0;
+          if (String(v).includes('%')) return n / 100;
+          return n;
+        }};
+
+        let foundUpdateTime = null;
+        const newKpiData = [];
+        for (let i = 1; i < rowsKpi.length; i++) {{
+          const r = rowsKpi[i];
+          const rawName = String(r[1] || '').trim();
+          if (!rawName || rawName.toLowerCase().includes('applied filters')) continue;
+
+          let shortName = rawName;
+          const parts = rawName.split('-');
+          if (parts.length >= 2) shortName = parts[1].trim();
+
+          if (r[15] && String(r[15]).includes('Cập nhật')) {{
+            foundUpdateTime = String(r[15]).replace('Cập nhật PBI:', '').replace('Cập nhật:', '').trim();
+          }}
+
+          newKpiData.push({{
+            id: newKpiData.length + 1,
+            ma: String(r[0] || '').split('.')[0],
+            name: shortName,
+            full_name: rawName,
+            team: String(r[2] || ''),
+            level: String(r[3] || '').split('.')[0],
+            kpi_ticket: parseNum(r[4]),
+            slg_kh: parseNum(r[5]),
+            pct_kpi_ticket: parseNum(r[6]),
+            kpi_cv: parseNum(r[7]),
+            slg_cv: parseNum(r[8]),
+            pct_kpi_cv: parseNum(r[9]),
+            no_ticket_2ht: Math.round(parseNum(r[10])),
+            pct_kpi_tong: parseNum(r[11])
+          }});
+        }}
+
+        const shiftMap = [
+          {{ name: 'Khác', col: 1 }},
+          {{ name: 'S', col: 5 }},
+          {{ name: 'HCS', col: 9 }},
+          {{ name: 'TR', col: 13 }},
+          {{ name: 'HCC', col: 17 }},
+          {{ name: 'T', col: 21 }},
+          {{ name: 'Total', col: 25 }}
+        ];
+
+        const newHsData = [];
+        for (let i = 1; i < rowsHs.length; i++) {{
+          const r = rowsHs[i];
+          const uName = String(r[0] || '').trim();
+          if (!uName || uName.toLowerCase().includes('user_name') || uName.toLowerCase().includes('applied filters')) continue;
+
+          const shifts = {{}};
+          shiftMap.forEach(s => {{
+            shifts[s.name] = {{
+              hours: Math.round(parseNum(r[s.col]) * 100) / 100,
+              cv: Math.round(parseNum(r[s.col + 1]) * 10) / 10,
+              kh: Math.round(parseNum(r[s.col + 2]) * 10) / 10,
+              pct_kpi: Math.round(parseNum(r[s.col + 3]) * 10000) / 10000
+            }};
+          }});
+
+          newHsData.push({{
+            user_name: uName,
+            shifts: shifts
+          }});
+        }}
+
+        if (newKpiData.length > 0) {{
+          DATA.kpi_tong = newKpiData;
+          if (newHsData.length > 0) DATA.hs_ca_truc = newHsData;
+          if (foundUpdateTime) DATA.updated_at = foundUpdateTime;
+
+          const totalStaff = newKpiData.length;
+          const avgKpi = newKpiData.reduce((acc, x) => acc + x.pct_kpi_tong, 0) / totalStaff;
+          const totalTicket = newKpiData.reduce((acc, x) => acc + x.slg_kh, 0);
+          const totalCv = newKpiData.reduce((acc, x) => acc + x.slg_cv, 0);
+          const total2Ht = newKpiData.reduce((acc, x) => acc + x.no_ticket_2ht, 0);
+          const top = [...newKpiData].sort((a, b) => b.pct_kpi_tong - a.pct_kpi_tong)[0];
+
+          DATA.summary = {{
+            total_staff: totalStaff,
+            avg_kpi: (avgKpi * 100).toFixed(2),
+            total_ticket: totalTicket.toFixed(1),
+            total_cv: totalCv.toFixed(1),
+            total_ticket_2ht: total2Ht,
+            top_performer: top ? top.name : '',
+            top_kpi: top ? (top.pct_kpi_tong * 100).toFixed(2) : 0
+          }};
+
+          updatePacingDisplay();
+          applyFilters();
+
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('vi-VN', {{ hour: '2-digit', minute: '2-digit', second: '2-digit' }});
+          const liveBadge = document.querySelector('.badge-live');
+          if (liveBadge) {{
+            liveBadge.innerHTML = `<span class="dot-live"></span><span>Live Sheet: <strong id="lbl-updated-at">${{DATA.updated_at}}</strong> (vừa cập nhật ${{timeStr}})</span>`;
+          }}
+        }}
+      }} catch (err) {{
+        console.warn('Google Sheet realtime note:', err);
+      }} finally {{
+        if (btn) {{
+          btn.innerHTML = '🔄 Tải lại số liệu mới nhất';
+          btn.style.opacity = '1';
+        }}
+      }}
+    }}
+
+    function reloadLatestData() {{
+      fetchRealtimeSheetsData(true);
+    }}
+
+    window.onload = function() {{
+      init();
+      fetchRealtimeSheetsData(false);
+    }};
   </script>
 </body>
 </html>
