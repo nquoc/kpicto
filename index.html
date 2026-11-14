@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực - Team CTO 1</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --success: #10b981;
+      --success-light: rgba(16, 185, 129, 0.15);
+      --warning: #f59e0b;
+      --warning-light: rgba(245, 158, 11, 0.15);
+      --danger: #ef4444;
+      --danger-light: rgba(239, 68, 68, 0.15);
+      --info: #0ea5e9;
+      --row-hover: #283548;
+      --table-header: #1e293b;
+    }
+    .light-theme {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --success: #059669;
+      --success-light: #ecfdf5;
+      --warning: #d97706;
+      --warning-light: #fffbeb;
+      --danger: #dc2626;
+      --danger-light: #fef2f2;
+      --info: #0284c7;
+      --row-hover: #f1f5f9;
+      --table-header: #f8fafc;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .container {
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), #ec4899);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+    .brand-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      transition: all 0.15s ease;
+    }
+    .btn:hover {
+      background-color: var(--row-hover);
+      border-color: var(--primary);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--success-light);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--success);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary);
+    }
+    .stat-card.card-success::before { background: var(--success); }
+    .stat-card.card-warning::before { background: var(--warning); }
+    .stat-card.card-danger::before { background: var(--danger); }
+    .stat-card.card-info::before { background: var(--info); }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Pacing Control Box in Controls */
+    .pacing-bar {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(16, 185, 129, 0.12));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .pacing-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .pacing-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pacing-day-selector {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 4px 10px;
+    }
+    .pacing-day-selector input {
+      width: 48px;
+      padding: 4px 6px;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+    }
+    .pacing-target-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: rgba(99, 102, 241, 0.2);
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Controls Bar */
+    .controls-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      flex: 1;
+    }
+    .search-box {
+      position: relative;
+      min-width: 240px;
+      flex: 1;
+      max-width: 320px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .select-filter {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+    .select-filter:focus {
+      border-color: var(--primary);
+    }
+
+    /* Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .tab-badge {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    /* Table Container */
+    .table-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    thead th {
+      background-color: var(--table-header);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    thead th:hover {
+      color: var(--text-main);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--card-border);
+      transition: background-color 0.15s;
+    }
+    tbody tr:hover {
+      background-color: var(--row-hover);
+      cursor: pointer;
+    }
+    tbody td {
+      padding: 12px 14px;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+    .numeric {
+      text-align: right;
+    }
+    .text-center {
+      text-align: center;
+    }
+
+    /* Progress & Badges */
+    .progress-bar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 7px;
+      background-color: var(--card-border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    .bg-excel { background-color: var(--success); }
+    .bg-good { background-color: var(--info); }
+    .bg-ok { background-color: var(--warning); }
+    .bg-low { background-color: var(--danger); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-level {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .badge-ahead {
+      background-color: var(--success-light);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .badge-ontrack {
+      background-color: rgba(14, 165, 233, 0.15);
+      color: var(--info);
+      border: 1px solid rgba(14, 165, 233, 0.4);
+    }
+    .badge-behind-slight {
+      background-color: var(--warning-light);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .badge-behind-severe {
+      background-color: var(--danger-light);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      animation: pulse-danger 2s infinite;
+    }
+    @keyframes pulse-danger {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .badge-ticket-2ht {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Row alert highlight */
+    tr.alert-severe {
+      background-color: rgba(239, 68, 68, 0.05);
+    }
+
+    /* Matrix Shift Headers */
+    .shift-header-group {
+      background-color: rgba(99, 102, 241, 0.1) !important;
+      text-align: center;
+      border-left: 1px solid var(--card-border);
+      border-right: 1px solid var(--card-border);
+      color: var(--primary) !important;
+      font-weight: 700;
+    }
+    .border-shift-left {
+      border-left: 1px solid var(--card-border);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+    .modal-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 650px;
+      padding: 24px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: var(--danger);
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .detail-item {
+      background-color: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .detail-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .detail-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    /* Charts Tab */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 20px;
+    }
+    .chart-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .chart-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .bar-label {
+      width: 140px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+    .bar-track {
+      flex: 1;
+      height: 24px;
+      background-color: var(--card-border);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #818cf8);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      min-width: fit-content;
+      box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+      .bar-label {
+        width: 120px;
+        font-size: 11px;
+      }
+      .bar-fill {
+        font-size: 10px;
+        padding: 0 6px;
+      }
+    }
+
+    @media print {
+      body { background-color: #ffffff; color: #000000; padding: 0; }
+      .header-actions, .controls-card, .tabs-nav, .pacing-bar { display: none !important; }
+      .table-card { border: none; box-shadow: none; }
+      thead th { background-color: #f1f5f9 !important; color: #000 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-badge">CTO</div>
+        <div class="brand-title">
+          <h1>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực</h1>
+          <p>Đội ngũ Chăm Sóc Khách Hàng (Customer Service) • Team CTO 1</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="badge-live">
+          <span class="dot-live"></span>
+          <span>Cập nhật: <strong id="lbl-updated-at">13:24 - 14/11/2026</strong></span>
+        </div>
+        <button class="btn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">
+          <span id="theme-icon">🌙</span> Sáng/Tối
+        </button>
+        <button class="btn" onclick="exportCurrentTableToCSV()">
+          📥 Xuất CSV / Excel
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          🖨️ In Báo Cáo
+        </button>
+      </div>
+    </header>
+
+    <!-- Pacing Status Banner (Tiến Độ Tháng) -->
+    <section class="pacing-bar">
+      <div class="pacing-info">
+        <div class="pacing-title">
+          <span>📅 Tiến Độ Tháng:</span>
+        </div>
+        <div class="pacing-day-selector">
+          <span>Hôm nay là Ngày:</span>
+          <input type="number" id="input-current-day" min="1" max="31" value="14" onchange="onDayChange()">
+          <span>/</span>
+          <input type="number" id="input-total-days" min="28" max="31" value="30" onchange="onTotalDaysChange()" style="width:48px;padding:4px 6px;border:1px solid var(--card-border);border-radius:6px;background-color:var(--bg);color:var(--text-main);font-size:14px;font-weight:700;text-align:center;outline:none;" title="Tổng số ngày trong tháng">
+          <span>ngày</span>
+        </div>
+        <div class="pacing-target-badge">
+          🎯 KPI Chuẩn Cần Đạt: <span id="lbl-target-pacing">46.67%</span>
+        </div>
+      </div>
+      <div>
+        <span style="font-size:12px;color:var(--text-muted);" id="pacing-note-text">
+          💡 Mặc định tháng 11 có 30 ngày. Anh có thể tự chỉnh lại số ngày tại ô nhập trên khi cần nhé.
+        </span>
+      </div>
+    </section>
+
+    <!-- Top KPI Stat Cards -->
+    <section class="stats-grid">
+      <div class="stat-card card-primary">
+        <div class="stat-label">Tổng Nhân Sự</div>
+        <div class="stat-value" id="card-total-staff">--</div>
+        <div class="stat-sub">Team CTO 1 hoạt động</div>
+      </div>
+      <div class="stat-card card-info">
+        <div class="stat-label">% KPI Trung Bình</div>
+        <div class="stat-value" id="card-avg-kpi">--%</div>
+        <div class="stat-sub" id="card-avg-status">So với chuẩn: --</div>
+      </div>
+      <div class="stat-card card-success">
+        <div class="stat-label">Vượt / Đạt Tiến Độ</div>
+        <div class="stat-value" id="card-count-ahead" style="color:var(--success);">--</div>
+        <div class="stat-sub">Nhân viên đạt chuẩn ngày</div>
+      </div>
+      <div class="stat-card card-danger">
+        <div class="stat-label">Cảnh Báo Chậm Tiến Độ</div>
+        <div class="stat-value" id="card-count-behind" style="color:var(--danger);">--</div>
+        <div class="stat-sub">Cần nhắc nhở & thúc đẩy</div>
+      </div>
+      <div class="stat-card card-info">
+        <div class="stat-label">TK Có 2 CV Hỗ Trợ</div>
+        <div class="stat-value" id="card-total-ticket-2ht">--</div>
+        <div class="stat-sub">Tổng số lượng ticket có 2 CV</div>
+      </div>
+    </section>
+
+    <!-- Filter & Control Bar -->
+    <section class="controls-card">
+      <div class="filter-group">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="filter-search" placeholder="Tìm theo tên hoặc mã nhân viên..." oninput="applyFilters()">
+        </div>
+        <select class="select-filter" id="filter-pacing" onchange="applyFilters()">
+          <option value="ALL">⏱️ Tiến Độ Tháng (Tất cả)</option>
+          <option value="AHEAD">🚀 Vượt tiến độ (&gt; Chuẩn)</option>
+          <option value="ON_TRACK">🟢 Đúng tiến độ (Xấp xỉ Chuẩn)</option>
+          <option value="BEHIND">⚠️ Chậm tiến độ (Cảnh báo)</option>
+          <option value="CRITICAL">🚨 Báo động chậm (Rất chậm &gt; 5%)</option>
+        </select>
+        <select class="select-filter" id="filter-level" onchange="applyFilters()">
+          <option value="ALL">🎯 Tất cả Level</option>
+          <option value="1">Level 1</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+          <option value="5">Level 5</option>
+        </select>
+        <select class="select-filter" id="filter-shift-toggle" onchange="applyFilters()" style="display:none;">
+          <option value="ALL">⏱️ Xem tất cả ca trực</option>
+          <option value="S">Ca S (Sáng)</option>
+          <option value="HCS">Ca HCS (Hành chính sáng)</option>
+          <option value="TR">Ca TR (Trưa)</option>
+          <option value="HCC">Ca HCC (Hành chính chiều)</option>
+          <option value="T">Ca T (Tối)</option>
+          <option value="TOTAL_ONLY">Chỉ xem Tổng cộng</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn" onclick="resetFilters()">🔄 Đặt lại bộ lọc</button>
+      </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tab-btn-kpi" onclick="switchTab('kpi')">
+        📊 Bảng KPI & Đánh Giá Tiến Độ
+        <span class="tab-badge" id="badge-count-kpi">0</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-hs" onclick="switchTab('hs')">
+        ⏱️ Hiệu Suất Ca Trực
+        <span class="tab-badge" id="badge-count-hs">0</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts')">
+        📈 Biểu Đồ & Thống Kê
+      </button>
+    </div>
+
+    <!-- TAB 1: KPI TONG -->
+    <div id="tab-pane-kpi" class="table-card">
+      <div class="table-responsive">
+        <table id="table-kpi">
+          <thead>
+            <tr>
+              <th onclick="sortTable('kpi', 'id')">STT ⬍</th>
+              <th onclick="sortTable('kpi', 'ma')">Mã NV ⬍</th>
+              <th onclick="sortTable('kpi', 'name')">Họ và Tên ⬍</th>
+              <th class="text-center" onclick="sortTable('kpi', 'level')">Level ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'kpi_ticket')">KPI Ticket ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'slg_kh')">Thực Đạt KH ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_ticket')">% KPI Ticket ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'kpi_cv')">KPI CV ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'slg_cv')">Thực Đạt CV ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_cv')">% KPI CV ⬍</th>
+              <th class="text-center" onclick="sortTable('kpi', 'no_ticket_2ht')">TK 2 CV Hỗ Trợ ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_tong')">% KPI Tổng ⬍</th>
+              <th onclick="sortTable('kpi', 'pacing_diff')">Đánh Giá Tiến Độ ⬍</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-kpi">
+            <!-- Rows rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: HS CA TRUC -->
+    <div id="tab-pane-hs" class="table-card" style="display:none;">
+      <div class="table-responsive">
+        <table id="table-hs">
+          <thead>
+            <tr>
+              <th rowspan="2">STT</th>
+              <th rowspan="2">Nhân Viên</th>
+              <th colspan="4" class="shift-header-group">Ca S (Sáng)</th>
+              <th colspan="4" class="shift-header-group">Ca HCS (Hành Chính Sáng)</th>
+              <th colspan="4" class="shift-header-group">Ca TR (Trưa)</th>
+              <th colspan="4" class="shift-header-group">Ca HCC (Hành Chính Chiều)</th>
+              <th colspan="4" class="shift-header-group">Ca T (Tối)</th>
+              <th colspan="4" class="shift-header-group" style="background-color:rgba(16,185,129,0.15)!important;color:var(--success)!important;">Tổng Cộng</th>
+            </tr>
+            <tr>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+              <th class="border-shift-left numeric">Giờ</th><th class="numeric">CV</th><th class="numeric">KH</th><th class="numeric">%KPI</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-hs">
+            <!-- Rows rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: CHARTS -->
+    <div id="tab-pane-charts" style="display:none;">
+      <div class="charts-grid">
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>🏆 Xếp Hạng % KPI Tổng Hợp & Tiến Độ Chuẩn</span>
+            <span style="font-size:12px;color:var(--text-muted);" id="chart-target-line">Chuẩn: 46.7%</span>
+          </div>
+          <div id="chart-kpi-bars">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>⏰ Phân Bổ Tổng Giờ Làm Theo Ca Trực</span>
+            <span style="font-size:12px;color:var(--text-muted);">Toàn Team CTO 1</span>
+          </div>
+          <div id="chart-shift-hours">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Employee Detail Modal -->
+  <div class="modal-backdrop" id="emp-modal" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-name" style="font-size:18px;font-weight:700;">Chi tiết nhân sự</h2>
+          <p id="modal-sub" style="font-size:12px;color:var(--text-muted);">Team CTO 1</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-title">Mã Nhân Viên</div>
+          <div class="detail-val" id="modal-ma">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">Cấp Bậc (Level)</div>
+          <div class="detail-val" id="modal-level">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">Đánh Giá Tiến Độ</div>
+          <div class="detail-val" id="modal-pacing-status">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">% KPI Tổng Hợp</div>
+          <div class="detail-val" id="modal-kpi-tong" style="color:var(--primary);">--%</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">Tiến Độ Ticket</div>
+          <div class="detail-val" id="modal-ticket">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">Tiến Độ Công Việc (CV)</div>
+          <div class="detail-val" id="modal-cv">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">SL Ticket Có 2 CV Hỗ Trợ</div>
+          <div class="detail-val" id="modal-ticket-2ht">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-title">Mục Tiêu Tiến Độ Hôm Nay</div>
+          <div class="detail-val" id="modal-target-val">--%</div>
+        </div>
+      </div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;">Chi Tiết Các Ca Trực Của Nhân Sự</h3>
+      <div class="table-responsive">
+        <table style="font-size:12px;">
+          <thead>
+            <tr>
+              <th>Ca Trực</th>
+              <th class="numeric">Giờ Làm</th>
+              <th class="numeric">CV Quy Đổi</th>
+              <th class="numeric">KH Quy Đổi</th>
+              <th class="numeric">% KPI Đạt</th>
+            </tr>
+          </thead>
+          <tbody id="modal-shifts-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Data
+    const DATA = {"updated_at": "13:24 - 14/11/2026", "current_day": 14, "days_in_month": 30, "kpi_tong": [{"id": 1, "ma": "8131", "name": "Lê Thị Trúc Linh", "full_name": "8131 - Lê Thị Trúc Linh - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 1200.0, "slg_kh": 995.2, "pct_kpi_ticket": 0.829333333333333, "kpi_cv": 1250.0, "slg_cv": 712.2, "pct_kpi_cv": 0.56976, "no_ticket_2ht": 9, "pct_kpi_tong": 0.699546666666667}, {"id": 2, "ma": "8171", "name": "Nguyễn Thị Ngọc Trâm", "full_name": "8171 - Nguyễn Thị Ngọc Trâm - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 1200.0, "slg_kh": 625.0, "pct_kpi_ticket": 0.520833333333333, "kpi_cv": 1250.0, "slg_cv": 714.0, "pct_kpi_cv": 0.5712, "no_ticket_2ht": 40, "pct_kpi_tong": 0.546016666666667}, {"id": 3, "ma": "8284", "name": "Lê Nhựt Toàn", "full_name": "8284 - Lê Nhựt Toàn - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 950.0, "slg_kh": 478.5, "pct_kpi_ticket": 0.503684210526316, "kpi_cv": 1100.0, "slg_cv": 583.5, "pct_kpi_cv": 0.530454545454545, "no_ticket_2ht": 90, "pct_kpi_tong": 0.517069377990431}, {"id": 4, "ma": "8116", "name": "Lưu Cẩm Tú", "full_name": "8116 - Lưu Cẩm Tú - Customer Service - CTO", "team": "Team CTO 1", "level": "4", "kpi_ticket": 1350.0, "slg_kh": 654.3, "pct_kpi_ticket": 0.484666666666667, "kpi_cv": 1400.0, "slg_cv": 738.3, "pct_kpi_cv": 0.527357142857143, "no_ticket_2ht": 31, "pct_kpi_tong": 0.506011904761905}, {"id": 5, "ma": "8274", "name": "Nguyễn Hửu Thuận", "full_name": "8274 - Nguyễn Hửu Thuận - Customer Service - CTO", "team": "Team CTO 1", "level": "2", "kpi_ticket": 850.0, "slg_kh": 432.3, "pct_kpi_ticket": 0.508588235294118, "kpi_cv": 1020.0, "slg_cv": 497.8, "pct_kpi_cv": 0.488039215686275, "no_ticket_2ht": 53, "pct_kpi_tong": 0.498313725490196}, {"id": 6, "ma": "8222", "name": "Bùi Đăng Quang", "full_name": "8222 - Bùi Đăng Quang - Customer Service - CTO", "team": "Team CTO 1", "level": "5", "kpi_ticket": 1100.0, "slg_kh": 527.7, "pct_kpi_ticket": 0.479727272727273, "kpi_cv": 1300.0, "slg_cv": 663.7, "pct_kpi_cv": 0.510538461538462, "no_ticket_2ht": 55, "pct_kpi_tong": 0.495132867132867}, {"id": 7, "ma": "8257", "name": "Phạm Hoàng Hậu", "full_name": "8257 - Phạm Hoàng Hậu - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 950.0, "slg_kh": 431.2, "pct_kpi_ticket": 0.453894736842105, "kpi_cv": 1100.0, "slg_cv": 566.2, "pct_kpi_cv": 0.514727272727273, "no_ticket_2ht": 124, "pct_kpi_tong": 0.484311004784689}, {"id": 8, "ma": "8177", "name": "Hồ Hồng Nhi", "full_name": "8177 - Hồ Hồng Nhi - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 1200.0, "slg_kh": 570.9, "pct_kpi_ticket": 0.47575, "kpi_cv": 1250.0, "slg_cv": 612.4, "pct_kpi_cv": 0.48992, "no_ticket_2ht": 2, "pct_kpi_tong": 0.482835}, {"id": 9, "ma": "8285", "name": "Trương Thiết Long", "full_name": "8285 - Trương Thiết Long - Customer Service - CTO", "team": "Team CTO 1", "level": "3", "kpi_ticket": 950.0, "slg_kh": 429.3, "pct_kpi_ticket": 0.451894736842105, "kpi_cv": 1100.0, "slg_cv": 519.8, "pct_kpi_cv": 0.472545454545454, "no_ticket_2ht": 81, "pct_kpi_tong": 0.46222009569378}, {"id": 10, "ma": "8607", "name": "Nguyễn Thị Việt Trinh", "full_name": "8607 - Nguyễn Thị Việt Trinh - Customer Service - CTO", "team": "Team CTO 1", "level": "1", "kpi_ticket": 630.0, "slg_kh": 273.4, "pct_kpi_ticket": 0.433968253968254, "kpi_cv": 665.0, "slg_cv": 301.9, "pct_kpi_cv": 0.453984962406015, "no_ticket_2ht": 3, "pct_kpi_tong": 0.443976608187134}, {"id": 11, "ma": "8817", "name": "Nguyễn Thanh Tố Trân", "full_name": "8817 - Nguyễn Thanh Tố Trân - Customer Service - CTO", "team": "Team CTO 1", "level": "2", "kpi_ticket": 770.0, "slg_kh": 305.8, "pct_kpi_ticket": 0.397142857142857, "kpi_cv": 805.0, "slg_cv": 341.8, "pct_kpi_cv": 0.424596273291925, "no_ticket_2ht": 0, "pct_kpi_tong": 0.410869565217391}, {"id": 12, "ma": "8818", "name": "Đoàn Thị Ngọc Duyên", "full_name": "8818 - Đoàn Thị Ngọc Duyên - Customer Service - CTO", "team": "Team CTO 1", "level": "1", "kpi_ticket": 630.0, "slg_kh": 218.0, "pct_kpi_ticket": 0.346031746031746, "kpi_cv": 665.0, "slg_cv": 256.0, "pct_kpi_cv": 0.384962406015038, "no_ticket_2ht": 25, "pct_kpi_tong": 0.365497076023392}], "hs_ca_truc": [{"user_name": "Bùi Đăng Quang", "shifts": {"Khác": {"hours": 3.5, "cv": 1.0, "kh": 1.0, "pct_kpi": 0.0008}, "S": {"hours": 12.0, "cv": 36.4, "kh": 32.9, "pct_kpi": 0.029}, "HCS": {"hours": 31.5, "cv": 251.2, "kh": 195.7, "pct_kpi": 0.1856}, "TR": {"hours": 6.0, "cv": 10.0, "kh": 10.0, "pct_kpi": 0.0084}, "HCC": {"hours": 47.5, "cv": 331.9, "kh": 260.9, "pct_kpi": 0.2462}, "T": {"hours": 12.0, "cv": 33.2, "kh": 27.2, "pct_kpi": 0.0251}, "Total": {"hours": 112.5, "cv": 663.7, "kh": 527.7, "pct_kpi": 0.4951}}}, {"user_name": "Đoàn Thị Ngọc Duyên", "shifts": {"Khác": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "S": {"hours": 4.5, "cv": 3.0, "kh": 3.0, "pct_kpi": 0.0046}, "HCS": {"hours": 35.0, "cv": 95.1, "kh": 78.6, "pct_kpi": 0.1339}, "TR": {"hours": 8.0, "cv": 14.0, "kh": 11.0, "pct_kpi": 0.0193}, "HCC": {"hours": 47.5, "cv": 119.0, "kh": 105.0, "pct_kpi": 0.1728}, "T": {"hours": 28.0, "cv": 24.9, "kh": 20.4, "pct_kpi": 0.0349}, "Total": {"hours": 123.0, "cv": 256.0, "kh": 218.0, "pct_kpi": 0.3655}}}, {"user_name": "Hồ Hồng Nhi", "shifts": {"Khác": {"hours": 4.75, "cv": 5.9, "kh": 5.9, "pct_kpi": 0.0048}, "S": {"hours": 10.5, "cv": 33.6, "kh": 31.6, "pct_kpi": 0.0266}, "HCS": {"hours": 42.0, "cv": 177.6, "kh": 164.1, "pct_kpi": 0.1394}, "TR": {"hours": 14.0, "cv": 19.0, "kh": 17.5, "pct_kpi": 0.0149}, "HCC": {"hours": 52.25, "cv": 242.8, "kh": 226.3, "pct_kpi": 0.1914}, "T": {"hours": 32.0, "cv": 133.5, "kh": 125.5, "pct_kpi": 0.1057}, "Total": {"hours": 155.5, "cv": 612.4, "kh": 570.9, "pct_kpi": 0.4828}}}, {"user_name": "Lê Nhựt Toàn", "shifts": {"Khác": {"hours": 4.0, "cv": 0.5, "kh": 0.0, "pct_kpi": 0.0002}, "S": {"hours": 10.5, "cv": 14.6, "kh": 12.6, "pct_kpi": 0.0133}, "HCS": {"hours": 38.5, "cv": 208.8, "kh": 169.3, "pct_kpi": 0.184}, "TR": {"hours": 10.0, "cv": 18.3, "kh": 14.3, "pct_kpi": 0.0158}, "HCC": {"hours": 47.5, "cv": 254.0, "kh": 205.5, "pct_kpi": 0.2236}, "T": {"hours": 32.0, "cv": 87.3, "kh": 76.8, "pct_kpi": 0.0801}, "Total": {"hours": 142.5, "cv": 583.5, "kh": 478.5, "pct_kpi": 0.5171}}}, {"user_name": "Lê Thị Trúc Linh", "shifts": {"Khác": {"hours": 0.0, "cv": 18.3, "kh": 34.3, "pct_kpi": 0.0216}, "S": {"hours": 13.5, "cv": 28.6, "kh": 45.6, "pct_kpi": 0.0304}, "HCS": {"hours": 35.0, "cv": 260.3, "kh": 357.3, "pct_kpi": 0.253}, "TR": {"hours": 10.0, "cv": 13.9, "kh": 19.4, "pct_kpi": 0.0136}, "HCC": {"hours": 47.5, "cv": 210.7, "kh": 260.2, "pct_kpi": 0.1927}, "T": {"hours": 24.0, "cv": 180.4, "kh": 278.4, "pct_kpi": 0.1882}, "Total": {"hours": 130.0, "cv": 712.2, "kh": 995.2, "pct_kpi": 0.6995}}}, {"user_name": "Lưu Cẩm Tú", "shifts": {"Khác": {"hours": 3.5, "cv": 2.0, "kh": 2.0, "pct_kpi": 0.0015}, "S": {"hours": 15.0, "cv": 81.6, "kh": 73.1, "pct_kpi": 0.0562}, "HCS": {"hours": 38.5, "cv": 268.7, "kh": 234.7, "pct_kpi": 0.1829}, "TR": {"hours": 8.0, "cv": 12.7, "kh": 12.2, "pct_kpi": 0.0091}, "HCC": {"hours": 52.25, "cv": 259.8, "kh": 230.8, "pct_kpi": 0.1783}, "T": {"hours": 16.0, "cv": 113.5, "kh": 101.5, "pct_kpi": 0.0781}, "Total": {"hours": 133.25, "cv": 738.3, "kh": 654.3, "pct_kpi": 0.506}}}, {"user_name": "Nguyễn Hửu Thuận", "shifts": {"Khác": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "S": {"hours": 9.0, "cv": 19.5, "kh": 18.0, "pct_kpi": 0.0201}, "HCS": {"hours": 31.5, "cv": 136.8, "kh": 119.8, "pct_kpi": 0.1375}, "TR": {"hours": 12.0, "cv": 23.6, "kh": 22.6, "pct_kpi": 0.0249}, "HCC": {"hours": 52.25, "cv": 228.8, "kh": 195.8, "pct_kpi": 0.2273}, "T": {"hours": 20.0, "cv": 89.1, "kh": 76.1, "pct_kpi": 0.0884}, "Total": {"hours": 124.75, "cv": 497.8, "kh": 432.3, "pct_kpi": 0.4983}}}, {"user_name": "Nguyễn Thanh Tố Trân", "shifts": {"Khác": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "S": {"hours": 12.0, "cv": 24.5, "kh": 19.0, "pct_kpi": 0.0276}, "HCS": {"hours": 38.5, "cv": 128.3, "kh": 110.8, "pct_kpi": 0.1516}, "TR": {"hours": 4.0, "cv": 2.0, "kh": 2.0, "pct_kpi": 0.0025}, "HCC": {"hours": 47.5, "cv": 143.3, "kh": 133.8, "pct_kpi": 0.1759}, "T": {"hours": 20.0, "cv": 43.7, "kh": 40.2, "pct_kpi": 0.0532}, "Total": {"hours": 122.0, "cv": 341.8, "kh": 305.8, "pct_kpi": 0.4109}}}, {"user_name": "Nguyễn Thị Ngọc Trâm", "shifts": {"Khác": {"hours": 8.25, "cv": 5.3, "kh": 5.3, "pct_kpi": 0.0043}, "S": {"hours": 9.0, "cv": 9.3, "kh": 8.3, "pct_kpi": 0.0072}, "HCS": {"hours": 38.5, "cv": 225.9, "kh": 197.4, "pct_kpi": 0.1726}, "TR": {"hours": 14.0, "cv": 41.0, "kh": 38.5, "pct_kpi": 0.0324}, "HCC": {"hours": 52.25, "cv": 255.4, "kh": 214.4, "pct_kpi": 0.1915}, "T": {"hours": 40.0, "cv": 177.1, "kh": 161.1, "pct_kpi": 0.138}, "Total": {"hours": 162.0, "cv": 714.0, "kh": 625.0, "pct_kpi": 0.546}}}, {"user_name": "Nguyễn Thị Việt Trinh", "shifts": {"Khác": {"hours": 123.0, "cv": 301.9, "kh": 273.4, "pct_kpi": 0.444}, "S": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "HCS": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "TR": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "HCC": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "T": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "Total": {"hours": 123.0, "cv": 301.9, "kh": 273.4, "pct_kpi": 0.444}}}, {"user_name": "Phạm Hoàng Hậu", "shifts": {"Khác": {"hours": 0.0, "cv": 0.0, "kh": 0.0, "pct_kpi": 0.0}, "S": {"hours": 12.0, "cv": 48.6, "kh": 33.6, "pct_kpi": 0.0398}, "HCS": {"hours": 38.5, "cv": 187.2, "kh": 142.7, "pct_kpi": 0.1602}, "TR": {"hours": 6.0, "cv": 11.5, "kh": 9.5, "pct_kpi": 0.0102}, "HCC": {"hours": 47.5, "cv": 283.6, "kh": 218.6, "pct_kpi": 0.244}, "T": {"hours": 12.0, "cv": 35.3, "kh": 26.8, "pct_kpi": 0.0302}, "Total": {"hours": 116.0, "cv": 566.2, "kh": 431.2, "pct_kpi": 0.4843}}}, {"user_name": "Trương Thiết Long", "shifts": {"Khác": {"hours": 0.0, "cv": 1.5, "kh": 0.0, "pct_kpi": 0.0007}, "S": {"hours": 13.5, "cv": 53.5, "kh": 42.0, "pct_kpi": 0.0464}, "HCS": {"hours": 35.0, "cv": 189.0, "kh": 157.0, "pct_kpi": 0.1685}, "TR": {"hours": 8.0, "cv": 23.5, "kh": 18.0, "pct_kpi": 0.0202}, "HCC": {"hours": 47.5, "cv": 201.6, "kh": 169.1, "pct_kpi": 0.1806}, "T": {"hours": 20.0, "cv": 50.7, "kh": 43.2, "pct_kpi": 0.0458}, "Total": {"hours": 124.0, "cv": 519.8, "kh": 429.3, "pct_kpi": 0.4622}}}], "summary": {"total_staff": 12, "avg_kpi": 49.27, "total_ticket": 5941.6, "total_cv": 6507.6, "total_ticket_2ht": 513, "total_debt": 513, "top_performer": "Lê Thị Trúc Linh", "top_kpi": 69.95}};
+
+    let currentDay = DATA.current_day || 14;
+    let totalDays = DATA.days_in_month || 30;
+    let targetPacing = currentDay / totalDays;
+
+    let currentTab = 'kpi';
+    let sortColumn = 'pct_kpi_tong';
+    let sortAsc = false;
+    let filteredKpi = [];
+    let filteredHs = [];
+
+    function calculatePacingDetails(item) {
+      const diff = item.pct_kpi_tong - targetPacing;
+      const diffPct = (diff * 100).toFixed(2);
+      const pctDatTienDo = targetPacing > 0 ? ((item.pct_kpi_tong / targetPacing) * 100).toFixed(1) : '0.0';
+      let status = '';
+      let badgeClass = '';
+      let text = '';
+      let isCritical = false;
+
+      if (diff >= 0.03) {
+        status = 'AHEAD';
+        badgeClass = 'badge-ahead';
+        text = `Vượt (+${diffPct}%) • Đạt ${pctDatTienDo}% tiến độ`;
+      } else if (diff >= -0.02) {
+        status = 'ON_TRACK';
+        badgeClass = 'badge-ontrack';
+        text = `Đạt chuẩn (${diff >= 0 ? '+' : ''}${diffPct}%) • Đạt ${pctDatTienDo}% tiến độ`;
+      } else if (diff >= -0.06) {
+        status = 'BEHIND';
+        badgeClass = 'badge-behind-slight';
+        text = `Chậm (${diffPct}%) • Đạt ${pctDatTienDo}% tiến độ`;
+      } else {
+        status = 'CRITICAL';
+        badgeClass = 'badge-behind-severe';
+        text = `Báo động (${diffPct}%) • Đạt ${pctDatTienDo}% tiến độ`;
+        isCritical = true;
+      }
+
+      return {
+        diff,
+        diffPct,
+        pctDatTienDo,
+        status,
+        badgeClass,
+        icon: '',
+        text,
+        isCritical
+      };
+    }
+
+    function init() {
+      document.getElementById('lbl-updated-at').innerText = DATA.updated_at;
+      document.getElementById('input-current-day').value = currentDay;
+      if (document.getElementById('input-total-days')) {
+        document.getElementById('input-total-days').value = totalDays;
+      }
+      updatePacingDisplay();
+      applyFilters();
+    }
+
+    function onDayChange() {
+      const val = parseInt(document.getElementById('input-current-day').value, 10);
+      if (!isNaN(val) && val >= 1 && val <= totalDays) {
+        currentDay = val;
+      } else {
+        currentDay = Math.min(14, totalDays);
+        document.getElementById('input-current-day').value = currentDay;
+      }
+      targetPacing = currentDay / totalDays;
+      updatePacingDisplay();
+      applyFilters();
+    }
+
+    function onTotalDaysChange() {
+      const val = parseInt(document.getElementById('input-total-days').value, 10);
+      if (!isNaN(val) && val >= 28 && val <= 31) {
+        totalDays = val;
+      } else {
+        totalDays = 30;
+        document.getElementById('input-total-days').value = 30;
+      }
+      targetPacing = currentDay / totalDays;
+      document.getElementById('pacing-note-text').innerText = `💡 Đang tính theo tháng ${totalDays} ngày (Chuẩn hôm nay ngày ${currentDay}: ${(targetPacing * 100).toFixed(2)}%).`;
+      updatePacingDisplay();
+      applyFilters();
+    }
+
+    function setTotalDays(days) {
+      totalDays = days;
+      if (document.getElementById('input-total-days')) {
+        document.getElementById('input-total-days').value = days;
+      }
+      targetPacing = currentDay / totalDays;
+      document.getElementById('pacing-note-text').innerText = `💡 Đang tính theo tháng ${days} ngày (Chuẩn hôm nay ngày ${currentDay}: ${(targetPacing * 100).toFixed(2)}%).`;
+      updatePacingDisplay();
+      applyFilters();
+    }
+
+    function updatePacingDisplay() {
+      const targetPctStr = (targetPacing * 100).toFixed(2) + '%';
+      document.getElementById('lbl-target-pacing').innerText = targetPctStr;
+      document.getElementById('chart-target-line').innerText = `Chuẩn ngày ${currentDay}: ${targetPctStr}`;
+
+      // Recalculate summary stats based on pacing
+      let aheadCount = 0;
+      let behindCount = 0;
+      DATA.kpi_tong.forEach(item => {
+        const pacing = calculatePacingDetails(item);
+        item.pacing_diff = pacing.diff;
+        item.pacing_info = pacing;
+        if (pacing.status === 'AHEAD' || pacing.status === 'ON_TRACK') {
+          aheadCount++;
+        } else {
+          behindCount++;
+        }
+      });
+
+      document.getElementById('card-total-staff').innerText = DATA.summary.total_staff;
+      document.getElementById('card-avg-kpi').innerText = DATA.summary.avg_kpi + '%';
+      const avgDiff = (DATA.summary.avg_kpi - targetPacing * 100).toFixed(1);
+      document.getElementById('card-avg-status').innerText = `So với chuẩn: ${avgDiff >= 0 ? '+' : ''}${avgDiff}%`;
+      document.getElementById('card-count-ahead').innerText = `${aheadCount} / ${DATA.summary.total_staff}`;
+      document.getElementById('card-count-behind').innerText = `${behindCount} / ${DATA.summary.total_staff}`;
+      const card2Ht = document.getElementById('card-total-ticket-2ht') || document.getElementById('card-total-debt');
+      if (card2Ht) card2Ht.innerText = DATA.summary.total_ticket_2ht ?? DATA.summary.total_debt ?? 0;
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-btn-' + tab).classList.add('active');
+
+      document.getElementById('tab-pane-kpi').style.display = tab === 'kpi' ? 'block' : 'none';
+      document.getElementById('tab-pane-hs').style.display = tab === 'hs' ? 'block' : 'none';
+      document.getElementById('tab-pane-charts').style.display = tab === 'charts' ? 'block' : 'none';
+
+      document.getElementById('filter-shift-toggle').style.display = tab === 'hs' ? 'block' : 'none';
+    }
+
+    function renderKpiTable() {
+      const tbody = document.getElementById('tbody-kpi');
+      tbody.innerHTML = '';
+      document.getElementById('badge-count-kpi').innerText = filteredKpi.length;
+
+      filteredKpi.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        tr.onclick = () => openModal(item);
+
+        const pctTicket = item.pct_kpi_ticket;
+        const pctCv = item.pct_kpi_cv;
+        const pctTong = item.pct_kpi_tong;
+        const p = item.pacing_info || calculatePacingDetails(item);
+
+        if (p.isCritical) {
+          tr.classList.add('alert-severe');
+        }
+
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><strong>${item.ma}</strong></td>
+          <td>
+            <div style="font-weight:600;">${item.name}</div>
+            <div style="font-size:11px;color:var(--text-muted);">${item.team}</div>
+          </td>
+          <td class="text-center"><span class="badge badge-level">Level ${item.level}</span></td>
+          <td class="numeric">${item.kpi_ticket.toLocaleString('vi-VN')}</td>
+          <td class="numeric">${item.slg_kh.toLocaleString('vi-VN')}</td>
+          <td>
+            <div class="progress-bar-wrapper">
+              <div class="progress-track">
+                <div class="progress-fill ${pctTicket >= targetPacing ? 'bg-excel' : 'bg-ok'}" style="width:${Math.min(pctTicket * 100, 100)}%;"></div>
+              </div>
+              <span style="font-size:11px;font-weight:600;">${(pctTicket * 100).toFixed(1)}%</span>
+            </div>
+          </td>
+          <td class="numeric">${item.kpi_cv.toLocaleString('vi-VN')}</td>
+          <td class="numeric">${item.slg_cv.toLocaleString('vi-VN')}</td>
+          <td>
+            <div class="progress-bar-wrapper">
+              <div class="progress-track">
+                <div class="progress-fill ${pctCv >= targetPacing ? 'bg-excel' : 'bg-ok'}" style="width:${Math.min(pctCv * 100, 100)}%;"></div>
+              </div>
+              <span style="font-size:11px;font-weight:600;">${(pctCv * 100).toFixed(1)}%</span>
+            </div>
+          </td>
+          <td class="text-center">${item.no_ticket_2ht > 0 ? `<span class="badge badge-ticket-2ht">${item.no_ticket_2ht}</span>` : '0'}</td>
+          <td>
+            <div class="progress-bar-wrapper">
+              <div class="progress-track">
+                <div class="progress-fill ${pctTong >= targetPacing ? 'bg-excel' : 'bg-low'}" style="width:${Math.min(pctTong * 100, 100)}%;"></div>
+              </div>
+              <span style="font-size:12px;font-weight:700;">${(pctTong * 100).toFixed(2)}%</span>
+            </div>
+          </td>
+          <td>
+            <span class="badge ${p.badgeClass}">
+              ${p.text}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderHsTable() {
+      const tbody = document.getElementById('tbody-hs');
+      tbody.innerHTML = '';
+      document.getElementById('badge-count-hs').innerText = filteredHs.length;
+
+      filteredHs.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        const s = item.shifts;
+
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><strong style="color:var(--primary);">${item.user_name}</strong></td>
+          
+          <td class="border-shift-left numeric">${s.S.hours || '-'}</td>
+          <td class="numeric">${s.S.cv || '-'}</td>
+          <td class="numeric">${s.S.kh || '-'}</td>
+          <td class="numeric">${s.S.pct_kpi ? (s.S.pct_kpi * 100).toFixed(2) + '%' : '-'}</td>
+
+          <td class="border-shift-left numeric">${s.HCS.hours || '-'}</td>
+          <td class="numeric">${s.HCS.cv || '-'}</td>
+          <td class="numeric">${s.HCS.kh || '-'}</td>
+          <td class="numeric">${s.HCS.pct_kpi ? (s.HCS.pct_kpi * 100).toFixed(2) + '%' : '-'}</td>
+
+          <td class="border-shift-left numeric">${s.TR.hours || '-'}</td>
+          <td class="numeric">${s.TR.cv || '-'}</td>
+          <td class="numeric">${s.TR.kh || '-'}</td>
+          <td class="numeric">${s.TR.pct_kpi ? (s.TR.pct_kpi * 100).toFixed(2) + '%' : '-'}</td>
+
+          <td class="border-shift-left numeric">${s.HCC.hours || '-'}</td>
+          <td class="numeric">${s.HCC.cv || '-'}</td>
+          <td class="numeric">${s.HCC.kh || '-'}</td>
+          <td class="numeric">${s.HCC.pct_kpi ? (s.HCC.pct_kpi * 100).toFixed(2) + '%' : '-'}</td>
+
+          <td class="border-shift-left numeric">${s.T.hours || '-'}</td>
+          <td class="numeric">${s.T.cv || '-'}</td>
+          <td class="numeric">${s.T.kh || '-'}</td>
+          <td class="numeric">${s.T.pct_kpi ? (s.T.pct_kpi * 100).toFixed(2) + '%' : '-'}</td>
+
+          <td class="border-shift-left numeric" style="font-weight:700;">${s.Total.hours}</td>
+          <td class="numeric" style="font-weight:700;">${s.Total.cv}</td>
+          <td class="numeric" style="font-weight:700;">${s.Total.kh}</td>
+          <td class="numeric" style="font-weight:700;color:var(--primary);">${(s.Total.pct_kpi * 100).toFixed(2)}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderCharts() {
+      const containerKpi = document.getElementById('chart-kpi-bars');
+      containerKpi.innerHTML = '';
+      const sortedByKpi = [...DATA.kpi_tong].sort((a, b) => b.pct_kpi_tong - a.pct_kpi_tong);
+
+      sortedByKpi.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'bar-row';
+        const pct = (item.pct_kpi_tong * 100).toFixed(1);
+        const p = item.pacing_info || calculatePacingDetails(item);
+        const barColor = p.status === 'AHEAD' ? 'linear-gradient(90deg, #10b981, #34d399)' :
+                         p.status === 'ON_TRACK' ? 'linear-gradient(90deg, #0ea5e9, #38bdf8)' :
+                         p.status === 'BEHIND' ? 'linear-gradient(90deg, #f59e0b, #fbbf24)' :
+                         'linear-gradient(90deg, #ef4444, #f87171)';
+
+        row.innerHTML = `
+          <div class="bar-label" title="${item.name}">${item.name}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${Math.max(Math.min(pct * 1.3, 100), 12)}%;background:${barColor};">
+              <span>${pct}% (Đạt ${p.pctDatTienDo}% tiến độ)</span>
+            </div>
+          </div>
+        `;
+        containerKpi.appendChild(row);
+      });
+
+      // Shift hours breakdown
+      const containerShift = document.getElementById('chart-shift-hours');
+      containerShift.innerHTML = '';
+      const shiftTotals = { 'S (Sáng)': 0, 'HCS (Hành chính sáng)': 0, 'TR (Trưa)': 0, 'HCC (Hành chính chiều)': 0, 'T (Tối)': 0, 'Khác': 0 };
+      DATA.hs_ca_truc.forEach(u => {
+        shiftTotals['S (Sáng)'] += u.shifts.S.hours || 0;
+        shiftTotals['HCS (Hành chính sáng)'] += u.shifts.HCS.hours || 0;
+        shiftTotals['TR (Trưa)'] += u.shifts.TR.hours || 0;
+        shiftTotals['HCC (Hành chính chiều)'] += u.shifts.HCC.hours || 0;
+        shiftTotals['T (Tối)'] += u.shifts.T.hours || 0;
+        shiftTotals['Khác'] += u.shifts['Khác'].hours || 0;
+      });
+
+      const maxH = Math.max(...Object.values(shiftTotals), 1);
+      for (const [sName, sVal] of Object.entries(shiftTotals)) {
+        const row = document.createElement('div');
+        row.className = 'bar-row';
+        const pctWidth = ((sVal / maxH) * 100).toFixed(1);
+        row.innerHTML = `
+          <div class="bar-label">${sName}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${pctWidth}%;background:linear-gradient(90deg, #6366f1, #818cf8);">
+              <span>${sVal.toFixed(1)}h</span>
+            </div>
+          </div>
+        `;
+        containerShift.appendChild(row);
+      }
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('filter-search').value.toLowerCase().trim();
+      const level = document.getElementById('filter-level').value;
+      const pacingFilter = document.getElementById('filter-pacing').value;
+
+      filteredKpi = DATA.kpi_tong.filter(item => {
+        const matchesSearch = !search || item.name.toLowerCase().includes(search) || item.ma.includes(search);
+        const matchesLevel = level === 'ALL' || item.level === level;
+
+        const p = item.pacing_info || calculatePacingDetails(item);
+        let matchesPacing = true;
+        if (pacingFilter === 'AHEAD') matchesPacing = (p.status === 'AHEAD');
+        else if (pacingFilter === 'ON_TRACK') matchesPacing = (p.status === 'ON_TRACK');
+        else if (pacingFilter === 'BEHIND') matchesPacing = (p.status === 'BEHIND' || p.status === 'CRITICAL');
+        else if (pacingFilter === 'CRITICAL') matchesPacing = (p.status === 'CRITICAL');
+
+        return matchesSearch && matchesLevel && matchesPacing;
+      });
+
+      filteredHs = DATA.hs_ca_truc.filter(item => {
+        return !search || item.user_name.toLowerCase().includes(search);
+      });
+
+      renderKpiTable();
+      renderHsTable();
+      renderCharts();
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-level').value = 'ALL';
+      document.getElementById('filter-pacing').value = 'ALL';
+      document.getElementById('filter-shift-toggle').value = 'ALL';
+      applyFilters();
+    }
+
+    function sortTable(type, col) {
+      if (sortColumn === col) {
+        sortAsc = !sortAsc;
+      } else {
+        sortColumn = col;
+        sortAsc = false;
+      }
+
+      filteredKpi.sort((a, b) => {
+        let vA = a[col];
+        let vB = b[col];
+        if (typeof vA === 'string') vA = vA.toLowerCase();
+        if (typeof vB === 'string') vB = vB.toLowerCase();
+        if (vA < vB) return sortAsc ? -1 : 1;
+        if (vA > vB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      renderKpiTable();
+    }
+
+    function openModal(item) {
+      const p = item.pacing_info || calculatePacingDetails(item);
+      document.getElementById('modal-name').innerText = item.full_name;
+      document.getElementById('modal-ma').innerText = item.ma;
+      document.getElementById('modal-level').innerText = 'Level ' + item.level;
+      document.getElementById('modal-pacing-status').innerHTML = `<span class="badge ${p.badgeClass}">${p.text}</span>`;
+      document.getElementById('modal-target-val').innerText = `${(targetPacing * 100).toFixed(2)}% (Ngày ${currentDay}/${totalDays})`;
+      document.getElementById('modal-ticket').innerText = `${item.slg_kh.toLocaleString('vi-VN')} / ${item.kpi_ticket.toLocaleString('vi-VN')} (${(item.pct_kpi_ticket*100).toFixed(1)}%)`;
+      document.getElementById('modal-cv').innerText = `${item.slg_cv.toLocaleString('vi-VN')} / ${item.kpi_cv.toLocaleString('vi-VN')} (${(item.pct_kpi_cv*100).toFixed(1)}%)`;
+      document.getElementById('modal-kpi-tong').innerText = `${(item.pct_kpi_tong*100).toFixed(2)}%`;
+      const m2ht = document.getElementById('modal-ticket-2ht') || document.getElementById('modal-debt');
+      if (m2ht) m2ht.innerText = item.no_ticket_2ht + ' tickets';
+
+      // Find shift details
+      const hsMatch = DATA.hs_ca_truc.find(x => x.user_name.toLowerCase().includes(item.name.toLowerCase()) || item.full_name.toLowerCase().includes(x.user_name.toLowerCase()));
+      const sBody = document.getElementById('modal-shifts-body');
+      sBody.innerHTML = '';
+      if (hsMatch) {
+        for (const [sKey, sVal] of Object.entries(hsMatch.shifts)) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>Ca ${sKey}</strong></td>
+            <td class="numeric">${sVal.hours}h</td>
+            <td class="numeric">${sVal.cv}</td>
+            <td class="numeric">${sVal.kh}</td>
+            <td class="numeric">${(sVal.pct_kpi * 100).toFixed(2)}%</td>
+          `;
+          sBody.appendChild(tr);
+        }
+      } else {
+        sBody.innerHTML = '<tr><td colspan="5" class="text-center">Chưa có dữ liệu ca trực</td></tr>';
+      }
+
+      document.getElementById('emp-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('emp-modal').style.display = 'none';
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      const isLight = document.body.classList.contains('light-theme');
+      document.getElementById('theme-icon').innerText = isLight ? '☀️' : '🌙';
+    }
+
+    function exportCurrentTableToCSV() {
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+      if (currentTab === 'kpi') {
+        csvContent += `STT,Ma NV,Ho va Ten,Team,Level,KPI Ticket,Dat KH,% KPI Ticket,KPI CV,Dat CV,% KPI CV,TK 2 CV Ho Tro,% KPI Tong,Tien Do Ngay ${currentDay}\n`;
+        filteredKpi.forEach((x, idx) => {
+          const p = x.pacing_info || calculatePacingDetails(x);
+          csvContent += `"${idx+1}","${x.ma}","${x.name}","${x.team}","${x.level}","${x.kpi_ticket}","${x.slg_kh}","${(x.pct_kpi_ticket*100).toFixed(2)}%","${x.kpi_cv}","${x.slg_cv}","${(x.pct_kpi_cv*100).toFixed(2)}%","${x.no_ticket_2ht}","${(x.pct_kpi_tong*100).toFixed(2)}%","${p.text}"\n`;
+        });
+      } else {
+        csvContent += "STT,Nhan Vien,Gio S,CV S,KH S,%KPI S,Gio HCS,CV HCS,KH HCS,%KPI HCS,Gio TR,CV TR,KH TR,%KPI TR,Gio HCC,CV HCC,KH HCC,%KPI HCC,Gio T,CV T,KH T,%KPI T,Tong Gio,Tong CV,Tong KH,%KPI Tong\n";
+        filteredHs.forEach((x, idx) => {
+          const s = x.shifts;
+          csvContent += `"${idx+1}","${x.user_name}","${s.S.hours}","${s.S.cv}","${s.S.kh}","${(s.S.pct_kpi*100).toFixed(2)}%","${s.HCS.hours}","${s.HCS.cv}","${s.HCS.kh}","${(s.HCS.pct_kpi*100).toFixed(2)}%","${s.TR.hours}","${s.TR.cv}","${s.TR.kh}","${(s.TR.pct_kpi*100).toFixed(2)}%","${s.HCC.hours}","${s.HCC.cv}","${s.HCC.kh}","${(s.HCC.pct_kpi*100).toFixed(2)}%","${s.T.hours}","${s.T.cv}","${s.T.kh}","${(s.T.pct_kpi*100).toFixed(2)}%","${s.Total.hours}","${s.Total.cv}","${s.Total.kh}","${(s.Total.pct_kpi*100).toFixed(2)}%"\n`;
+        });
+      }
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `KPI_Export_${currentTab}_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

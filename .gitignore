@@ -1,0 +1,5 @@
+credentials.json
+__pycache__/
+temp_pbi_download/
+*.pyc
+.env
