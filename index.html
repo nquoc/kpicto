@@ -1009,6 +1009,10 @@
       }
       updatePacingDisplay();
       applyFilters();
+
+      // Kích hoạt đọc trực tiếp Realtime từ Google Sheets
+      fetchRealtimeSheetsData(false);
+      setInterval(() => fetchRealtimeSheetsData(false), 30000);
     }
 
     function onDayChange() {
@@ -1385,12 +1389,142 @@
       document.body.removeChild(link);
     }
 
-    function reloadLatestData() {
+    async function fetchRealtimeSheetsData(showStatus = false) {
+      const sheetId = '1Gp4UVa_6YyQHA9SZxts8ey9z_mwB3j-BEKx20fvPPfk';
       const btn = document.querySelector('.btn-refresh');
-      if (btn) btn.innerHTML = '⏳ Đang tải...';
-      const url = new URL(window.location.href);
-      url.searchParams.set('t', Date.now());
-      window.location.href = url.toString();
+      if (showStatus && btn) btn.innerHTML = '⏳ Đang lấy số mới...';
+
+      try {
+        const urlKpi = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=KPI%20tong&t=${Date.now()}`;
+        const resKpi = await fetch(urlKpi);
+        if (!resKpi.ok) return;
+        const textKpi = await resKpi.text();
+        const jsonKpi = JSON.parse(textKpi.substring(textKpi.indexOf('), textKpi.lastIndexOf(') + 1));
+
+        const urlHs = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=HS%20ca%20truc&t=${Date.now()}`;
+        const resHs = await fetch(urlHs);
+        const textHs = await resHs.text();
+        const jsonHs = JSON.parse(textHs.substring(textHs.indexOf('), textHs.lastIndexOf(') + 1));
+
+        const rowsKpi = jsonKpi.table.rows;
+        let foundUpdateTime = null;
+
+        const parseNum = (v) => {
+          if (v === '' || v === null || v === undefined) return 0;
+          if (typeof v === 'number') return v;
+          let s = String(v).replace('%', '').replace(',', '').trim();
+          let n = parseFloat(s);
+          if (isNaN(n)) return 0;
+          if (String(v).includes('%')) return n / 100;
+          return n;
+        };
+
+        const newKpiData = [];
+        rowsKpi.forEach(r => {
+          const cells = r.c || [];
+          const getVal = (colIdx) => (cells[colIdx] ? (cells[colIdx].v !== null ? cells[colIdx].v : '') : '');
+
+          const rawName = String(getVal(1)).trim();
+          if (!rawName || rawName.toLowerCase().includes('applied filters')) return;
+
+          let shortName = rawName;
+          const parts = rawName.split('-');
+          if (parts.length >= 2) shortName = parts[1].trim();
+
+          if (cells[15] && cells[15].v && String(cells[15].v).includes('Cập nhật')) {
+            foundUpdateTime = String(cells[15].v).replace('Cập nhật PBI:', '').replace('Cập nhật:', '').trim();
+          }
+
+          newKpiData.push({
+            id: newKpiData.length + 1,
+            ma: String(getVal(0)).split('.')[0],
+            name: shortName,
+            full_name: rawName,
+            team: String(getVal(2)),
+            level: String(getVal(3)).split('.')[0],
+            kpi_ticket: parseNum(getVal(4)),
+            slg_kh: parseNum(getVal(5)),
+            pct_kpi_ticket: parseNum(getVal(6)),
+            kpi_cv: parseNum(getVal(7)),
+            slg_cv: parseNum(getVal(8)),
+            pct_kpi_cv: parseNum(getVal(9)),
+            no_ticket_2ht: Math.round(parseNum(getVal(10))),
+            pct_kpi_tong: parseNum(getVal(11))
+          });
+        });
+
+        const shiftMap = [
+          { name: 'Khác', col: 1 },
+          { name: 'S', col: 5 },
+          { name: 'HCS', col: 9 },
+          { name: 'TR', col: 13 },
+          { name: 'HCC', col: 17 },
+          { name: 'T', col: 21 },
+          { name: 'Total', col: 25 }
+        ];
+
+        const newHsData = [];
+        jsonHs.table.rows.forEach(r => {
+          const cells = r.c || [];
+          const getVal = (colIdx) => (cells[colIdx] ? (cells[colIdx].v !== null ? cells[colIdx].v : '') : '');
+          const uName = String(getVal(0)).trim();
+          if (!uName || uName.toLowerCase().includes('user_name') || uName.toLowerCase().includes('applied filters')) return;
+
+          const shifts = {};
+          shiftMap.forEach(s => {
+            shifts[s.name] = {
+              hours: Math.round(parseNum(getVal(s.col)) * 100) / 100,
+              cv: Math.round(parseNum(getVal(s.col + 1)) * 10) / 10,
+              kh: Math.round(parseNum(getVal(s.col + 2)) * 10) / 10,
+              pct_kpi: Math.round(parseNum(getVal(s.col + 3)) * 10000) / 10000
+            };
+          });
+
+          newHsData.push({
+            user_name: uName,
+            shifts: shifts
+          });
+        });
+
+        if (newKpiData.length > 0) {
+          DATA.kpi_tong = newKpiData;
+          DATA.hs_ca_truc = newHsData;
+          if (foundUpdateTime) DATA.updated_at = foundUpdateTime;
+
+          const totalStaff = newKpiData.length;
+          const avgKpi = newKpiData.reduce((acc, x) => acc + x.pct_kpi_tong, 0) / totalStaff;
+          const totalTicket = newKpiData.reduce((acc, x) => acc + x.slg_kh, 0);
+          const totalCv = newKpiData.reduce((acc, x) => acc + x.slg_cv, 0);
+          const total2Ht = newKpiData.reduce((acc, x) => acc + x.no_ticket_2ht, 0);
+          const top = [...newKpiData].sort((a, b) => b.pct_kpi_tong - a.pct_kpi_tong)[0];
+
+          DATA.summary = {
+            total_staff: totalStaff,
+            avg_kpi: (avgKpi * 100).toFixed(2),
+            total_ticket: totalTicket.toFixed(1),
+            total_cv: totalCv.toFixed(1),
+            total_ticket_2ht: total2Ht,
+            top_performer: top ? top.name : '',
+            top_kpi: top ? (top.pct_kpi_tong * 100).toFixed(2) : 0
+          };
+
+          updatePacingDisplay();
+          applyFilters();
+
+          const liveBadge = document.querySelector('.badge-live');
+          if (liveBadge) {
+            liveBadge.innerHTML = `<span class="dot-live"></span><span>Live Sheet: <strong id="lbl-updated-at">${DATA.updated_at}</strong></span>`;
+          }
+        }
+      } catch (err) {
+        console.warn('Google Sheet realtime note:', err);
+      } finally {
+        if (btn) btn.innerHTML = '🔄 Tải lại số liệu mới nhất';
+      }
+    }
+
+    function reloadLatestData() {
+      fetchRealtimeSheetsData(true);
     }
 
     window.onload = init;
