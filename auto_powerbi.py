@@ -709,6 +709,17 @@ def _process_thread(pbi_url, sheet_kpi_tong, sheet_hs_ca_truc, is_headless=True)
         except Exception as e_dash:
             update_status(f"⚠️ Lưu ý cập nhật dashboard: {e_dash}", "#f39c12")
 
+        # 5. Tự động đồng bộ lên GitHub Pages
+        try:
+            update_status("🐙 Đang tự động đẩy dữ liệu lên GitHub...", "#3498db")
+            cwd = os.path.dirname(os.path.abspath(__file__))
+            subprocess.run(["git", "add", "index.html", "kpi_dashboard.html", "kpi_data.json", "PowerBI_Export_KPI_TONG.xlsx", "PowerBI_Export_HS_CA_TRUC.xlsx"], cwd=cwd)
+            subprocess.run(["git", "commit", "-m", f"Auto update KPI data {update_time_val}"], cwd=cwd)
+            subprocess.run(["git", "push", "origin", "main"], cwd=cwd)
+            update_status("✅ Đã đồng bộ lên GitHub Pages thành công!", "#2ecc71")
+        except Exception as e_git:
+            update_status(f"⚠️ Lưu ý sync git: {e_git}", "#f39c12")
+
         update_status("✨ HOÀN THÀNH TẤT CẢ CÁC BƯỚC TỰ ĐỘNG 100%! ✨", "#00b894")
         if IS_GUI_MODE and 'btn_run' in globals() and btn_run:
             btn_run.config(state=tk.NORMAL, text="▶ Chạy tự động Power BI")
