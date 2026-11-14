@@ -6,7 +6,7 @@ import calendar
 import pandas as pd
 import openpyxl
 
-def generate_dashboard(update_time_val=None):
+def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_data=None):
     if not update_time_val:
         update_time_val = datetime.datetime.now().strftime("%H:%M - %d/%m/%Y")
 
@@ -15,7 +15,9 @@ def generate_dashboard(update_time_val=None):
     hs_file = "PowerBI_Export_HS_CA_TRUC.xlsx"
 
     kpi_data = []
-    if os.path.exists(kpi_file):
+    if custom_kpi_data is not None:
+        kpi_data = custom_kpi_data
+    elif os.path.exists(kpi_file):
         df_kpi = pd.read_excel(kpi_file, skiprows=2).fillna('')
         for idx, row in df_kpi.iterrows():
             raw_name = str(row.get('smownerid_name', '')).strip()
@@ -44,7 +46,9 @@ def generate_dashboard(update_time_val=None):
 
     # 2. Read HS ca truc
     hs_data = []
-    if os.path.exists(hs_file):
+    if custom_hs_data is not None:
+        hs_data = custom_hs_data
+    elif os.path.exists(hs_file):
         wb = openpyxl.load_workbook(hs_file)
         ws = wb.active
         rows = list(ws.iter_rows(values_only=True))
