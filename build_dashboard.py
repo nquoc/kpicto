@@ -2366,7 +2366,7 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         <div class="award-card" onclick="openModalByName('${{hero2Ht ? hero2Ht.name : ''}}')">
           <div class="award-icon">🌟</div>
           <div>
-            <div class="award-title">Hỗ Trợ Đa Nhiệm</div>
+            <div class="award-title">Chúa Tể Buff Bẩn</div>
             <div class="award-name">${{hero2Ht ? hero2Ht.name : '--'}}</div>
             <div class="award-stat">${{hero2Ht ? (hero2Ht.no_ticket_2ht || 0) + ' Ticket có 2 CV HT' : '--'}}</div>
           </div>
