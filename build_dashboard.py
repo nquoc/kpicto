@@ -127,1413 +127,1679 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
   <title>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực - Team CTO 1</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    :root {{
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-border: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --primary-light: rgba(99, 102, 241, 0.15);
-      --success: #10b981;
-      --success-light: rgba(16, 185, 129, 0.15);
-      --warning: #f59e0b;
-      --warning-light: rgba(245, 158, 11, 0.15);
-      --danger: #ef4444;
-      --danger-light: rgba(239, 68, 68, 0.15);
-      --info: #0ea5e9;
-      --row-hover: #283548;
-      --table-header: #1e293b;
-    }}
-    .light-theme {{
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
-      --primary-light: #eef2ff;
-      --success: #059669;
-      --success-light: #ecfdf5;
-      --warning: #d97706;
-      --warning-light: #fffbeb;
-      --danger: #dc2626;
-      --danger-light: #fef2f2;
-      --info: #0284c7;
-      --row-hover: #f1f5f9;
-      --table-header: #f8fafc;
-    }}
-    * {{
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }}
-    body {{
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding: 24px;
-      transition: background-color 0.2s, color 0.2s;
-    }}
-    .container {{
-      max-width: 1480px;
-      margin: 0 auto;
-    }}
-    /* Header */
-    .header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 24px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--card-border);
-    }}
-    .brand {{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }}
-    .logo-badge {{
-      background: linear-gradient(135deg, var(--primary), #ec4899);
-      color: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-    }}
-    .brand-title h1 {{
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.5px;
-    }}
-    .brand-title p {{
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }}
-    .header-actions {{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }}
-    .btn {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--card-border);
-      background-color: var(--card-bg);
-      color: var(--text-main);
-      transition: all 0.15s ease;
-    }}
-    .btn:hover {{
-      background-color: var(--row-hover);
-      border-color: var(--primary);
-    }}
-    .btn-primary {{
-      background-color: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }}
-    .btn-primary:hover {{
-      background-color: var(--primary-hover);
-    }}
-    .btn-refresh {{
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white !important;
-      border: 1px solid #10b981;
-    }}
-    .btn-refresh:hover {{
-      background: linear-gradient(135deg, #059669, #047857);
-      transform: translateY(-1px);
-    }}
-    .badge-live {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      background-color: var(--success-light);
-      color: var(--success);
-      border: 1px solid var(--success);
-    }}
-    .dot-live {{
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--success);
-      animation: pulse 2s infinite;
-    }}
-    @keyframes pulse {{
-      0% {{ opacity: 1; transform: scale(1); }}
-      50% {{ opacity: 0.4; transform: scale(0.85); }}
-      100% {{ opacity: 1; transform: scale(1); }}
-    }}
+/* ============================================================
+   EVONDEV DESIGN SYSTEM - COMPLETE THEME & COMPONENT STYLES
+   ============================================================ */
 
-    /* Stat Cards */
-    .stats-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }}
-    .stat-card {{
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 16px 18px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
-    }}
-    .stat-card::before {{
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--primary);
-    }}
-    .stat-card.card-success::before {{ background: var(--success); }}
-    .stat-card.card-warning::before {{ background: var(--warning); }}
-    .stat-card.card-danger::before {{ background: var(--danger); }}
-    .stat-card.card-info::before {{ background: var(--info); }}
-    .stat-label {{
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }}
-    .stat-value {{
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }}
-    .stat-sub {{
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }}
+:root {{
+  color-scheme: dark;
+  --app-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono-font: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-    /* Pacing Control Box in Controls */
-    .pacing-bar {{
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(16, 185, 129, 0.12));
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: 12px;
-      padding: 14px 20px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }}
-    .pacing-info {{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }}
-    .pacing-title {{
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
-    .pacing-day-selector {{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 4px 10px;
-    }}
-    .pacing-day-selector input {{
-      width: 48px;
-      padding: 4px 6px;
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-      outline: none;
-    }}
-    .pacing-target-badge {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: rgba(99, 102, 241, 0.2);
-      color: var(--primary);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }}
+  /* Surfaces & Backgrounds - Deep Obsidian */
+  --bg: #090a13;
+  --surface: #101323;
+  --surface-subtle: #16192e;
+  --surface-overlay: #1c213d;
+  --card-bg: var(--surface);
+  --row-hover: #191e36;
+  --table-header: #13172c;
 
-    /* Controls Bar */
-    .controls-card {{
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }}
-    .filter-group {{
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      flex: 1;
-    }}
-    .search-box {{
-      position: relative;
-      min-width: 240px;
-      flex: 1;
-      max-width: 320px;
-    }}
-    .search-box input {{
-      width: 100%;
-      padding: 8px 12px 8px 36px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.15s;
-    }}
-    .search-box input:focus {{
-      border-color: var(--primary);
-    }}
-    .search-icon {{
-      position: absolute;
-      left: 11px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 14px;
-    }}
-    .select-filter {{
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
-    }}
-    .select-filter:focus {{
-      border-color: var(--primary);
-    }}
+  /* Borders - Subtle 1px borders per evondevKit standard */
+  --card-border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
-    /* Tabs */
-    .tabs-nav {{
-      display: flex;
-      gap: 8px;
-      border-bottom: 1px solid var(--card-border);
-      margin-bottom: 20px;
-    }}
-    .tab-btn {{
-      padding: 10px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      background: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.15s;
-    }}
-    .tab-btn:hover {{
-      color: var(--text-main);
-    }}
-    .tab-btn.active {{
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }}
-    .tab-badge {{
-      background-color: var(--primary-light);
-      color: var(--primary);
-      font-size: 11px;
-      padding: 2px 7px;
-      border-radius: 10px;
-    }}
+  /* Typography */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
 
-    /* Table Container */
-    .table-card {{
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }}
-    .table-responsive {{
-      width: 100%;
-      overflow-x: auto;
-    }}
-    table {{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      text-align: left;
-    }}
-    thead th {{
-      background-color: var(--table-header);
-      color: var(--text-muted);
-      font-weight: 600;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--card-border);
-      white-space: nowrap;
-      cursor: pointer;
-      user-select: none;
-    }}
-    thead th:hover {{
-      color: var(--text-main);
-    }}
-    tbody tr {{
-      border-bottom: 1px solid var(--card-border);
-      transition: background-color 0.15s;
-    }}
-    tbody tr:hover {{
-      background-color: var(--row-hover);
-      cursor: pointer;
-    }}
-    tbody td {{
-      padding: 12px 14px;
-      color: var(--text-main);
-      white-space: nowrap;
-    }}
-    .numeric {{
-      text-align: right;
-    }}
-    .text-center {{
-      text-align: center;
-    }}
+  /* Brand Accents */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: rgba(99, 102, 241, 0.12);
+  --primary-glow: rgba(99, 102, 241, 0.35);
 
-    /* Progress & Badges */
-    .progress-bar-wrapper {{
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-width: 120px;
-    }}
-    .progress-track {{
-      flex: 1;
-      height: 7px;
-      background-color: var(--card-border);
-      border-radius: 4px;
-      overflow: hidden;
-    }}
-    .progress-fill {{
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.3s ease;
-    }}
-    .bg-excel {{ background-color: var(--success); }}
-    .bg-good {{ background-color: var(--info); }}
-    .bg-ok {{ background-color: var(--warning); }}
-    .bg-low {{ background-color: var(--danger); }}
+  /* Semantic Colors */
+  --success: #10b981;
+  --success-light: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-light: rgba(239, 68, 68, 0.12);
+  --info: #06b6d4;
+  --info-light: rgba(6, 182, 212, 0.12);
 
-    .badge {{
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-    }}
-    .badge-level {{
-      background-color: var(--primary-light);
-      color: var(--primary);
-    }}
-    .badge-ahead {{
-      background-color: var(--success-light);
-      color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-    }}
-    .badge-ontrack {{
-      background-color: rgba(14, 165, 233, 0.15);
-      color: var(--info);
-      border: 1px solid rgba(14, 165, 233, 0.4);
-    }}
-    .badge-behind-slight {{
-      background-color: var(--warning-light);
-      color: var(--warning);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-    }}
-    .badge-behind-severe {{
-      background-color: var(--danger-light);
-      color: var(--danger);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      animation: pulse-danger 2s infinite;
-    }}
-    @keyframes pulse-danger {{
-      0% {{ box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }}
-      70% {{ box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }}
-      100% {{ box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }}
-    }}
-    .badge-ticket-2ht {{
-      background-color: var(--primary-light);
-      color: var(--primary);
-      font-weight: 700;
-    }}
+  /* Elevations & Shadows */
+  --elevation-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 6px 16px -4px rgba(0, 0, 0, 0.4);
+  --elevation-popover: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --elevation-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}}
 
-    /* Row alert highlight */
-    tr.alert-severe {{
-      background-color: rgba(239, 68, 68, 0.05);
-    }}
+.light-theme {{
+  color-scheme: light;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
+  --surface-overlay: #ffffff;
+  --card-bg: var(--surface);
+  --row-hover: #f1f5f9;
+  --table-header: #f8fafc;
 
-    /* Matrix Shift Headers */
-    .shift-header-group {{
-      background-color: rgba(99, 102, 241, 0.1) !important;
-      text-align: center;
-      border-left: 1px solid var(--card-border);
-      border-right: 1px solid var(--card-border);
-      color: var(--primary) !important;
-      font-weight: 700;
-    }}
-    .border-shift-left {{
-      border-left: 1px solid var(--card-border);
-    }}
+  --card-border: #e2e8f0;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
 
-    /* Modal */
-    .modal-backdrop {{
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      backdrop-filter: blur(4px);
-    }}
-    .modal-box {{
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      width: 90%;
-      max-width: 650px;
-      padding: 24px;
-      max-height: 85vh;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }}
-    .modal-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--card-border);
-    }}
-    .modal-close {{
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 20px;
-      cursor: pointer;
-    }}
-    .modal-close:hover {{
-      color: var(--danger);
-    }}
-    .detail-grid {{
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }}
-    .detail-item {{
-      background-color: var(--bg);
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-    }}
-    .detail-title {{
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-    }}
-    .detail-val {{
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-top: 4px;
-    }}
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
 
-    /* Charts Tab */
-    .charts-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 20px;
-    }}
-    .chart-box {{
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px;
-    }}
-    .chart-title {{
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }}
-    .bar-row {{
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-      gap: 12px;
-      font-size: 12px;
-    }}
-    .bar-label {{
-      width: 140px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-weight: 600;
-    }}
-    .bar-track {{
-      flex: 1;
-      height: 24px;
-      background-color: var(--card-border);
-      border-radius: 6px;
-      overflow: hidden;
-      position: relative;
-    }}
-    .bar-fill {{
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), #818cf8);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 0 10px;
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-      min-width: fit-content;
-      box-sizing: border-box;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }}
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.08);
+  --primary-glow: rgba(79, 70, 229, 0.2);
 
-    @media (max-width: 768px) {{
-      .charts-grid {{
-        grid-template-columns: 1fr;
-      }}
-      .bar-label {{
-        width: 120px;
-        font-size: 11px;
-      }}
-      .bar-fill {{
-        font-size: 10px;
-        padding: 0 6px;
-      }}
-    }}
+  --success: #059669;
+  --success-light: rgba(5, 150, 105, 0.08);
+  --warning: #d97706;
+  --warning-light: rgba(217, 119, 6, 0.08);
+  --danger: #dc2626;
+  --danger-light: rgba(220, 38, 38, 0.08);
+  --info: #0284c7;
+  --info-light: rgba(2, 132, 199, 0.08);
 
-    @media print {{
-      body {{ background-color: #ffffff; color: #000000; padding: 0; }}
-      .header-actions, .controls-card, .tabs-nav, .pacing-bar {{ display: none !important; }}
-      .table-card {{ border: none; box-shadow: none; }}
-      thead th {{ background-color: #f1f5f9 !important; color: #000 !important; }}
-    }}
+  --elevation-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --elevation-popover: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --elevation-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}}
 
-    /* Highlight "Tôi là ai" row */
-    tr.my-row-highlight td {{
-      background: rgba(99, 102, 241, 0.22) !important;
-      border-top: 2px solid #818cf8 !important;
-      border-bottom: 2px solid #818cf8 !important;
-      font-weight: 600;
-    }}
-    tr.my-row-highlight td:first-child {{
-      border-left: 3px solid #818cf8 !important;
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-    }}
-    tr.my-row-highlight td:last-child {{
-      border-right: 3px solid #818cf8 !important;
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-    }}
-    .find-me-box {{
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
-    .select-my-name {{
-      border-color: #818cf8 !important;
-      font-weight: 700 !important;
-      color: var(--primary) !important;
-      background: var(--card-bg) !important;
-      cursor: pointer;
-    }}
+/* ============================================================
+   GLOBAL RESET & TYPOGRAPHY
+   ============================================================ */
 
-    /* Personal Card Modal Styles */
-    .card-profile-header {{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--card-border);
-    }}
-    .profile-avatar {{
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #ec4899);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-      flex-shrink: 0;
-    }}
-    .profile-meta {{
-      flex: 1;
-    }}
-    .profile-name {{
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 6px;
-    }}
-    .profile-badges {{
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      align-items: center;
-    }}
-    .badge-rank {{
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-    }}
-    .badge-level-tag {{
-      background: var(--card-border);
-      color: var(--text-muted);
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-    }}
+* {{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}}
 
-    /* Forecast Box */
-    .forecast-box {{
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(236, 72, 153, 0.08));
-      border: 1px solid rgba(99, 102, 241, 0.35);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-    }}
-    .forecast-title {{
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }}
-    .forecast-value {{
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 8px;
-    }}
-    .forecast-plan {{
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.18);
-      border-radius: 8px;
-      padding: 10px 12px;
-    }}
-    .light-theme .forecast-plan {{
-      background: rgba(255, 255, 255, 0.85);
-    }}
+body {{
+  background-color: var(--bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 24px;
+  line-height: 1.5;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}}
 
-    /* Strengths Comparison */
-    .strengths-grid {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-    }}
-    .strength-card {{
-      background: var(--bg);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 12px;
-    }}
-    .strength-label {{
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }}
-    .strength-val {{
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 6px;
-    }}
-    .strength-badge {{
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }}
+.container {{
+  max-width: 1540px;
+  margin: 0 auto;
+}}
 
-    /* Shift Stacked Bar */
-    .shift-stacked-bar {{
-      height: 14px;
-      border-radius: 7px;
-      overflow: hidden;
-      display: flex;
-      background: var(--card-border);
-      margin-bottom: 8px;
-    }}
-    .shift-seg {{
-      height: 100%;
-      transition: width 0.3s;
-    }}
-    .shift-legend {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }}
-    .shift-legend-item {{
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }}
-    .shift-dot {{
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }}
+/* Tabular Numbers */
+.numeric,
+.stat-value,
+.pacing-target-badge,
+.badge-shift,
+.matrix-table th,
+.matrix-table td,
+.bar-fill,
+.podium-pct,
+.forecast-value,
+.detail-val {{
+  font-variant-numeric: tabular-nums;
+}}
 
-    /* Podium & Hall of Fame */
-    .podium-container {{
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 16px;
-      padding: 24px 10px 10px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }}
-    .podium-step {{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 200px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }}
-    .podium-step:hover {{
-      transform: translateY(-4px);
-    }}
-    .podium-avatar {{
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: white;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      position: relative;
-    }}
-    .podium-crown {{
-      position: absolute;
-      top: -18px;
-      font-size: 22px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }}
-    .podium-name {{
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }}
-    .podium-pct {{
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }}
-    .podium-block {{
-      width: 100%;
-      border-radius: 12px 12px 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.92);
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.2);
-    }}
-    .podium-1 {{ order: 2; }}
-    .podium-1 .podium-block {{ height: 160px; background: linear-gradient(180deg, #f59e0b, #b45309); }}
-    .podium-1 .podium-avatar {{ background: linear-gradient(135deg, #f59e0b, #fbbf24); border: 3px solid #fef08a; }}
-    .podium-1 .podium-pct {{ color: #f59e0b; }}
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {{
+  width: 7px;
+  height: 7px;
+}}
+::-webkit-scrollbar-track {{
+  background: transparent;
+}}
+::-webkit-scrollbar-thumb {{
+  background: var(--border-strong);
+  border-radius: 9999px;
+}}
+::-webkit-scrollbar-thumb:hover {{
+  background: var(--text-subtle);
+}}
 
-    .podium-2 {{ order: 1; }}
-    .podium-2 .podium-block {{ height: 120px; background: linear-gradient(180deg, #94a3b8, #64748b); }}
-    .podium-2 .podium-avatar {{ background: linear-gradient(135deg, #94a3b8, #cbd5e1); border: 3px solid #f1f5f9; }}
-    .podium-2 .podium-pct {{ color: #94a3b8; }}
+/* ============================================================
+   HEADER & TOP ACTIONS
+   ============================================================ */
 
-    .podium-3 {{ order: 3; }}
-    .podium-3 .podium-block {{ height: 90px; background: linear-gradient(180deg, #d97706, #78350f); }}
-    .podium-3 .podium-avatar {{ background: linear-gradient(135deg, #d97706, #f97316); border: 3px solid #ffedd5; }}
-    .podium-3 .podium-pct {{ color: #f97316; }}
+.header {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}}
 
-    .awards-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }}
-    .award-card {{
-      background: var(--bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }}
-    .award-card:hover {{
-      transform: translateY(-2px);
-    }}
-    .award-icon {{
-      font-size: 30px;
-      flex-shrink: 0;
-    }}
-    .award-title {{
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }}
-    .award-name {{
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin: 2px 0;
-    }}
-    .award-stat {{
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-    }}
+.brand {{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}}
 
-    /* TV Kiosk Mode */
-    body.tv-kiosk-mode {{
-      padding: 10px 16px !important;
-      overflow-x: hidden;
-    }}
-    body.tv-kiosk-mode .header-actions,
-    body.tv-kiosk-mode .controls-card,
-    body.tv-kiosk-mode .pacing-bar {{
-      display: none !important;
-    }}
-    body.tv-kiosk-mode .container {{
-      max-width: 100% !important;
-    }}
-    body.tv-kiosk-mode .header {{
-      margin-bottom: 12px !important;
-      padding-bottom: 10px !important;
-    }}
-    body.tv-kiosk-mode table {{
-      font-size: 13.5px !important;
-    }}
-    body.tv-kiosk-mode th, body.tv-kiosk-mode td {{
-      padding: 10px 8px !important;
-    }}
-    .tv-bar-wrap {{
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: rgba(0,0,0,0.4);
-      z-index: 99999;
-    }}
-    .tv-progress {{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #6366f1, #ec4899);
-      transition: width 0.1s linear;
-    }}
-    body.tv-kiosk-mode .tv-bar-wrap {{
-      display: block;
-    }}
-    .tv-exit-pill {{
-      display: none;
-      position: fixed;
-      top: 14px;
-      right: 18px;
-      z-index: 100000;
-      background: rgba(15, 23, 42, 0.85);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-    }}
-    body.tv-kiosk-mode .tv-exit-pill {{
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }}
+.logo-badge {{
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}}
 
-    /* Toast Notification */
-    .toast-msg {{
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #1e293b;
-      color: #f8fafc;
-      border: 1px solid var(--primary);
-      padding: 14px 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-      z-index: 999999;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 13px;
-      animation: slideUpToast 0.3s ease;
-    }}
-    @keyframes slideUpToast {{
-      from {{ transform: translateY(30px); opacity: 0; }}
-      to {{ transform: translateY(0); opacity: 1; }}
-    }}
+.brand-title h1 {{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}}
 
-    /* ========================================================
-       TOP LEVEL MAIN VIEW SWITCHER (KPI vs LỊCH TRỰC)
-       ======================================================== */
-    .top-nav-bar {{
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 6px;
-    }}
-    .top-nav-tab {{
-      flex: 1;
-      padding: 11px 18px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }}
-    .top-nav-tab:hover {{
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.04);
-    }}
-    .top-nav-tab.active {{
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-    }}
-    .top-nav-badge {{
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-    }}
-    .matrix-nav-buttons {{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }}
-    @keyframes pulseTodayCol {{
-      0% {{ box-shadow: inset 0 0 0 2px #f59e0b; }}
-      50% {{ box-shadow: inset 0 0 12px 3px rgba(245, 158, 11, 0.6); }}
-      100% {{ box-shadow: inset 0 0 0 2px #f59e0b; }}
-    }}
+.brand-title p {{
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}}
 
-    /* ========================================================
-       SCHEDULE & ATTENDANCE (LỊCH TRỰC & CHẤM CÔNG - TEAM ÔNG MINH NHỰT)
-       ======================================================== */
-    .schedule-controls-card {{
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 20px;
-    }}
-    .schedule-controls-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--card-border);
-    }}
-    .schedule-title-wrap h3 {{
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 4px;
-    }}
-    .schedule-subtitle {{
-      font-size: 12px;
-      color: var(--text-muted);
-    }}
-    .schedule-actions {{
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }}
-    .schedule-filters-grid {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: flex-end;
-    }}
-    .segmented-control {{
-      display: inline-flex;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 3px;
-      gap: 3px;
-    }}
-    .segmented-btn {{
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }}
-    .segmented-btn:hover {{
-      color: var(--text-main);
-    }}
-    .segmented-btn.active {{
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
-    }}
+.header-actions {{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}}
 
-    /* Quick KPI Cards for Schedule */
-    .schedule-kpi-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
-    }}
+.btn {{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-main);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}}
 
-    /* Today's Roster Banner */
-    .today-roster-banner {{
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.08));
-      border: 1px solid rgba(99, 102, 241, 0.25);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-    }}
-    .today-roster-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }}
-    .today-roster-title {{
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
-    .roster-groups-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }}
-    .roster-group-card {{
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 10px 12px;
-    }}
-    .roster-group-label {{
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }}
-    .roster-pills-wrap {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }}
-    .roster-pill {{
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--primary-light);
-      color: var(--primary);
-    }}
+.btn:hover {{
+  background-color: var(--surface-subtle);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}}
 
-    /* Schedule Section Cards */
-    .schedule-section-card {{
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }}
-    .schedule-section-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }}
-    .schedule-section-title {{
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
+.btn:active {{
+  transform: translateY(0);
+}}
 
-    /* Matrix Table (Full Month Grid) */
-    .matrix-scroll-container {{
-      overflow-x: auto;
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      max-height: 600px;
-      position: relative;
-    }}
-    .matrix-table {{
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: 12px;
-      white-space: nowrap;
-    }}
-    .matrix-table th, .matrix-table td {{
-      padding: 8px 10px;
-      border-right: 1px solid var(--card-border);
-      border-bottom: 1px solid var(--card-border);
-      text-align: center;
-      vertical-align: middle;
-    }}
-    .matrix-table thead th {{
-      position: sticky;
-      top: 0;
-      background: #1e293b;
-      z-index: 20;
-    }}
-    .matrix-table .sticky-col-id {{
-      position: sticky;
-      left: 0;
-      background: #1e293b;
-      z-index: 30;
-      min-width: 60px;
-      max-width: 70px;
-      text-align: center;
-      font-weight: 700;
-    }}
-    .matrix-table .sticky-col-name {{
-      position: sticky;
-      left: 60px;
-      background: #1e293b;
-      z-index: 30;
-      min-width: 170px;
-      max-width: 190px;
-      text-align: left;
-      font-weight: 600;
-    }}
-    .matrix-table tbody tr:hover td {{
-      background: var(--row-hover);
-    }}
-    .matrix-table tbody tr:hover .sticky-col-id,
-    .matrix-table tbody tr:hover .sticky-col-name {{
-      background: var(--row-hover);
-    }}
-    .matrix-table .col-today {{
-      background: rgba(99, 102, 241, 0.15) !important;
-      border-left: 2px solid var(--primary) !important;
-      border-right: 2px solid var(--primary) !important;
-    }}
-    .matrix-table thead th.col-today {{
-      background: var(--primary) !important;
-      color: #fff !important;
-    }}
-    .matrix-table .col-weekend {{
-      background: rgba(0, 0, 0, 0.15);
-    }}
+.btn-primary {{
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}}
 
-    /* Badges for shifts */
-    .badge-shift {{
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin: 1px;
-    }}
-    .badge-shift-off {{
-      background: rgba(239, 68, 68, 0.2);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.35);
-    }}
-    .badge-shift-p {{
-      background: rgba(168, 85, 247, 0.2);
-      color: #c084fc;
-      border: 1px solid rgba(168, 85, 247, 0.35);
-    }}
-    .badge-shift-s {{
-      background: rgba(14, 165, 233, 0.2);
-      color: #38bdf8;
-      border: 1px solid rgba(14, 165, 233, 0.35);
-    }}
-    .badge-shift-tr {{
-      background: rgba(245, 158, 11, 0.2);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.35);
-    }}
-    .badge-shift-t {{
-      background: rgba(99, 102, 241, 0.2);
-      color: #818cf8;
-      border: 1px solid rgba(99, 102, 241, 0.35);
-    }}
-    .badge-shift-hc {{
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }}
-    .badge-shift-other {{
-      background: rgba(148, 163, 184, 0.2);
-      color: #cbd5e1;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-    }}
+.btn-primary:hover {{
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}}
 
-    /* Hidden Zalo Capture Card */
-    #zalo-snapshot-card {{
-      position: fixed;
-      left: -9999px;
-      top: 0;
-      width: 950px;
-      background: #0f172a;
-      color: #f8fafc;
-      padding: 24px;
-      border-radius: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }}
+.btn-refresh {{
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}}
+
+.btn-refresh:hover {{
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}}
+
+.badge-live {{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--success-light);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}}
+
+.dot-live {{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--success);
+  box-shadow: 0 0 8px var(--success);
+  animation: pulseLive 2s infinite;
+}}
+
+@keyframes pulseLive {{
+  0% {{ opacity: 1; transform: scale(1); }}
+  50% {{ opacity: 0.35; transform: scale(0.85); }}
+  100% {{ opacity: 1; transform: scale(1); }}
+}}
+
+/* ============================================================
+   TOP LEVEL MAIN VIEW SWITCHER (SEGMENTED CONTROL)
+   ============================================================ */
+
+.top-nav-bar {{
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 4px;
+}}
+
+.top-nav-tab {{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}}
+
+.top-nav-tab:hover {{
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
+}}
+
+.top-nav-tab.active {{
+  color: var(--text-main);
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}}
+
+.top-nav-badge {{
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}}
+
+/* ============================================================
+   PACING PROGRESS BANNER
+   ============================================================ */
+
+.pacing-bar {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: var(--elevation-card);
+}}
+
+.pacing-info {{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}}
+
+.pacing-title {{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}}
+
+.pacing-day-selector {{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}}
+
+.pacing-day-selector input {{
+  width: 44px;
+  padding: 3px 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+}}
+
+.pacing-day-selector input:focus {{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}}
+
+.pacing-target-badge {{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}}
+
+/* ============================================================
+   TOP METRIC STAT CARDS
+   ============================================================ */
+
+.stats-grid {{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}}
+
+.stat-card {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: var(--elevation-card);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+
+.stat-card:hover {{
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}}
+
+.stat-card.card-primary {{ border-top: 3px solid var(--primary); }}
+.stat-card.card-success {{ border-top: 3px solid var(--success); }}
+.stat-card.card-warning {{ border-top: 3px solid var(--warning); }}
+.stat-card.card-danger  {{ border-top: 3px solid var(--danger); }}
+.stat-card.card-info    {{ border-top: 3px solid var(--info); }}
+
+.stat-label {{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}}
+
+.stat-value {{
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}}
+
+.stat-sub {{
+  font-size: 12px;
+  color: var(--text-muted);
+}}
+
+/* ============================================================
+   FILTERS & TOOLBAR CONTROLS
+   ============================================================ */
+
+.controls-card {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--elevation-card);
+}}
+
+.filter-group {{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}}
+
+.search-box {{
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+}}
+
+.search-icon {{
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 14px;
+}}
+
+.search-box input,
+.search-input {{
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+  transition: all 0.2s ease;
+}}
+
+.search-box input:focus,
+.search-input:focus {{
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}}
+
+.select-filter {{
+  padding: 9px 14px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}}
+
+.select-filter:focus {{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}}
+
+.find-me-box {{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}}
+
+.select-my-name {{
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  font-weight: 700 !important;
+}}
+
+/* ============================================================
+   TABS NAVIGATION
+   ============================================================ */
+
+.tabs-nav {{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+}}
+
+.tab-btn {{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}}
+
+.tab-btn:hover {{
+  color: var(--text-main);
+  background: var(--surface-subtle);
+}}
+
+.tab-btn.active {{
+  color: var(--text-main);
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}}
+
+.badge-count {{
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+}}
+
+.tab-btn.active .badge-count {{
+  background: var(--primary-light);
+  color: var(--primary);
+}}
+
+/* ============================================================
+   DATA TABLES
+   ============================================================ */
+
+.table-card,
+.table-responsive {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--elevation-card);
+}}
+
+table {{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}}
+
+th {{
+  background: var(--table-header);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  user-select: none;
+}}
+
+th.sortable:hover {{
+  color: var(--text-main);
+  cursor: pointer;
+}}
+
+td {{
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+  vertical-align: middle;
+}}
+
+tr:last-child td {{
+  border-bottom: none;
+}}
+
+tbody tr {{
+  transition: background-color 0.15s ease;
+}}
+
+tbody tr:hover {{
+  background-color: var(--row-hover);
+  cursor: pointer;
+}}
+
+.numeric {{
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}}
+
+.text-center {{
+  text-align: center;
+}}
+
+/* Badges */
+.badge {{
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}}
+
+.badge-level,
+.badge-level-tag {{
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+}}
+
+.badge-rank {{
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+}}
+
+/* Pacing Status Badges */
+.badge-ahead,
+.pacing-ahead {{
+  background: var(--success-light);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+}}
+
+.badge-ontrack,
+.pacing-ontrack {{
+  background: rgba(14, 165, 233, 0.12);
+  color: #0ea5e9;
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+}}
+
+.badge-behind-slight,
+.pacing-behind {{
+  background: var(--warning-light);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+}}
+
+.badge-behind-severe,
+.pacing-critical {{
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+  animation: pulse-danger 2s infinite;
+}}
+
+@keyframes pulse-danger {{
+  0% {{ box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }}
+  70% {{ box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }}
+  100% {{ box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }}
+}}
+
+.badge-ticket-2ht {{
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+}}
+
+/* Progress bar inside table cells */
+.progress-bar-wrapper,
+.progress-bar-wrap {{
+  width: 100%;
+  height: 6px;
+  background: var(--surface-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 5px;
+}}
+
+.progress-fill,
+.progress-bar-fill {{
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}}
+
+.bg-good {{ background: linear-gradient(90deg, #10b981, #34d399); }}
+.bg-ok   {{ background: linear-gradient(90deg, #0ea5e9, #38bdf8); }}
+.bg-low  {{ background: linear-gradient(90deg, #f59e0b, #fbbf24); }}
+
+/* Row Highlights */
+tr.my-row-highlight td {{
+  background: rgba(99, 102, 241, 0.16) !important;
+  border-top: 2px solid #818cf8 !important;
+  border-bottom: 2px solid #818cf8 !important;
+  font-weight: 600;
+}}
+tr.my-row-highlight td:first-child {{
+  border-left: 3px solid #818cf8 !important;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}}
+tr.my-row-highlight td:last-child {{
+  border-right: 3px solid #818cf8 !important;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}}
+
+tr.alert-severe {{
+  background-color: rgba(239, 68, 68, 0.08) !important;
+}}
+
+/* ============================================================
+   CHARTS TAB
+   ============================================================ */
+
+.charts-grid {{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  gap: 20px;
+}}
+
+.chart-box {{
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--elevation-card);
+}}
+
+.chart-title {{
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-main);
+}}
+
+.bar-row {{
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+  font-size: 12px;
+}}
+
+.bar-label {{
+  width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--text-main);
+}}
+
+.bar-track {{
+  flex: 1;
+  height: 24px;
+  background-color: var(--surface-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}}
+
+.bar-fill {{
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #818cf8);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  min-width: fit-content;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}}
+
+/* ============================================================
+   MODAL (STAFF PROFILE & FORECAST)
+   ============================================================ */
+
+.modal-backdrop {{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease;
+}}
+
+.modal-box {{
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  width: 90%;
+  max-width: 680px;
+  padding: 24px 28px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: var(--elevation-modal);
+  position: relative;
+}}
+
+.modal-header {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}}
+
+.modal-close {{
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}}
+
+.modal-close:hover {{
+  background: var(--row-hover);
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.3);
+}}
+
+.card-profile-header {{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}}
+
+.profile-avatar {{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}}
+
+.profile-meta {{
+  flex: 1;
+}}
+
+.profile-name {{
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}}
+
+.profile-badges {{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}}
+
+.detail-grid {{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}}
+
+.detail-item {{
+  background-color: var(--surface-subtle);
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}}
+
+.detail-title {{
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}}
+
+.detail-val {{
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 4px;
+}}
+
+/* Forecast Box */
+.forecast-box {{
+  background: var(--surface-subtle);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.1);
+}}
+
+.forecast-title {{
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}}
+
+.forecast-value {{
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}}
+
+.forecast-plan {{
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}}
+
+.light-theme .forecast-plan {{
+  background: #ffffff;
+}}
+
+/* Strengths Comparison */
+.strengths-grid {{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}}
+
+.strength-card {{
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}}
+
+.strength-label {{
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}}
+
+.strength-val {{
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}}
+
+.strength-badge {{
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}}
+
+/* Shift Stacked Bar */
+.shift-stacked-bar {{
+  height: 12px;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  background: var(--surface-subtle);
+  margin-bottom: 8px;
+}}
+
+.shift-seg {{
+  height: 100%;
+  transition: width 0.3s;
+}}
+
+.shift-legend {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}}
+
+.shift-legend-item {{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}}
+
+.shift-dot {{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}}
+
+/* ============================================================
+   PODIUM & AWARDS
+   ============================================================ */
+
+.podium-container {{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 18px;
+  padding: 24px 10px 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}}
+
+.podium-step {{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 210px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+
+.podium-step:hover {{
+  transform: translateY(-5px);
+}}
+
+.podium-avatar {{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: white;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  position: relative;
+}}
+
+.podium-crown {{
+  position: absolute;
+  top: -18px;
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}}
+
+.podium-name {{
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}}
+
+.podium-pct {{
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}}
+
+.podium-block {{
+  width: 100%;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.95);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.3);
+}}
+
+.podium-1 {{ order: 2; }}
+.podium-1 .podium-block {{ height: 165px; background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%); }}
+.podium-1 .podium-avatar {{ background: linear-gradient(135deg, #f59e0b, #fbbf24); border: 3px solid #fef08a; }}
+.podium-1 .podium-pct {{ color: #f59e0b; }}
+
+.podium-2 {{ order: 1; }}
+.podium-2 .podium-block {{ height: 125px; background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%); }}
+.podium-2 .podium-avatar {{ background: linear-gradient(135deg, #94a3b8, #cbd5e1); border: 3px solid #f1f5f9; }}
+.podium-2 .podium-pct {{ color: #94a3b8; }}
+
+.podium-3 {{ order: 3; }}
+.podium-3 .podium-block {{ height: 95px; background: linear-gradient(180deg, #d97706 0%, #78350f 100%); }}
+.podium-3 .podium-avatar {{ background: linear-gradient(135deg, #d97706, #f97316); border: 3px solid #ffedd5; }}
+.podium-3 .podium-pct {{ color: #f97316; }}
+
+.awards-grid {{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}}
+
+.award-card {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  box-shadow: var(--elevation-card);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+
+.award-card:hover {{
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}}
+
+.award-icon {{
+  font-size: 32px;
+  flex-shrink: 0;
+}}
+
+.award-title {{
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}}
+
+.award-name {{
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 2px 0;
+}}
+
+.award-stat {{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}}
+
+/* ============================================================
+   SCHEDULE MATRIX STYLES
+   ============================================================ */
+
+.schedule-controls-card,
+.schedule-section-card {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--elevation-card);
+}}
+
+.schedule-controls-header,
+.schedule-section-header {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}}
+
+.schedule-title-wrap h3,
+.schedule-section-title span {{
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}}
+
+.schedule-subtitle {{
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}}
+
+.schedule-filters-grid {{
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}}
+
+.filter-label {{
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}}
+
+.segmented-control {{
+  display: inline-flex;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 3px;
+  gap: 2px;
+}}
+
+.segmented-btn {{
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}}
+
+.segmented-btn:hover {{
+  color: var(--text-main);
+}}
+
+.segmented-btn.active {{
+  background: var(--surface);
+  color: var(--text-main);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}}
+
+.today-roster-banner {{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--elevation-card);
+}}
+
+.today-roster-header {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}}
+
+.today-roster-title {{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}}
+
+.roster-groups-grid {{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}}
+
+.roster-group-card {{
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}}
+
+.roster-group-label {{
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}}
+
+.roster-pills-wrap {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}}
+
+.roster-pill {{
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-main);
+}}
+
+.matrix-scroll-container {{
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  max-height: 680px;
+  position: relative;
+}}
+
+.matrix-table {{
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}}
+
+.matrix-table th,
+.matrix-table td {{
+  padding: 7px 8px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  min-width: 48px;
+}}
+
+.matrix-table thead th {{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--table-header);
+}}
+
+.sticky-col-id {{
+  position: sticky;
+  left: 0;
+  z-index: 12;
+  background: var(--surface) !important;
+  min-width: 70px !important;
+  font-family: var(--mono-font);
+}}
+
+.sticky-col-name {{
+  position: sticky;
+  left: 70px;
+  z-index: 12;
+  background: var(--surface) !important;
+  min-width: 175px !important;
+  text-align: left !important;
+  font-weight: 600;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}}
+
+.matrix-table thead .sticky-col-id,
+.matrix-table thead .sticky-col-name {{
+  z-index: 20;
+  background: var(--table-header) !important;
+}}
+
+.matrix-table tbody tr:hover td,
+.matrix-table tbody tr:hover .sticky-col-id,
+.matrix-table tbody tr:hover .sticky-col-name {{
+  background: var(--row-hover) !important;
+}}
+
+/* Shift Badges */
+.badge-shift {{
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1px 0;
+}}
+
+.badge-shift-s {{ background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }}
+.badge-shift-tr {{ background: rgba(217, 119, 6, 0.2); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.4); }}
+.badge-shift-t {{ background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }}
+.badge-shift-hc {{ background: rgba(5, 150, 105, 0.2); color: #34d399; border: 1px solid rgba(5, 150, 105, 0.4); }}
+.badge-shift-off {{ background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.4); }}
+.badge-shift-p {{ background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }}
+.badge-shift-other {{ background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }}
+
+/* Today Column Highlight */
+.col-today,
+.matrix-table .col-today {{
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-left: 2px solid #f59e0b !important;
+  border-right: 2px solid #f59e0b !important;
+}}
+
+.matrix-table thead th.col-today {{
+  background: #f59e0b !important;
+  color: #000000 !important;
+}}
+
+@keyframes pulseTodayCol {{
+  0% {{ box-shadow: inset 0 0 0px #f59e0b; }}
+  50% {{ box-shadow: inset 0 0 14px #f59e0b; }}
+  100% {{ box-shadow: inset 0 0 0px #f59e0b; }}
+}}
+
+.col-weekend,
+.matrix-table .col-weekend {{
+  background: rgba(255, 255, 255, 0.02);
+}}
+
+.matrix-nav-buttons {{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}}
+
+/* ============================================================
+   TV KIOSK MODE & TOAST
+   ============================================================ */
+
+body.tv-kiosk-mode {{
+  padding: 10px 16px !important;
+  overflow-x: hidden;
+}}
+body.tv-kiosk-mode .header-actions,
+body.tv-kiosk-mode .controls-card,
+body.tv-kiosk-mode .pacing-bar {{
+  display: none !important;
+}}
+body.tv-kiosk-mode .container {{
+  max-width: 100% !important;
+}}
+body.tv-kiosk-mode .header {{
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+}}
+body.tv-kiosk-mode table {{
+  font-size: 13.5px !important;
+}}
+body.tv-kiosk-mode th, body.tv-kiosk-mode td {{
+  padding: 10px 8px !important;
+}}
+.tv-bar-wrap {{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(0,0,0,0.4);
+  z-index: 99999;
+}}
+.tv-progress {{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  transition: width 0.1s linear;
+}}
+body.tv-kiosk-mode .tv-bar-wrap {{
+  display: block;
+}}
+.tv-exit-pill {{
+  display: none;
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 100000;
+  background: rgba(15, 23, 42, 0.85);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}}
+body.tv-kiosk-mode .tv-exit-pill {{
+  display: block;
+}}
+
+.toast-msg {{
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface-overlay);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--elevation-modal);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 0.25s ease;
+}}
+
+/* Hidden Zalo Capture Card */
+#zalo-snapshot-card {{
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 950px;
+  background: #090a13;
+  color: #f8fafc;
+  padding: 24px;
+  border-radius: 16px;
+  font-family: var(--app-font);
+}}
+
+@keyframes fadeIn {{
+  from {{ opacity: 0; transform: scale(0.98); }}
+  to {{ opacity: 1; transform: scale(1); }}
+}}
+
+@media print {{
+  body {{ background-color: #ffffff; color: #000000; padding: 0; }}
+  .header-actions, .controls-card, .tabs-nav, .pacing-bar {{ display: none !important; }}
+  .table-card {{ border: none; box-shadow: none; }}
+  thead th {{ background-color: #f1f5f9 !important; color: #000 !important; }}
+}}
+
+@media (max-width: 768px) {{
+  body {{
+    padding: 12px;
+  }}
+  .header {{
+    flex-direction: column;
+    align-items: flex-start;
+  }}
+  .header-actions {{
+    width: 100%;
+    justify-content: flex-start;
+  }}
+  .charts-grid {{
+    grid-template-columns: 1fr;
+  }}
+  .podium-grid {{
+    grid-template-columns: 1fr;
+  }}
+}}
+
   </style>
 </head>
 <body>
