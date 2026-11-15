@@ -133,6 +133,7 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực - Team CTO 1</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {{
       --bg: #0f172a;
@@ -790,6 +791,421 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       .table-card {{ border: none; box-shadow: none; }}
       thead th {{ background-color: #f1f5f9 !important; color: #000 !important; }}
     }}
+
+    /* Highlight "Tôi là ai" row */
+    tr.my-row-highlight td {{
+      background: rgba(99, 102, 241, 0.22) !important;
+      border-top: 2px solid #818cf8 !important;
+      border-bottom: 2px solid #818cf8 !important;
+      font-weight: 600;
+    }}
+    tr.my-row-highlight td:first-child {{
+      border-left: 3px solid #818cf8 !important;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }}
+    tr.my-row-highlight td:last-child {{
+      border-right: 3px solid #818cf8 !important;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }}
+    .find-me-box {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .select-my-name {{
+      border-color: #818cf8 !important;
+      font-weight: 700 !important;
+      color: var(--primary) !important;
+      background: var(--card-bg) !important;
+      cursor: pointer;
+    }}
+
+    /* Personal Card Modal Styles */
+    .card-profile-header {{
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }}
+    .profile-avatar {{
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+      flex-shrink: 0;
+    }}
+    .profile-meta {{
+      flex: 1;
+    }}
+    .profile-name {{
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }}
+    .profile-badges {{
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }}
+    .badge-rank {{
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+    }}
+    .badge-level-tag {{
+      background: var(--card-border);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+    }}
+
+    /* Forecast Box */
+    .forecast-box {{
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(236, 72, 153, 0.08));
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }}
+    .forecast-title {{
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }}
+    .forecast-value {{
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }}
+    .forecast-plan {{
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }}
+    .light-theme .forecast-plan {{
+      background: rgba(255, 255, 255, 0.85);
+    }}
+
+    /* Strengths Comparison */
+    .strengths-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }}
+    .strength-card {{
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+    }}
+    .strength-label {{
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }}
+    .strength-val {{
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }}
+    .strength-badge {{
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }}
+
+    /* Shift Stacked Bar */
+    .shift-stacked-bar {{
+      height: 14px;
+      border-radius: 7px;
+      overflow: hidden;
+      display: flex;
+      background: var(--card-border);
+      margin-bottom: 8px;
+    }}
+    .shift-seg {{
+      height: 100%;
+      transition: width 0.3s;
+    }}
+    .shift-legend {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }}
+    .shift-legend-item {{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }}
+    .shift-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }}
+
+    /* Podium & Hall of Fame */
+    .podium-container {{
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 24px 10px 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }}
+    .podium-step {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 200px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }}
+    .podium-step:hover {{
+      transform: translateY(-4px);
+    }}
+    .podium-avatar {{
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }}
+    .podium-crown {{
+      position: absolute;
+      top: -18px;
+      font-size: 22px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }}
+    .podium-name {{
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }}
+    .podium-pct {{
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }}
+    .podium-block {{
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.92);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.2);
+    }}
+    .podium-1 {{ order: 2; }}
+    .podium-1 .podium-block {{ height: 160px; background: linear-gradient(180deg, #f59e0b, #b45309); }}
+    .podium-1 .podium-avatar {{ background: linear-gradient(135deg, #f59e0b, #fbbf24); border: 3px solid #fef08a; }}
+    .podium-1 .podium-pct {{ color: #f59e0b; }}
+
+    .podium-2 {{ order: 1; }}
+    .podium-2 .podium-block {{ height: 120px; background: linear-gradient(180deg, #94a3b8, #64748b); }}
+    .podium-2 .podium-avatar {{ background: linear-gradient(135deg, #94a3b8, #cbd5e1); border: 3px solid #f1f5f9; }}
+    .podium-2 .podium-pct {{ color: #94a3b8; }}
+
+    .podium-3 {{ order: 3; }}
+    .podium-3 .podium-block {{ height: 90px; background: linear-gradient(180deg, #d97706, #78350f); }}
+    .podium-3 .podium-avatar {{ background: linear-gradient(135deg, #d97706, #f97316); border: 3px solid #ffedd5; }}
+    .podium-3 .podium-pct {{ color: #f97316; }}
+
+    .awards-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }}
+    .award-card {{
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }}
+    .award-card:hover {{
+      transform: translateY(-2px);
+    }}
+    .award-icon {{
+      font-size: 30px;
+      flex-shrink: 0;
+    }}
+    .award-title {{
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }}
+    .award-name {{
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 2px 0;
+    }}
+    .award-stat {{
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }}
+
+    /* TV Kiosk Mode */
+    body.tv-kiosk-mode {{
+      padding: 10px 16px !important;
+      overflow-x: hidden;
+    }}
+    body.tv-kiosk-mode .header-actions,
+    body.tv-kiosk-mode .controls-card,
+    body.tv-kiosk-mode .pacing-bar {{
+      display: none !important;
+    }}
+    body.tv-kiosk-mode .container {{
+      max-width: 100% !important;
+    }}
+    body.tv-kiosk-mode .header {{
+      margin-bottom: 12px !important;
+      padding-bottom: 10px !important;
+    }}
+    body.tv-kiosk-mode table {{
+      font-size: 13.5px !important;
+    }}
+    body.tv-kiosk-mode th, body.tv-kiosk-mode td {{
+      padding: 10px 8px !important;
+    }}
+    .tv-bar-wrap {{
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(0,0,0,0.4);
+      z-index: 99999;
+    }}
+    .tv-progress {{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #6366f1, #ec4899);
+      transition: width 0.1s linear;
+    }}
+    body.tv-kiosk-mode .tv-bar-wrap {{
+      display: block;
+    }}
+    .tv-exit-pill {{
+      display: none;
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      z-index: 100000;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }}
+    body.tv-kiosk-mode .tv-exit-pill {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    /* Toast Notification */
+    .toast-msg {{
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      animation: slideUpToast 0.3s ease;
+    }}
+    @keyframes slideUpToast {{
+      from {{ transform: translateY(30px); opacity: 0; }}
+      to {{ transform: translateY(0); opacity: 1; }}
+    }}
+
+    /* Hidden Zalo Capture Card */
+    #zalo-snapshot-card {{
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      width: 950px;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 24px;
+      border-radius: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }}
   </style>
 </head>
 <body>
@@ -810,6 +1226,12 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         </div>
         <button class="btn btn-refresh" onclick="reloadLatestData()" title="Tải lại số liệu mới nhất">
           🔄 Tải lại số liệu mới nhất
+        </button>
+        <button class="btn" id="btn-snap-zalo" onclick="captureReportImage()" title="Xuất ảnh báo cáo gửi Zalo / Telegram">
+          📸 Xuất ảnh Zalo
+        </button>
+        <button class="btn" onclick="toggleTvMode()" title="Bật chế độ TV trình chiếu văn phòng">
+          📺 Chế độ TV
         </button>
         <button class="btn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">
           <span id="theme-icon">🌙</span> Sáng/Tối
@@ -907,6 +1329,14 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           <option value="T">Ca T (Tối)</option>
           <option value="TOTAL_ONLY">Chỉ xem Tổng cộng</option>
         </select>
+        <div class="find-me-box">
+          <select class="select-filter select-my-name" id="select-my-name" onchange="onSelectMyName(this.value)" title="Chọn tên bạn để zoom và làm nổi bật số liệu">
+            <option value="">👤 Tôi là ai? (Chọn tên bạn...)</option>
+          </select>
+          <button class="btn btn-outline" id="btn-open-my-card" style="display:none;background:var(--card-bg);border:1px solid #818cf8;color:#818cf8;font-weight:700;" onclick="openMySelectedCard()">
+            ✨ Thẻ Của Tôi
+          </button>
+        </div>
       </div>
       <div>
         <button class="btn" onclick="resetFilters()">🔄 Đặt lại bộ lọc</button>
@@ -925,6 +1355,9 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       </button>
       <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts')">
         📈 Biểu Đồ & Thống Kê
+      </button>
+      <button class="tab-btn" id="tab-btn-podium" onclick="switchTab('podium')">
+        🏆 Vinh Danh & Danh Hiệu
       </button>
     </div>
 
@@ -1011,53 +1444,93 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       </div>
     </div>
 
+    <!-- TAB 4: PODIUM & DANH HIỆU -->
+    <div id="tab-pane-podium" class="table-card" style="display:none;padding:24px;">
+      <h2 style="font-size:18px;font-weight:800;margin-bottom:6px;text-align:center;">🏆 BẢNG VINH DANH TOP 3 XUẤT SẮC THÁNG</h2>
+      <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:18px;">Dẫn đầu về % KPI Tổng Hợp của Team CTO 1</p>
+      
+      <div class="podium-container" id="podium-content">
+        <!-- Rendered by JS -->
+      </div>
+
+      <h3 style="font-size:15px;font-weight:800;margin-top:20px;margin-bottom:12px;">🎖️ BẢNG DANH HIỆU THI ĐUA ĐẶC BIỆT</h3>
+      <div class="awards-grid" id="awards-content">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
   </div>
 
-  <!-- Employee Detail Modal -->
+  <!-- Employee Detail Modal (Personal Card) -->
   <div class="modal-backdrop" id="emp-modal" onclick="closeModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <div>
-          <h2 id="modal-name" style="font-size:18px;font-weight:700;">Chi tiết nhân sự</h2>
-          <p id="modal-sub" style="font-size:12px;color:var(--text-muted);">Team CTO 1</p>
+      <!-- Card Header -->
+      <div class="card-profile-header">
+        <div class="profile-avatar" id="modal-avatar">TL</div>
+        <div class="profile-meta">
+          <div class="profile-name" id="modal-name">8131 - Lê Thị Trúc Linh</div>
+          <div class="profile-badges">
+            <span class="badge-rank" id="modal-rank">🏆 Hạng #1 / 12</span>
+            <span class="badge-level-tag" id="modal-level">Level 3</span>
+            <span id="modal-pacing-status">--</span>
+          </div>
         </div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="closeModal()" title="Đóng">✕</button>
       </div>
-      <div class="detail-grid">
-        <div class="detail-item">
-          <div class="detail-title">Mã Nhân Viên</div>
-          <div class="detail-val" id="modal-ma">--</div>
+
+      <!-- Khối 1: Máy tính dự báo mục tiêu tháng (Forecast Target) -->
+      <div class="forecast-box">
+        <div class="forecast-title">
+          <span>🔮 DỰ BÁO KẾT THÚC THÁNG</span>
+          <span style="font-size:11px;font-weight:600;opacity:0.85;" id="modal-pacing-tag">(Tốc độ ngày 14/30)</span>
         </div>
-        <div class="detail-item">
-          <div class="detail-title">Cấp Bậc (Level)</div>
-          <div class="detail-val" id="modal-level">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">Đánh Giá Tiến Độ</div>
-          <div class="detail-val" id="modal-pacing-status">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">% KPI Tổng Hợp</div>
-          <div class="detail-val" id="modal-kpi-tong" style="color:var(--primary);">--%</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">Tiến Độ Ticket</div>
-          <div class="detail-val" id="modal-ticket">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">Tiến Độ Công Việc (CV)</div>
-          <div class="detail-val" id="modal-cv">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">SL Ticket Có 2 CV Hỗ Trợ</div>
-          <div class="detail-val" id="modal-ticket-2ht">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-title">Mục Tiêu Tiến Độ Hôm Nay</div>
-          <div class="detail-val" id="modal-target-val">--%</div>
+        <div class="forecast-value" id="modal-forecast-val">149.9% KPI</div>
+        <div class="forecast-plan" id="modal-forecast-plan">
+          <!-- Text kế hoạch hành động -->
         </div>
       </div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:10px;">Chi Tiết Các Ca Trực Của Nhân Sự</h3>
+
+      <!-- Khối 2: Tỷ trọng Đóng góp & Điểm mạnh (Ticket vs CV) -->
+      <h3 style="font-size:12.5px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.5px;">
+        ⚖️ Năng Lực & Tỷ Trọng Đóng Góp
+      </h3>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <div class="strength-label">Ticket Khách Hàng</div>
+          <div class="strength-val" id="modal-ticket-val">995.2 / 1.200</div>
+          <div class="strength-badge" id="modal-ticket-badge" style="background:var(--primary-light);color:var(--primary);">82.9% KPI</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-label">Công Việc (CV)</div>
+          <div class="strength-val" id="modal-cv-val">712.2 / 1.250</div>
+          <div class="strength-badge" id="modal-cv-badge" style="background:rgba(236,72,153,0.15);color:#ec4899;">57.0% KPI</div>
+        </div>
+      </div>
+      
+      <div style="background:var(--bg);border:1px solid var(--card-border);border-radius:10px;padding:12px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-size:12px;font-weight:700;" id="modal-strength-assessment">⚡ Điểm mạnh: Gánh Ticket vượt trội</span>
+          <span id="modal-debt-badge" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;">🛡️ 0 Ticket nợ</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);" id="modal-strength-desc">
+          Tỷ lệ hoàn thành Ticket cao hơn CV. Tốc độ giải quyết khách hàng rất tốt.
+        </div>
+      </div>
+
+      <!-- Khối 3: Thống kê & Phân bổ Ca trực (Shift Breakdown) -->
+      <h3 style="font-size:12.5px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;letter-spacing:0.5px;">
+        ⏱️ Phân Bổ Thời Gian & Ca Trực
+      </h3>
+      <div class="shift-stacked-bar" id="modal-shift-stacked">
+        <!-- Colored segments -->
+      </div>
+      <div class="shift-legend" id="modal-shift-legend">
+        <!-- Legend items -->
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;" id="modal-shift-highlight">
+        ⏰ Trực nhiều nhất ở Ca TR (47.5h - chiếm 42.2% thời gian)
+      </p>
+
       <div class="table-responsive">
         <table style="font-size:12px;">
           <thead>
@@ -1070,9 +1543,82 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
             </tr>
           </thead>
           <tbody id="modal-shifts-body">
+            <!-- Rendered by JS -->
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- TV Mode Progress Bar and Exit Button -->
+  <div class="tv-bar-wrap">
+    <div class="tv-progress" id="tv-progress-bar"></div>
+  </div>
+  <button class="tv-exit-pill" onclick="toggleTvMode()">
+    <span>✕ Thoát TV</span>
+    <span style="font-size:10px;opacity:0.7;">(Phím ESC)</span>
+  </button>
+
+  <!-- Hidden Container specifically prepared for high-res Zalo Report Snapshot -->
+  <div id="zalo-snapshot-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #334155;padding-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg, #6366f1, #ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;">CTO</div>
+        <div>
+          <h2 style="font-size:18px;font-weight:800;color:#fff;margin:0;">BÁO CÁO TIẾN ĐỘ & KPI TEAM CTO 1</h2>
+          <p style="font-size:12px;color:#94a3b8;margin:2px 0 0 0;">Customer Service • KiotViet</p>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;font-weight:700;color:#38bdf8;" id="zalo-snap-time">Cập nhật: --</div>
+        <div style="font-size:11px;color:#94a3b8;" id="zalo-snap-pacing">Tiến độ: Ngày 14/30 (Chuẩn: 46.67%)</div>
+      </div>
+    </div>
+
+    <!-- 4 Stats Cards -->
+    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;margin-bottom:16px;">
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Tổng Quân Số</div>
+        <div style="font-size:20px;font-weight:800;color:#f8fafc;" id="zalo-snap-staff">--</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">% KPI Trung Bình</div>
+        <div style="font-size:20px;font-weight:800;color:#38bdf8;" id="zalo-snap-avg">--%</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Đạt / Vượt Tiến Độ</div>
+        <div style="font-size:20px;font-weight:800;color:#10b981;" id="zalo-snap-ahead">--</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Top 1 Xuất Sắc</div>
+        <div style="font-size:15px;font-weight:800;color:#f59e0b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="zalo-snap-top">--</div>
+      </div>
+    </div>
+
+    <!-- Compact Table -->
+    <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;overflow:hidden;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;color:#f8fafc;">
+        <thead>
+          <tr style="background:#0f172a;border-bottom:1px solid #334155;color:#94a3b8;text-align:left;">
+            <th style="padding:8px 10px;">Hạng</th>
+            <th style="padding:8px 10px;">Mã NV</th>
+            <th style="padding:8px 10px;">Họ và Tên</th>
+            <th style="padding:8px 10px;text-align:right;">Thực Đạt KH</th>
+            <th style="padding:8px 10px;text-align:right;">Thực Đạt CV</th>
+            <th style="padding:8px 10px;text-align:center;">TK 2 CV Hỗ Trợ</th>
+            <th style="padding:8px 10px;text-align:right;">% KPI Tổng</th>
+            <th style="padding:8px 10px;text-align:center;">Đánh Giá</th>
+          </tr>
+        </thead>
+        <tbody id="zalo-snap-tbody">
+          <!-- Rows rendered by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#64748b;padding-top:4px;">
+      <span>💡 Được tạo tự động bởi Auto CRM PowerBI Tool • Team CTO 1</span>
+      <span>Website: nquoc.github.io/kpicto</span>
     </div>
   </div>
 
@@ -1137,6 +1683,8 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         document.getElementById('input-total-days').value = totalDays;
       }}
       updatePacingDisplay();
+      buildMyNameOptions();
+      renderPodiumAndAwards();
       applyFilters();
 
       // Kích hoạt đọc trực tiếp Realtime từ Google Sheets
@@ -1209,16 +1757,26 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       document.getElementById('card-count-behind').innerText = `${{behindCount}} / ${{DATA.summary.total_staff}}`;
       const card2Ht = document.getElementById('card-total-ticket-2ht') || document.getElementById('card-total-debt');
       if (card2Ht) card2Ht.innerText = DATA.summary.total_ticket_2ht ?? DATA.summary.total_debt ?? 0;
+
+      if (typeof renderPodiumAndAwards === 'function') {{
+        renderPodiumAndAwards();
+      }}
+      if (typeof buildMyNameOptions === 'function') {{
+        buildMyNameOptions();
+      }}
     }}
 
     function switchTab(tab) {{
       currentTab = tab;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-btn-' + tab).classList.add('active');
+      const activeBtn = document.getElementById('tab-btn-' + tab);
+      if (activeBtn) activeBtn.classList.add('active');
 
       document.getElementById('tab-pane-kpi').style.display = tab === 'kpi' ? 'block' : 'none';
       document.getElementById('tab-pane-hs').style.display = tab === 'hs' ? 'block' : 'none';
       document.getElementById('tab-pane-charts').style.display = tab === 'charts' ? 'block' : 'none';
+      const podiumPane = document.getElementById('tab-pane-podium');
+      if (podiumPane) podiumPane.style.display = tab === 'podium' ? 'block' : 'none';
 
       document.getElementById('filter-shift-toggle').style.display = tab === 'hs' ? 'block' : 'none';
     }}
@@ -1231,6 +1789,11 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       filteredKpi.forEach((item, idx) => {{
         const tr = document.createElement('tr');
         tr.onclick = () => openModal(item);
+
+        const myName = localStorage.getItem('kpicto_my_name') || '';
+        if (myName && (item.name.toLowerCase().includes(myName.toLowerCase()) || myName.toLowerCase().includes(item.name.toLowerCase()))) {{
+          tr.classList.add('my-row-highlight');
+        }}
 
         const pctTicket = item.pct_kpi_ticket;
         const pctCv = item.pct_kpi_cv;
@@ -1295,6 +1858,17 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
 
       filteredHs.forEach((item, idx) => {{
         const tr = document.createElement('tr');
+        tr.style.cursor = 'pointer';
+        tr.onclick = () => {{
+          const kMatch = DATA.kpi_tong.find(k => k.name.toLowerCase().includes(item.user_name.toLowerCase()) || item.user_name.toLowerCase().includes(k.name.toLowerCase()));
+          if (kMatch) openModal(kMatch);
+        }};
+
+        const myName = localStorage.getItem('kpicto_my_name') || '';
+        if (myName && (item.user_name.toLowerCase().includes(myName.toLowerCase()) || myName.toLowerCase().includes(item.user_name.toLowerCase()))) {{
+          tr.classList.add('my-row-highlight');
+        }}
+
         const s = item.shifts;
 
         tr.innerHTML = `
@@ -1448,25 +2022,225 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       renderKpiTable();
     }}
 
+    function buildMyNameOptions() {{
+      const select = document.getElementById('select-my-name');
+      if (!select) return;
+      
+      const currentVal = select.value;
+      select.innerHTML = '<option value="">👤 Tôi là ai? (Chọn tên bạn...)</option>';
+      
+      const names = [...DATA.kpi_tong].map(x => x.name).sort((a,b) => a.localeCompare(b, 'vi'));
+      names.forEach(name => {{
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        select.appendChild(opt);
+      }});
+
+      const savedName = localStorage.getItem('kpicto_my_name') || '';
+      if (savedName && names.includes(savedName)) {{
+        select.value = savedName;
+        onSelectMyName(savedName, false);
+      }} else if (currentVal && names.includes(currentVal)) {{
+        select.value = currentVal;
+      }}
+    }}
+
+    function onSelectMyName(name, shouldScroll = true) {{
+      if (name) {{
+        localStorage.setItem('kpicto_my_name', name);
+        const btnCard = document.getElementById('btn-open-my-card');
+        if (btnCard) btnCard.style.display = 'inline-flex';
+      }} else {{
+        localStorage.removeItem('kpicto_my_name');
+        const btnCard = document.getElementById('btn-open-my-card');
+        if (btnCard) btnCard.style.display = 'none';
+      }}
+
+      // Re-apply highlight to tables
+      document.querySelectorAll('tr.my-row-highlight').forEach(tr => tr.classList.remove('my-row-highlight'));
+
+      if (name) {{
+        const nameLower = name.toLowerCase();
+        let targetRow = null;
+        
+        document.querySelectorAll('#tbody-kpi tr').forEach(tr => {{
+          if (tr.innerText.toLowerCase().includes(nameLower)) {{
+            tr.classList.add('my-row-highlight');
+            if (!targetRow) targetRow = tr;
+          }}
+        }});
+
+        document.querySelectorAll('#tbody-hs tr').forEach(tr => {{
+          if (tr.innerText.toLowerCase().includes(nameLower)) {{
+            tr.classList.add('my-row-highlight');
+            if (!targetRow && currentTab === 'hs') targetRow = tr;
+          }}
+        }});
+
+        if (shouldScroll && targetRow) {{
+          targetRow.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        }}
+      }}
+    }}
+
+    function openMySelectedCard() {{
+      const myName = localStorage.getItem('kpicto_my_name');
+      if (!myName) return;
+      const item = DATA.kpi_tong.find(x => x.name.toLowerCase().includes(myName.toLowerCase()) || myName.toLowerCase().includes(x.name.toLowerCase()));
+      if (item) {{
+        openModal(item);
+      }} else {{
+        showToast('Chưa tìm thấy dữ liệu cá nhân cho: ' + myName);
+      }}
+    }}
+
     function openModal(item) {{
       const p = item.pacing_info || calculatePacingDetails(item);
-      document.getElementById('modal-name').innerText = item.full_name;
-      document.getElementById('modal-ma').innerText = item.ma;
-      document.getElementById('modal-level').innerText = 'Level ' + item.level;
-      document.getElementById('modal-pacing-status').innerHTML = `<span class="badge ${{p.badgeClass}}">${{p.text}}</span>`;
-      document.getElementById('modal-target-val').innerText = `${{(targetPacing * 100).toFixed(2)}}% (Ngày ${{currentDay}}/${{totalDays}})`;
-      document.getElementById('modal-ticket').innerText = `${{item.slg_kh.toLocaleString('vi-VN')}} / ${{item.kpi_ticket.toLocaleString('vi-VN')}} (${{(item.pct_kpi_ticket*100).toFixed(1)}}%)`;
-      document.getElementById('modal-cv').innerText = `${{item.slg_cv.toLocaleString('vi-VN')}} / ${{item.kpi_cv.toLocaleString('vi-VN')}} (${{(item.pct_kpi_cv*100).toFixed(1)}}%)`;
-      document.getElementById('modal-kpi-tong').innerText = `${{(item.pct_kpi_tong*100).toFixed(2)}}%`;
-      const m2ht = document.getElementById('modal-ticket-2ht') || document.getElementById('modal-debt');
-      if (m2ht) m2ht.innerText = item.no_ticket_2ht + ' tickets';
+      
+      // Initials for avatar
+      const nameParts = item.name.trim().split(' ');
+      const initials = nameParts.length >= 2 
+        ? (nameParts[nameParts.length - 2][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+        : item.name.substring(0, 2).toUpperCase();
+      
+      const avatarEl = document.getElementById('modal-avatar');
+      if (avatarEl) avatarEl.innerText = initials;
 
-      // Find shift details
+      // Rank in team
+      const sortedByKpi = [...DATA.kpi_tong].sort((a,b) => b.pct_kpi_tong - a.pct_kpi_tong);
+      const rankIdx = sortedByKpi.findIndex(x => x.ma === item.ma);
+      const rank = rankIdx >= 0 ? rankIdx + 1 : 1;
+      const rankEl = document.getElementById('modal-rank');
+      if (rankEl) {{
+        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏆';
+        rankEl.innerText = `${{medal}} Hạng #${{rank}} / ${{DATA.kpi_tong.length}}`;
+      }}
+
+      document.getElementById('modal-name').innerText = `${{item.ma}} - ${{item.name}}`;
+      const lvlEl = document.getElementById('modal-level');
+      if (lvlEl) lvlEl.innerText = 'Level ' + item.level;
+
+      document.getElementById('modal-pacing-status').innerHTML = `<span class="badge ${{p.badgeClass}}">${{p.text}}</span>`;
+
+      // Khối 1: Forecast Target Calculator
+      const currentPct = item.pct_kpi_tong;
+      const forecastPct = targetPacing > 0 ? ((currentPct / targetPacing) * 100).toFixed(1) : (currentPct * 100).toFixed(1);
+      const remainingDays = Math.max(1, totalDays - currentDay);
+      const remTicket = Math.max(0, item.kpi_ticket - item.slg_kh);
+      const dailyTicket = (remTicket / remainingDays).toFixed(1);
+      const remCv = Math.max(0, item.kpi_cv - item.slg_cv);
+      const dailyCv = (remCv / remainingDays).toFixed(1);
+
+      const fValEl = document.getElementById('modal-forecast-val');
+      if (fValEl) {{
+        const isAhead = parseFloat(forecastPct) >= 100;
+        fValEl.innerText = `${{forecastPct}}% KPI`;
+        fValEl.style.color = isAhead ? 'var(--success)' : (parseFloat(forecastPct) >= 85 ? 'var(--warning)' : 'var(--danger)');
+      }}
+
+      const pTagEl = document.getElementById('modal-pacing-tag');
+      if (pTagEl) pTagEl.innerText = `(Tốc độ ngày ${{currentDay}}/${{totalDays}} • Chuẩn: ${{(targetPacing*100).toFixed(1)}}%)`;
+
+      const planEl = document.getElementById('modal-forecast-plan');
+      if (planEl) {{
+        if (currentPct >= 1.0) {{
+          planEl.innerHTML = `🎉 <strong>Chúc mừng xuất sắc!</strong> Bạn đã hoàn thành vượt mốc 100% KPI tháng sớm! Hãy giữ vững phong độ đỉnh cao này nhé.`;
+        }} else {{
+          planEl.innerHTML = `🎯 <strong>Kế hoạch cán đích 100% KPI</strong> trong <strong>${{remainingDays}} ngày còn lại</strong>:<br>` +
+            `• <strong>Ticket KH:</strong> Còn thiếu <strong>${{remTicket.toLocaleString('vi-VN')}}</strong> KH (trung bình cần <strong>+${{dailyTicket}} KH/ngày</strong>).<br>` +
+            `• <strong>Công việc (CV):</strong> Còn thiếu <strong>${{remCv.toLocaleString('vi-VN')}}</strong> CV (trung bình cần <strong>+${{dailyCv}} CV/ngày</strong>).`;
+        }}
+      }}
+
+      // Khối 2: Strengths & Balance
+      const tValEl = document.getElementById('modal-ticket-val');
+      if (tValEl) tValEl.innerText = `${{item.slg_kh.toLocaleString('vi-VN')}} / ${{item.kpi_ticket.toLocaleString('vi-VN')}}`;
+      const tBadgeEl = document.getElementById('modal-ticket-badge');
+      if (tBadgeEl) tBadgeEl.innerText = `${{(item.pct_kpi_ticket*100).toFixed(1)}}% KPI`;
+
+      const cvValEl = document.getElementById('modal-cv-val');
+      if (cvValEl) cvValEl.innerText = `${{item.slg_cv.toLocaleString('vi-VN')}} / ${{item.kpi_cv.toLocaleString('vi-VN')}}`;
+      const cvBadgeEl = document.getElementById('modal-cv-badge');
+      if (cvBadgeEl) cvBadgeEl.innerText = `${{(item.pct_kpi_cv*100).toFixed(1)}}% KPI`;
+
+      const diffTicketCv = (item.pct_kpi_ticket - item.pct_kpi_cv) * 100;
+      const strAssessEl = document.getElementById('modal-strength-assessment');
+      const strDescEl = document.getElementById('modal-strength-desc');
+      if (strAssessEl && strDescEl) {{
+        if (diffTicketCv >= 5) {{
+          strAssessEl.innerText = `⚡ Điểm mạnh: Gánh Ticket vượt trội`;
+          strDescEl.innerText = `Tỷ lệ hoàn thành Ticket (${{(item.pct_kpi_ticket*100).toFixed(1)}}%) cao hơn CV ${{diffTicketCv.toFixed(1)}}%. Tốc độ hỗ trợ khách hàng rất nhanh nhạy.`;
+        }} else if (diffTicketCv <= -5) {{
+          strAssessEl.innerText = `🛠️ Điểm mạnh: Đẩy mạnh Công việc hỗ trợ`;
+          strDescEl.innerText = `Tỷ lệ hoàn thành CV (${{(item.pct_kpi_cv*100).toFixed(1)}}%) cao hơn Ticket ${{Math.abs(diffTicketCv).toFixed(1)}}%. Đóng góp tích cực vào các công việc kỹ thuật chuyên sâu.`;
+        }} else {{
+          strAssessEl.innerText = `⚖️ Phong độ: Toàn diện & Cân bằng`;
+          strDescEl.innerText = `Tỷ lệ Ticket và CV phân bổ đồng đều (${{(item.pct_kpi_ticket*100).toFixed(1)}}% vs ${{(item.pct_kpi_cv*100).toFixed(1)}}%), hỗ trợ toàn diện các mặt công việc.`;
+        }}
+      }}
+
+      const debtBadge = document.getElementById('modal-debt-badge');
+      if (debtBadge) {{
+        if (item.no_ticket_2ht === 0) {{
+          debtBadge.innerText = '🛡️ 0 Ticket nợ';
+          debtBadge.style.background = 'var(--success-light)';
+          debtBadge.style.color = 'var(--success)';
+        }} else {{
+          debtBadge.innerText = `⚠️ Nợ ${{item.no_ticket_2ht}} ticket`;
+          debtBadge.style.background = 'var(--danger-light)';
+          debtBadge.style.color = 'var(--danger)';
+        }}
+      }}
+
+      // Khối 3: Shift Breakdown
       const hsMatch = DATA.hs_ca_truc.find(x => x.user_name.toLowerCase().includes(item.name.toLowerCase()) || item.full_name.toLowerCase().includes(x.user_name.toLowerCase()));
       const sBody = document.getElementById('modal-shifts-body');
       sBody.innerHTML = '';
+
+      const stackedBarEl = document.getElementById('modal-shift-stacked');
+      const legendEl = document.getElementById('modal-shift-legend');
+      const highlightEl = document.getElementById('modal-shift-highlight');
+
       if (hsMatch) {{
+        const shiftColors = {{
+          'S': '#38bdf8',
+          'HCS': '#34d399',
+          'TR': '#f59e0b',
+          'HCC': '#a78bfa',
+          'T': '#f472b6',
+          'Khác': '#94a3b8'
+        }};
+
+        let totalH = hsMatch.shifts.Total ? hsMatch.shifts.Total.hours : 0;
+        if (!totalH || totalH <= 0) {{
+          totalH = Object.entries(hsMatch.shifts).reduce((acc, [k,v]) => k !== 'Total' ? acc + (v.hours || 0) : acc, 0);
+        }}
+
+        let maxShiftKey = 'S';
+        let maxShiftH = 0;
+        let stackedHtml = '';
+        let legendHtml = '';
+
         for (const [sKey, sVal] of Object.entries(hsMatch.shifts)) {{
+          if (sKey === 'Total') continue;
+          const h = sVal.hours || 0;
+          if (h > maxShiftH) {{
+            maxShiftH = h;
+            maxShiftKey = sKey;
+          }}
+          const pct = totalH > 0 ? (h / totalH) * 100 : 0;
+          const col = shiftColors[sKey] || '#6366f1';
+          if (pct > 0) {{
+            stackedHtml += `<div class="shift-seg" style="width:${{pct.toFixed(1)}}%;background:${{col}};" title="Ca ${{sKey}}: ${{h}}h (${{pct.toFixed(1)}}%)"></div>`;
+          }}
+          legendHtml += `
+            <div class="shift-legend-item">
+              <span class="shift-dot" style="background:${{col}};"></span>
+              <span>Ca ${{sKey}}: <strong>${{h}}h</strong></span>
+            </div>
+          `;
+
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td><strong>Ca ${{sKey}}</strong></td>
@@ -1477,8 +2251,19 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           `;
           sBody.appendChild(tr);
         }}
+
+        if (stackedBarEl) stackedBarEl.innerHTML = stackedHtml || '<div class="shift-seg" style="width:100%;background:var(--card-border);"></div>';
+        if (legendEl) legendEl.innerHTML = legendHtml;
+
+        const maxPct = totalH > 0 ? ((maxShiftH / totalH) * 100).toFixed(1) : 0;
+        if (highlightEl) {{
+          highlightEl.innerHTML = `⏰ Trực nhiều nhất ở <strong>Ca ${{maxShiftKey}}</strong> (<strong>${{maxShiftH}}h</strong> • chiếm <strong>${{maxPct}}%</strong> tổng thời gian).`;
+        }}
       }} else {{
         sBody.innerHTML = '<tr><td colspan="5" class="text-center">Chưa có dữ liệu ca trực</td></tr>';
+        if (stackedBarEl) stackedBarEl.innerHTML = '';
+        if (legendEl) legendEl.innerHTML = '';
+        if (highlightEl) highlightEl.innerText = 'Chưa có thông tin phân bổ ca trực.';
       }}
 
       document.getElementById('emp-modal').style.display = 'flex';
@@ -1487,6 +2272,295 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     function closeModal() {{
       document.getElementById('emp-modal').style.display = 'none';
     }}
+
+    function renderPodiumAndAwards() {{
+      const podiumEl = document.getElementById('podium-content');
+      const awardsEl = document.getElementById('awards-content');
+      if (!podiumEl || !awardsEl || !DATA.kpi_tong.length) return;
+
+      const sortedByKpi = [...DATA.kpi_tong].sort((a,b) => b.pct_kpi_tong - a.pct_kpi_tong);
+      const top1 = sortedByKpi[0] || null;
+      const top2 = sortedByKpi[1] || null;
+      const top3 = sortedByKpi[2] || null;
+
+      const getInitials = (name) => {{
+        const parts = name.trim().split(' ');
+        return parts.length >= 2 ? (parts[parts.length - 2][0] + parts[parts.length - 1][0]).toUpperCase() : name.substring(0, 2).toUpperCase();
+      }};
+
+      let podiumHtml = '';
+
+      if (top2) {{
+        podiumHtml += `
+          <div class="podium-step podium-2" onclick="openModalByName('${{top2.name}}')">
+            <div class="podium-avatar">${{getInitials(top2.name)}}</div>
+            <div class="podium-name" title="${{top2.name}}">${{top2.name}}</div>
+            <div class="podium-pct">${{(top2.pct_kpi_tong * 100).toFixed(1)}}%</div>
+            <div class="podium-block">2 🥈</div>
+          </div>
+        `;
+      }}
+
+      if (top1) {{
+        podiumHtml += `
+          <div class="podium-step podium-1" onclick="openModalByName('${{top1.name}}')">
+            <div class="podium-avatar">
+              <span class="podium-crown">👑</span>
+              ${{getInitials(top1.name)}}
+            </div>
+            <div class="podium-name" title="${{top1.name}}">${{top1.name}}</div>
+            <div class="podium-pct">${{(top1.pct_kpi_tong * 100).toFixed(1)}}%</div>
+            <div class="podium-block">1 🥇</div>
+          </div>
+        `;
+      }}
+
+      if (top3) {{
+        podiumHtml += `
+          <div class="podium-step podium-3" onclick="openModalByName('${{top3.name}}')">
+            <div class="podium-avatar">${{getInitials(top3.name)}}</div>
+            <div class="podium-name" title="${{top3.name}}">${{top3.name}}</div>
+            <div class="podium-pct">${{(top3.pct_kpi_tong * 100).toFixed(1)}}%</div>
+            <div class="podium-block">3 🥉</div>
+          </div>
+        `;
+      }}
+
+      podiumEl.innerHTML = podiumHtml;
+
+      // Special Awards
+      const sortedHours = [...DATA.hs_ca_truc].sort((a,b) => (b.shifts.Total.hours || 0) - (a.shifts.Total.hours || 0));
+      const heroHours = sortedHours[0];
+
+      const sortedTicket = [...DATA.kpi_tong].sort((a,b) => b.slg_kh - a.slg_kh);
+      const heroTicket = sortedTicket[0];
+
+      const sortedCv = [...DATA.kpi_tong].sort((a,b) => b.slg_cv - a.slg_cv);
+      const heroCv = sortedCv[0];
+
+      const zeroDebtCount = DATA.kpi_tong.filter(x => x.no_ticket_2ht === 0).length;
+
+      awardsEl.innerHTML = `
+        <div class="award-card" onclick="openModalByName('${{heroHours ? heroHours.user_name : ''}}')">
+          <div class="award-icon">⚡</div>
+          <div>
+            <div class="award-title">Chiến Thần Cày Cuốc</div>
+            <div class="award-name">${{heroHours ? heroHours.user_name : '--'}}</div>
+            <div class="award-stat">${{heroHours ? heroHours.shifts.Total.hours + ' giờ trực ca' : '--'}}</div>
+          </div>
+        </div>
+
+        <div class="award-card" onclick="openModalByName('${{heroTicket ? heroTicket.name : ''}}')">
+          <div class="award-icon">🎯</div>
+          <div>
+            <div class="award-title">Vua Xử Lý Ticket</div>
+            <div class="award-name">${{heroTicket ? heroTicket.name : '--'}}</div>
+            <div class="award-stat">${{heroTicket ? heroTicket.slg_kh.toLocaleString('vi-VN') + ' KH quy đổi' : '--'}}</div>
+          </div>
+        </div>
+
+        <div class="award-card" onclick="openModalByName('${{heroCv ? heroCv.name : ''}}')">
+          <div class="award-icon">🛠️</div>
+          <div>
+            <div class="award-title">Bàn Tay Vàng CV</div>
+            <div class="award-name">${{heroCv ? heroCv.name : '--'}}</div>
+            <div class="award-stat">${{heroCv ? heroCv.slg_cv.toLocaleString('vi-VN') + ' CV quy đổi' : '--'}}</div>
+          </div>
+        </div>
+
+        <div class="award-card" onclick="switchTab('kpi')">
+          <div class="award-icon">🛡️</div>
+          <div>
+            <div class="award-title">Hiệp Sĩ Zero Nợ</div>
+            <div class="award-name">${{zeroDebtCount}} / ${{DATA.kpi_tong.length}} Bạn Đạt Chuẩn</div>
+            <div class="award-stat">0 Ticket nợ 2 CV hỗ trợ</div>
+          </div>
+        </div>
+      `;
+    }}
+
+    function openModalByName(name) {{
+      if (!name) return;
+      const item = DATA.kpi_tong.find(x => x.name.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(x.name.toLowerCase()));
+      if (item) openModal(item);
+    }}
+
+    function captureReportImage() {{
+      const btn = document.getElementById('btn-snap-zalo');
+      if (btn) btn.innerHTML = '⏳ Đang tạo ảnh...';
+
+      // Populate Zalo snapshot card
+      document.getElementById('zalo-snap-time').innerText = 'Cập nhật PBI: ' + DATA.updated_at;
+      document.getElementById('zalo-snap-pacing').innerText = `Tiến độ: Ngày ${{currentDay}}/${{totalDays}} (Chuẩn: ${{(targetPacing*100).toFixed(1)}}%)`;
+      document.getElementById('zalo-snap-staff').innerText = DATA.summary.total_staff;
+      document.getElementById('zalo-snap-avg').innerText = DATA.summary.avg_kpi + '%';
+      
+      const aheadCount = DATA.kpi_tong.filter(x => {{
+        const p = x.pacing_info || calculatePacingDetails(x);
+        return p.status === 'AHEAD' || p.status === 'ON_TRACK';
+      }}).length;
+      document.getElementById('zalo-snap-ahead').innerText = `${{aheadCount}} / ${{DATA.summary.total_staff}}`;
+      document.getElementById('zalo-snap-top').innerText = DATA.summary.top_performer + ` (${{DATA.summary.top_kpi}}%)`;
+
+      const tbody = document.getElementById('zalo-snap-tbody');
+      tbody.innerHTML = '';
+      const sorted = [...DATA.kpi_tong].sort((a,b) => b.pct_kpi_tong - a.pct_kpi_tong);
+
+      sorted.forEach((item, idx) => {{
+        const p = item.pacing_info || calculatePacingDetails(item);
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid #334155';
+        const rankMedal = idx === 0 ? '🥇 1' : idx === 1 ? '🥈 2' : idx === 2 ? '🥉 3' : (idx + 1);
+        tr.innerHTML = `
+          <td style="padding:6px 10px;font-weight:700;">${{rankMedal}}</td>
+          <td style="padding:6px 10px;color:#94a3b8;">${{item.ma}}</td>
+          <td style="padding:6px 10px;font-weight:700;">${{item.name}}</td>
+          <td style="padding:6px 10px;text-align:right;">${{item.slg_kh.toLocaleString('vi-VN')}}</td>
+          <td style="padding:6px 10px;text-align:right;">${{item.slg_cv.toLocaleString('vi-VN')}}</td>
+          <td style="padding:6px 10px;text-align:center;">${{item.no_ticket_2ht > 0 ? item.no_ticket_2ht : '0'}}</td>
+          <td style="padding:6px 10px;text-align:right;font-weight:800;color:#38bdf8;">${{(item.pct_kpi_tong*100).toFixed(2)}}%</td>
+          <td style="padding:6px 10px;text-align:center;">
+            <span class="badge ${{p.badgeClass}}" style="font-size:10px;padding:2px 6px;">${{p.text.split('•')[0]}}</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }});
+
+      const card = document.getElementById('zalo-snapshot-card');
+      card.style.left = '0px';
+      card.style.top = '0px';
+      card.style.zIndex = '-9999';
+
+      if (typeof html2canvas === 'undefined') {{
+        alert('Đang nạp thư viện html2canvas, vui lòng bấm lại sau 2 giây.');
+        if (btn) btn.innerHTML = '📸 Xuất ảnh Zalo';
+        card.style.left = '-9999px';
+        return;
+      }}
+
+      html2canvas(card, {{
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#0f172a'
+      }}).then(canvas => {{
+        card.style.left = '-9999px';
+        
+        canvas.toBlob(blob => {{
+          // 1. Download image
+          const dateStr = new Date().toISOString().slice(0, 10);
+          const a = document.createElement('a');
+          a.download = `Bao_Cao_KPI_CTO1_${{dateStr}}.png`;
+          a.href = URL.createObjectURL(blob);
+          a.click();
+
+          // 2. Clipboard copy
+          if (navigator.clipboard && window.ClipboardItem) {{
+            navigator.clipboard.write([new ClipboardItem({{ 'image/png': blob }})])
+              .then(() => {{
+                showToast('🎉 Đã tải ảnh và COPY vào bộ nhớ tạm! Bạn chỉ cần nhấn Ctrl+V vào Zalo là gửi được ngay!');
+              }})
+              .catch(() => {{
+                showToast('🎉 Đã tải file ảnh báo cáo xuống máy! Bạn hãy kéo ảnh gửi vào Zalo nhé.');
+              }});
+          }} else {{
+            showToast('🎉 Đã tải file ảnh báo cáo xuống máy! Bạn hãy kéo ảnh gửi vào Zalo nhé.');
+          }}
+        }}, 'image/png');
+      }}).catch(err => {{
+        console.error(err);
+        card.style.left = '-9999px';
+        showToast('⚠️ Không thể xuất ảnh: ' + err.message);
+      }}).finally(() => {{
+        if (btn) btn.innerHTML = '📸 Xuất ảnh Zalo';
+      }});
+    }}
+
+    function showToast(msg) {{
+      const old = document.querySelector('.toast-msg');
+      if (old) old.remove();
+      const toast = document.createElement('div');
+      toast.className = 'toast-msg';
+      toast.innerHTML = `<span>${{msg}}</span>`;
+      document.body.appendChild(toast);
+      setTimeout(() => {{
+        toast.style.transition = 'opacity 0.5s ease';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+      }}, 5000);
+    }}
+
+    // TV Kiosk Mode
+    let tvInterval = null;
+    let tvProgressInterval = null;
+    let tvSlideIndex = 0;
+    const TV_SLIDES = ['kpi', 'hs', 'podium'];
+    const TV_SLIDE_DURATION = 15000;
+
+    function toggleTvMode() {{
+      const isTv = document.body.classList.toggle('tv-kiosk-mode');
+      if (isTv) {{
+        if (document.documentElement.requestFullscreen) {{
+          document.documentElement.requestFullscreen().catch(() => {{}});
+        }}
+        startTvLoop();
+        showToast('📺 Đã bật Chế độ TV! Đang xoay vòng hiển thị mỗi 15 giây. Nhấn ESC để thoát.');
+      }} else {{
+        stopTvLoop();
+        if (document.exitFullscreen && document.fullscreenElement) {{
+          document.exitFullscreen().catch(() => {{}});
+        }}
+        showToast('Đã thoát Chế độ TV.');
+      }}
+    }}
+
+    function startTvLoop() {{
+      stopTvLoop();
+      tvSlideIndex = 0;
+      switchTab(TV_SLIDES[tvSlideIndex]);
+      animateTvProgress();
+
+      tvInterval = setInterval(() => {{
+        tvSlideIndex = (tvSlideIndex + 1) % TV_SLIDES.length;
+        switchTab(TV_SLIDES[tvSlideIndex]);
+        animateTvProgress();
+      }}, TV_SLIDE_DURATION);
+    }}
+
+    function stopTvLoop() {{
+      if (tvInterval) clearInterval(tvInterval);
+      if (tvProgressInterval) clearInterval(tvProgressInterval);
+      tvInterval = null;
+      tvProgressInterval = null;
+      const bar = document.getElementById('tv-progress-bar');
+      if (bar) bar.style.width = '0%';
+    }}
+
+    function animateTvProgress() {{
+      const bar = document.getElementById('tv-progress-bar');
+      if (!bar) return;
+      if (tvProgressInterval) clearInterval(tvProgressInterval);
+      let start = Date.now();
+      tvProgressInterval = setInterval(() => {{
+        let elapsed = Date.now() - start;
+        let pct = Math.min((elapsed / TV_SLIDE_DURATION) * 100, 100);
+        bar.style.width = pct + '%';
+        if (elapsed >= TV_SLIDE_DURATION) {{
+          clearInterval(tvProgressInterval);
+        }}
+      }}, 100);
+    }}
+
+    document.addEventListener('keydown', (e) => {{
+      if (e.key === 'Escape' && document.body.classList.contains('tv-kiosk-mode')) {{
+        toggleTvMode();
+      }}
+    }});
+
+    document.addEventListener('fullscreenchange', () => {{
+      if (!document.fullscreenElement && document.body.classList.contains('tv-kiosk-mode')) {{
+        toggleTvMode();
+      }}
+    }});
 
     function toggleTheme() {{
       document.body.classList.toggle('light-theme');
