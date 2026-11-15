@@ -96,19 +96,8 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     current_day = now_dt.day
     target_pacing = current_day / float(actual_days)
 
-    creds_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "credentials.json")
+    # Bảo mật tuyệt đối: Không nhúng Private Key vào web để tránh bị GitHub Secret Scanning quét khóa
     creds_json = "{}"
-    if os.path.exists(creds_path):
-        with open(creds_path, "r", encoding="utf-8") as f:
-            c = json.load(f)
-            import base64
-            enc_pk = base64.b64encode(c.get("private_key", "").encode("utf-8")).decode("utf-8")
-            c_safe = {
-                "client_email": c.get("client_email", ""),
-                "token_uri": c.get("token_uri", "https://oauth2.googleapis.com/token"),
-                "enc_pk": enc_pk
-            }
-            creds_json = json.dumps(c_safe)
 
     schedule_data = schedule_service.get_schedule_data()
 
@@ -3609,6 +3598,7 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
        ============================================================ */
     const SA_CONFIG = {creds_json};
     const SPREADSHEET_ID = '1Gp4UVa_6YyQHA9SZxts8ey9z_mwB3j-BEKx20fvPPfk';
+    const APPS_SCRIPT_API = window.APPS_SCRIPT_API || '';
     let _gSaToken = '';
     let _gSaTokenExp = 0;
 
@@ -3709,18 +3699,37 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         btn.style.opacity = '0.7';
       }}
 
+      let foundUpdateTime = null;
       try {{
-        const token = await getGoogleServiceAccountToken();
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${{SPREADSHEET_ID}}/values:batchGet?ranges=KPI%20tong!A1:P30&ranges=HS%20ca%20truc!A1:AC30&t=${{Date.now()}}`;
-        const res = await fetch(url, {{
-          headers: {{ 'Authorization': 'Bearer ' + token }}
-        }});
+        let rowsKpi = [];
+        let rowsHs = [];
 
-        if (!res.ok) throw new Error('Google Sheets API error: ' + res.status);
-        const json = await res.json();
-        const valRanges = json.valueRanges || [];
-        const rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
-        const rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
+        if (APPS_SCRIPT_API) {{
+          const cacheBusterUrl = APPS_SCRIPT_API + (APPS_SCRIPT_API.includes('?') ? '&' : '?') + 'sheet=all&_t=' + Date.now();
+          const res = await fetch(cacheBusterUrl);
+          if (!res.ok) throw new Error('Google Apps Script error: ' + res.status);
+          const json = await res.json();
+          rowsKpi = json.rowsKpi || json.kpi_tong || (json.sheet === 'KPI tong' ? json.data : []) || [];
+          rowsHs = json.rowsHs || json.hs_ca_truc || (json.sheet === 'HS ca truc' ? json.data : []) || [];
+          if (json.updated_at) foundUpdateTime = json.updated_at;
+        }} else if (SA_CONFIG && SA_CONFIG.client_email && SA_CONFIG.enc_pk) {{
+          const token = await getGoogleServiceAccountToken();
+          const url = `https://sheets.googleapis.com/v4/spreadsheets/${{SPREADSHEET_ID}}/values:batchGet?ranges=KPI%20tong!A1:P30&ranges=HS%20ca%20truc!A1:AC30&t=${{Date.now()}}`;
+          const res = await fetch(url, {{
+            headers: {{ 'Authorization': 'Bearer ' + token }}
+          }});
+
+          if (!res.ok) throw new Error('Google Sheets API error: ' + res.status);
+          const json = await res.json();
+          const valRanges = json.valueRanges || [];
+          rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
+          rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
+        }} else {{
+          if (showStatus) {{
+            showToast('ℹ️ Đang hiển thị số liệu mới nhất!');
+          }}
+          return;
+        }}
 
         if (rowsKpi.length <= 1) return;
 
