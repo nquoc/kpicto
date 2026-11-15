@@ -121,7 +121,6 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
             'total_ticket': round(total_ticket, 1),
             'total_cv': round(total_cv, 1),
             'total_ticket_2ht': total_ticket_2ht,
-            'total_debt': total_ticket_2ht,
             'top_performer': top_performer['name'] if top_performer else 'N/A',
             'top_kpi': round(top_performer['pct_kpi_tong'] * 100, 2) if top_performer else 0
         }
@@ -1510,7 +1509,7 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       <div style="background:var(--bg);border:1px solid var(--card-border);border-radius:10px;padding:12px;margin-bottom:16px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
           <span style="font-size:12px;font-weight:700;" id="modal-strength-assessment">⚡ Điểm mạnh: Gánh Ticket vượt trội</span>
-          <span id="modal-debt-badge" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;">🛡️ 0 Ticket nợ</span>
+          <span id="modal-ticket-2ht-badge" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--primary-light);color:var(--primary);">📋 0 Ticket có 2 CV HT</span>
         </div>
         <div style="font-size:12px;color:var(--text-muted);" id="modal-strength-desc">
           Tỷ lệ hoàn thành Ticket cao hơn CV. Tốc độ giải quyết khách hàng rất tốt.
@@ -1755,8 +1754,8 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       document.getElementById('card-avg-status').innerText = `So với chuẩn: ${{avgDiff >= 0 ? '+' : ''}}${{avgDiff}}%`;
       document.getElementById('card-count-ahead').innerText = `${{aheadCount}} / ${{DATA.summary.total_staff}}`;
       document.getElementById('card-count-behind').innerText = `${{behindCount}} / ${{DATA.summary.total_staff}}`;
-      const card2Ht = document.getElementById('card-total-ticket-2ht') || document.getElementById('card-total-debt');
-      if (card2Ht) card2Ht.innerText = DATA.summary.total_ticket_2ht ?? DATA.summary.total_debt ?? 0;
+      const card2Ht = document.getElementById('card-total-ticket-2ht');
+      if (card2Ht) card2Ht.innerText = DATA.summary.total_ticket_2ht ?? 0;
 
       if (typeof renderPodiumAndAwards === 'function') {{
         renderPodiumAndAwards();
@@ -2180,17 +2179,12 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         }}
       }}
 
-      const debtBadge = document.getElementById('modal-debt-badge');
-      if (debtBadge) {{
-        if (item.no_ticket_2ht === 0) {{
-          debtBadge.innerText = '🛡️ 0 Ticket nợ';
-          debtBadge.style.background = 'var(--success-light)';
-          debtBadge.style.color = 'var(--success)';
-        }} else {{
-          debtBadge.innerText = `⚠️ Nợ ${{item.no_ticket_2ht}} ticket`;
-          debtBadge.style.background = 'var(--danger-light)';
-          debtBadge.style.color = 'var(--danger)';
-        }}
+      const badge2Ht = document.getElementById('modal-ticket-2ht-badge');
+      if (badge2Ht) {{
+        badge2Ht.innerText = `📋 ${{item.no_ticket_2ht}} Ticket 2 CV`;
+        badge2Ht.style.background = 'var(--primary-light)';
+        badge2Ht.style.color = 'var(--primary)';
+        badge2Ht.title = 'Số lượng ticket có 2 công việc hỗ trợ';
       }}
 
       // Khối 3: Shift Breakdown
@@ -2338,7 +2332,8 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       const sortedCv = [...DATA.kpi_tong].sort((a,b) => b.slg_cv - a.slg_cv);
       const heroCv = sortedCv[0];
 
-      const zeroDebtCount = DATA.kpi_tong.filter(x => x.no_ticket_2ht === 0).length;
+      const sorted2Ht = [...DATA.kpi_tong].sort((a,b) => (b.no_ticket_2ht || 0) - (a.no_ticket_2ht || 0));
+      const hero2Ht = sorted2Ht[0];
 
       awardsEl.innerHTML = `
         <div class="award-card" onclick="openModalByName('${{heroHours ? heroHours.user_name : ''}}')">
@@ -2368,12 +2363,12 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           </div>
         </div>
 
-        <div class="award-card" onclick="switchTab('kpi')">
-          <div class="award-icon">🛡️</div>
+        <div class="award-card" onclick="openModalByName('${{hero2Ht ? hero2Ht.name : ''}}')">
+          <div class="award-icon">🌟</div>
           <div>
-            <div class="award-title">Hiệp Sĩ Zero Nợ</div>
-            <div class="award-name">${{zeroDebtCount}} / ${{DATA.kpi_tong.length}} Bạn Đạt Chuẩn</div>
-            <div class="award-stat">0 Ticket nợ 2 CV hỗ trợ</div>
+            <div class="award-title">Hỗ Trợ Đa Nhiệm</div>
+            <div class="award-name">${{hero2Ht ? hero2Ht.name : '--'}}</div>
+            <div class="award-stat">${{hero2Ht ? (hero2Ht.no_ticket_2ht || 0) + ' Ticket có 2 CV HT' : '--'}}</div>
           </div>
         </div>
       `;
