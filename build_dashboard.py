@@ -1198,6 +1198,63 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     }}
 
     /* ========================================================
+       TOP LEVEL MAIN VIEW SWITCHER (KPI vs LỊCH TRỰC)
+       ======================================================== */
+    .top-nav-bar {{
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 6px;
+    }}
+    .top-nav-tab {{
+      flex: 1;
+      padding: 11px 18px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }}
+    .top-nav-tab:hover {{
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }}
+    .top-nav-tab.active {{
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }}
+    .top-nav-badge {{
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }}
+    .matrix-nav-buttons {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }}
+    @keyframes pulseTodayCol {{
+      0% {{ box-shadow: inset 0 0 0 2px #f59e0b; }}
+      50% {{ box-shadow: inset 0 0 12px 3px rgba(245, 158, 11, 0.6); }}
+      100% {{ box-shadow: inset 0 0 0 2px #f59e0b; }}
+    }}
+
+    /* ========================================================
        SCHEDULE & ATTENDANCE (LỊCH TRỰC & CHẤM CÔNG - TEAM ÔNG MINH NHỰT)
        ======================================================== */
     .schedule-controls-card {{
@@ -1524,8 +1581,25 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         <button class="btn btn-primary" onclick="window.print()">
           🖨️ In Báo Cáo
         </button>
+        <button class="btn btn-primary" id="hdr-btn-toggle-sched" onclick="toggleMainView()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;font-weight:700;">
+          📅 Xem Lịch Trực Team
+        </button>
       </div>
     </header>
+
+    <!-- TOP LEVEL MAIN VIEW SWITCHER -->
+    <div class="top-nav-bar">
+      <button class="top-nav-tab active" id="nav-tab-kpi" onclick="switchMainView('kpi')">
+        📊 BÁO CÁO & TIẾN ĐỘ KPI
+      </button>
+      <button class="top-nav-tab" id="nav-tab-schedule" onclick="switchMainView('schedule')">
+        📅 LỊCH TRỰC & CHẤM CÔNG (TEAM ÔNG MINH NHỰT)
+        <span class="top-nav-badge">13 nhân sự</span>
+      </button>
+    </div>
+
+    <!-- WRAPPER: SECTION KPI MAIN (Ẩn khi chuyển sang xem Lịch Trực) -->
+    <div id="section-kpi-main">
 
     <!-- Pacing Status Banner (Tiến Độ Tháng) -->
     <section class="pacing-bar">
@@ -1635,10 +1709,6 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         ⏱️ Hiệu Suất Ca Trực
         <span class="tab-badge" id="badge-count-hs">0</span>
       </button>
-      <button class="tab-btn" id="tab-btn-schedule" onclick="switchTab('schedule')">
-        📅 Lịch Trực & Chấm Công
-        <span class="tab-badge" id="badge-count-schedule">14</span>
-      </button>
       <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts')">
         📈 Biểu Đồ & Thống Kê
       </button>
@@ -1745,14 +1815,16 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       </div>
     </div>
 
-    <!-- TAB 5: LỊCH TRỰC & CHẤM CÔNG (TEAM ÔNG MINH NHỰT) -->
+    </div> <!-- end #section-kpi-main (Ẩn khi chuyển sang xem Lịch Trực) -->
+
+    <!-- TOP LEVEL VIEW: LỊCH TRỰC & CHẤM CÔNG (TEAM ÔNG MINH NHỰT) -->
     <div id="tab-pane-schedule" style="display:none;">
       <!-- Controls Card -->
       <div class="schedule-controls-card">
         <div class="schedule-controls-header">
           <div class="schedule-title-wrap">
             <h3>📅 LỊCH TRỰC & ĐỐI SOÁT CÔNG - TEAM ÔNG MINH NHỰT (CTO 1)</h3>
-            <div class="schedule-subtitle" id="sched-subtitle-time">Đồng bộ trực tiếp từ Google Sheets • Thuật toán chuẩn hóa công bất biến ≤ 1.0</div>
+            <div class="schedule-subtitle" id="sched-subtitle-time">Đồng bộ trực tiếp từ Google Sheets • 13 nhân sự (1 Leader + 12 CS)</div>
           </div>
           <div class="schedule-actions">
             <button class="btn btn-primary" onclick="syncScheduleLive()" id="btn-sync-schedule">
@@ -1778,64 +1850,44 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           </div>
 
           <div class="filter-group">
-            <label class="filter-label">Phạm vi thời gian:</label>
+            <label class="filter-label">Phạm vi thời gian tính công:</label>
             <div class="segmented-control">
               <button class="segmented-btn active" id="btn-range-todate" onclick="setScheduleRange('to_date')">
                 📍 Lũy kế đến hôm nay (15/11)
               </button>
               <button class="segmented-btn" id="btn-range-full" onclick="setScheduleRange('full')">
-                🗓️ Cả chu kỳ (Tất cả ngày)
+                🗓️ Cả chu kỳ
               </button>
             </div>
           </div>
 
-          <div class="filter-group" style="flex: 1; min-width: 220px;">
+          <div class="filter-group">
+            <label class="filter-label">Chế độ xem lịch:</label>
+            <div class="segmented-control">
+              <button class="segmented-btn active" id="btn-matrix-all" onclick="setMatrixDateFilter('all')">
+                🗓️ Toàn bộ tháng
+              </button>
+              <button class="segmented-btn" id="btn-matrix-week" onclick="setMatrixDateFilter('week')">
+                📅 Chỉ hiện Tuần này
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Thao tác nhanh:</label>
+            <button class="btn btn-primary" onclick="jumpToTodayColumn()" style="padding:6px 14px;font-size:12px;font-weight:700;">
+              📍 Nhảy đến Hôm nay (15/11)
+            </button>
+          </div>
+
+          <div class="filter-group" style="flex: 1; min-width: 200px;">
             <label class="filter-label">Tìm kiếm nhân sự:</label>
             <input type="text" id="sched-search-input" class="search-input" placeholder="Nhập tên hoặc MS (vd: 8239, Trúc Linh...)" oninput="onScheduleSearch(this.value)">
           </div>
         </div>
       </div>
 
-      <!-- Quick KPI Stats Grid -->
-      <div class="schedule-kpi-grid">
-        <div class="stat-card">
-          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">💼</div>
-          <div class="stat-data">
-            <div class="stat-label">Tổng Ngày Làm Việc Team</div>
-            <div class="stat-val" id="sched-stat-work">--</div>
-            <div class="stat-sub" id="sched-stat-work-sub">Tính theo chu kỳ đã chọn</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">🏖️</div>
-          <div class="stat-data">
-            <div class="stat-label">Tổng Ngày Nghỉ (OFF)</div>
-            <div class="stat-val" id="sched-stat-off">--</div>
-            <div class="stat-sub" id="sched-stat-off-sub">Nghỉ tuần theo quy định</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">🌴</div>
-          <div class="stat-data">
-            <div class="stat-label">Tổng Ngày Nghỉ Phép (P)</div>
-            <div class="stat-val" id="sched-stat-p">--</div>
-            <div class="stat-sub" id="sched-stat-p-sub">Phép năm / Phép riêng</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #6366f1;">👥</div>
-          <div class="stat-data">
-            <div class="stat-label">Quy Mô Team Ông Minh Nhựt</div>
-            <div class="stat-val" id="sched-stat-staff">14</div>
-            <div class="stat-sub">1 Leader + 13 Nhân sự CS</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Today's Roster Banner -->
+      <!-- Today's Roster Banner (Gọn gàng) -->
       <div class="today-roster-banner" id="today-roster-widget">
         <div class="today-roster-header">
           <div class="today-roster-title">
@@ -1850,7 +1902,69 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         </div>
       </div>
 
-      <!-- SECTION 1: BẢNG TÍNH & ĐỐI SOÁT CÔNG -->
+      <!-- SECTION 1: MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG -->
+      <div class="schedule-section-card">
+        <div class="schedule-section-header">
+          <div class="schedule-section-title">
+            <span>🗓️ MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG (TEAM ÔNG MINH NHỰT)</span>
+          </div>
+          <div class="matrix-nav-buttons">
+            <button class="btn btn-sm btn-primary" onclick="jumpToTodayColumn()" style="font-weight:700;padding:5px 12px;font-size:12px;">
+              📍 Nhảy đến Hôm nay (15/11)
+            </button>
+            <div class="segmented-control">
+              <button class="segmented-btn active" id="btn-matrix-all-top" onclick="setMatrixDateFilter('all')">
+                🗓️ Cả tháng
+              </button>
+              <button class="segmented-btn" id="btn-matrix-week-top" onclick="setMatrixDateFilter('week')">
+                📅 Tuần này
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-muted);margin-bottom:12px;flex-wrap:wrap;">
+          <span>Chú thích:</span>
+          <span class="badge-shift badge-shift-off">OFF (Nghỉ)</span>
+          <span class="badge-shift badge-shift-p">P (Phép)</span>
+          <span class="badge-shift badge-shift-s">S (Sáng)</span>
+          <span class="badge-shift badge-shift-tr">TR (Trưa)</span>
+          <span class="badge-shift badge-shift-t">T (Tối)</span>
+          <span class="badge-shift badge-shift-hc">HC / Kênh</span>
+        </div>
+
+        <div class="matrix-scroll-container" id="matrix-scroll-box">
+          <table class="matrix-table" id="table-matrix-schedule">
+            <thead id="thead-matrix-schedule">
+              <!-- Rendered by JS -->
+            </thead>
+            <tbody id="tbody-matrix-schedule">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border-color);flex-wrap:wrap;gap:10px;">
+          <div style="font-size:12px;color:var(--text-muted);">
+            💡 Mẹo: Bấm <strong>"📍 Nhảy đến Hôm nay"</strong> để cuộn ngay đến cột ngày 15/11. Bấm <strong>"📅 Tuần này"</strong> để xem 7 ngày tuần hiện tại.
+          </div>
+          <div class="matrix-nav-buttons">
+            <button class="btn btn-sm btn-primary" onclick="jumpToTodayColumn()" style="font-weight:700;padding:6px 14px;font-size:12px;">
+              📍 Nhảy đến Hôm nay (15/11)
+            </button>
+            <div class="segmented-control">
+              <button class="segmented-btn active" id="btn-matrix-all-bottom" onclick="setMatrixDateFilter('all')">
+                🗓️ Cả tháng
+              </button>
+              <button class="segmented-btn" id="btn-matrix-week-bottom" onclick="setMatrixDateFilter('week')">
+                📅 Tuần này
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: BẢNG TÍNH & ĐỐI SOÁT CÔNG -->
       <div class="schedule-section-card">
         <div class="schedule-section-header">
           <div class="schedule-section-title">
@@ -1883,35 +1997,6 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
             <tfoot id="tfoot-schedule-summary">
               <!-- Rendered by JS -->
             </tfoot>
-          </table>
-        </div>
-      </div>
-
-      <!-- SECTION 2: MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG -->
-      <div class="schedule-section-card">
-        <div class="schedule-section-header">
-          <div class="schedule-section-title">
-            <span>🗓️ MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG (TEAM ÔNG MINH NHỰT)</span>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-muted);flex-wrap:wrap;">
-            <span>Chú thích:</span>
-            <span class="badge-shift badge-shift-off">OFF (Nghỉ)</span>
-            <span class="badge-shift badge-shift-p">P (Phép)</span>
-            <span class="badge-shift badge-shift-s">S (Sáng)</span>
-            <span class="badge-shift badge-shift-tr">TR (Trưa)</span>
-            <span class="badge-shift badge-shift-t">T (Tối)</span>
-            <span class="badge-shift badge-shift-hc">HC / Kênh</span>
-          </div>
-        </div>
-
-        <div class="matrix-scroll-container" id="matrix-scroll-box">
-          <table class="matrix-table" id="table-matrix-schedule">
-            <thead id="thead-matrix-schedule">
-              <!-- Rendered by JS -->
-            </thead>
-            <tbody id="tbody-matrix-schedule">
-              <!-- Rendered by JS -->
-            </tbody>
           </table>
         </div>
       </div>
@@ -2228,6 +2313,13 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     }}
 
     function switchTab(tab) {{
+      if (tab === 'schedule') {{
+        switchMainView('schedule');
+        return;
+      }}
+      if (currentMainView === 'schedule') {{
+        switchMainView('kpi');
+      }}
       currentTab = tab;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       const activeBtn = document.getElementById('tab-btn-' + tab);
@@ -2238,14 +2330,8 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       document.getElementById('tab-pane-charts').style.display = tab === 'charts' ? 'block' : 'none';
       const podiumPane = document.getElementById('tab-pane-podium');
       if (podiumPane) podiumPane.style.display = tab === 'podium' ? 'block' : 'none';
-      const schedPane = document.getElementById('tab-pane-schedule');
-      if (schedPane) schedPane.style.display = tab === 'schedule' ? 'block' : 'none';
 
       document.getElementById('filter-shift-toggle').style.display = tab === 'hs' ? 'block' : 'none';
-
-      if (tab === 'schedule' && typeof renderScheduleTab === 'function') {{
-        renderScheduleTab();
-      }}
     }}
 
     function renderKpiTable() {{
@@ -2972,9 +3058,66 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
     // ==========================================
     // SCHEDULE & ATTENDANCE MODULE (TEAM ÔNG MINH NHỰT)
     // ==========================================
+    let currentMainView = 'kpi'; // 'kpi' or 'schedule'
+    let matrixDateFilter = 'all'; // 'all' or 'week'
     let currentScheduleCycle = 'a'; // 'a': 26-25, 'b': 1-end
     let currentScheduleRange = 'to_date'; // 'to_date' or 'full'
     let scheduleSearchQuery = '';
+
+    function switchMainView(view) {{
+      currentMainView = view;
+      const kpiMain = document.getElementById('section-kpi-main');
+      const schedPane = document.getElementById('tab-pane-schedule');
+      const tabKpi = document.getElementById('nav-tab-kpi');
+      const tabSched = document.getElementById('nav-tab-schedule');
+      const hdrBtn = document.getElementById('hdr-btn-toggle-sched');
+
+      if (view === 'schedule') {{
+        if (kpiMain) kpiMain.style.display = 'none';
+        if (schedPane) schedPane.style.display = 'block';
+        if (tabKpi) tabKpi.classList.remove('active');
+        if (tabSched) tabSched.classList.add('active');
+        if (hdrBtn) hdrBtn.innerHTML = '📊 Quay lại Báo Cáo KPI';
+        renderScheduleTab();
+        setTimeout(jumpToTodayColumn, 250);
+      }} else {{
+        if (kpiMain) kpiMain.style.display = 'block';
+        if (schedPane) schedPane.style.display = 'none';
+        if (tabKpi) tabKpi.classList.add('active');
+        if (tabSched) tabSched.classList.remove('active');
+        if (hdrBtn) hdrBtn.innerHTML = '📅 Xem Lịch Trực Team';
+      }}
+    }}
+
+    function toggleMainView() {{
+      switchMainView(currentMainView === 'kpi' ? 'schedule' : 'kpi');
+    }}
+
+    function setMatrixDateFilter(filter) {{
+      matrixDateFilter = filter;
+      ['btn-matrix-all', 'btn-matrix-all-top', 'btn-matrix-all-bottom'].forEach(id => {{
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', filter === 'all');
+      }});
+      ['btn-matrix-week', 'btn-matrix-week-top', 'btn-matrix-week-bottom'].forEach(id => {{
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', filter === 'week');
+      }});
+      renderScheduleMatrixTable();
+      setTimeout(jumpToTodayColumn, 100);
+    }}
+
+    function jumpToTodayColumn() {{
+      const box = document.getElementById('matrix-scroll-box');
+      if (!box) return;
+      const todayTh = box.querySelector('thead th.col-today');
+      if (todayTh) {{
+        const left = todayTh.offsetLeft - 240;
+        box.scrollTo({{ left: Math.max(0, left), behavior: 'smooth' }});
+        todayTh.style.animation = 'pulseTodayCol 1.5s 2';
+        setTimeout(() => {{ todayTh.style.animation = ''; }}, 3000);
+      }}
+    }}
 
     function initSchedule() {{
       if (!DATA.schedule) return;
@@ -3205,9 +3348,30 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       const tbody = document.getElementById('tbody-matrix-schedule');
       if (!thead || !tbody || !DATA.schedule) return;
 
-      const dates = (DATA.schedule.dates || []).filter(d => {{
+      let dates = (DATA.schedule.dates || []).filter(d => {{
         return currentScheduleCycle === 'a' ? d.in_cycle_a : d.in_cycle_b;
       }});
+
+      if (matrixDateFilter === 'week') {{
+        const todayStr = DATA.schedule.today || '2026-11-15';
+        const parts = todayStr.split('-').map(Number);
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        const day = d.getDay();
+        const diffToMonday = (day === 0 ? -6 : 1 - day);
+        const monday = new Date(d);
+        monday.setDate(d.getDate() + diffToMonday);
+
+        const weekSet = new Set();
+        for (let i = 0; i < 7; i++) {{
+          const cur = new Date(monday);
+          cur.setDate(monday.getDate() + i);
+          const y = cur.getFullYear();
+          const m = String(cur.getMonth() + 1).padStart(2, '0');
+          const dayNum = String(cur.getDate()).padStart(2, '0');
+          weekSet.add(`${{y}}-${{m}}-${{dayNum}}`);
+        }}
+        dates = dates.filter(d => weekSet.has(d.date_str));
+      }}
 
       thead.innerHTML = `
         <tr>

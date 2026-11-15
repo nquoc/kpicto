@@ -7,7 +7,7 @@ CREDENTIALS_FILE = os.path.join(SCRIPT_DIR, "credentials.json")
 CACHE_FILE = os.path.join(SCRIPT_DIR, "Data", "schedule_cache.json")
 SPREADSHEET_SCHEDULE_URL = "https://docs.google.com/spreadsheets/d/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/edit"
 
-TARGET_IDS = ["8239", "8131", "8171", "8116", "8177", "8222", "8257", "8274", "8284", "8285", "8817", "8818", "8805", "8607", "8823", "8163"]
+TARGET_IDS = ["8239", "8131", "8171", "8116", "8177", "8222", "8257", "8274", "8284", "8285", "8817", "8818", "8805", "8607"]
 
 def get_schedule_data():
     """
