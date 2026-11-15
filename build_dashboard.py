@@ -5,6 +5,7 @@ import datetime
 import calendar
 import pandas as pd
 import openpyxl
+import schedule_service
 
 def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_data=None):
     if not update_time_val:
@@ -109,12 +110,15 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
             }
             creds_json = json.dumps(c_safe)
 
+    schedule_data = schedule_service.get_schedule_data()
+
     dataset_json = json.dumps({
         'updated_at': update_time_val,
         'current_day': current_day,
         'days_in_month': actual_days,
         'kpi_tong': kpi_data,
         'hs_ca_truc': hs_data,
+        'schedule': schedule_data,
         'summary': {
             'total_staff': total_staff,
             'avg_kpi': round(avg_kpi * 100, 2),
@@ -1193,6 +1197,285 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       to {{ transform: translateY(0); opacity: 1; }}
     }}
 
+    /* ========================================================
+       SCHEDULE & ATTENDANCE (LỊCH TRỰC & CHẤM CÔNG - TEAM ÔNG MINH NHỰT)
+       ======================================================== */
+    .schedule-controls-card {{
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }}
+    .schedule-controls-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }}
+    .schedule-title-wrap h3 {{
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }}
+    .schedule-subtitle {{
+      font-size: 12px;
+      color: var(--text-muted);
+    }}
+    .schedule-actions {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+    .schedule-filters-grid {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+    }}
+    .segmented-control {{
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }}
+    .segmented-btn {{
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }}
+    .segmented-btn:hover {{
+      color: var(--text-main);
+    }}
+    .segmented-btn.active {{
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
+    }}
+
+    /* Quick KPI Cards for Schedule */
+    .schedule-kpi-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }}
+
+    /* Today's Roster Banner */
+    .today-roster-banner {{
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }}
+    .today-roster-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .today-roster-title {{
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .roster-groups-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }}
+    .roster-group-card {{
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }}
+    .roster-group-label {{
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .roster-pills-wrap {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }}
+    .roster-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--primary-light);
+      color: var(--primary);
+    }}
+
+    /* Schedule Section Cards */
+    .schedule-section-card {{
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }}
+    .schedule-section-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }}
+    .schedule-section-title {{
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+
+    /* Matrix Table (Full Month Grid) */
+    .matrix-scroll-container {{
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      max-height: 600px;
+      position: relative;
+    }}
+    .matrix-table {{
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 12px;
+      white-space: nowrap;
+    }}
+    .matrix-table th, .matrix-table td {{
+      padding: 8px 10px;
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      text-align: center;
+      vertical-align: middle;
+    }}
+    .matrix-table thead th {{
+      position: sticky;
+      top: 0;
+      background: #1e293b;
+      z-index: 20;
+    }}
+    .matrix-table .sticky-col-id {{
+      position: sticky;
+      left: 0;
+      background: #1e293b;
+      z-index: 30;
+      min-width: 60px;
+      max-width: 70px;
+      text-align: center;
+      font-weight: 700;
+    }}
+    .matrix-table .sticky-col-name {{
+      position: sticky;
+      left: 60px;
+      background: #1e293b;
+      z-index: 30;
+      min-width: 170px;
+      max-width: 190px;
+      text-align: left;
+      font-weight: 600;
+    }}
+    .matrix-table tbody tr:hover td {{
+      background: var(--row-hover);
+    }}
+    .matrix-table tbody tr:hover .sticky-col-id,
+    .matrix-table tbody tr:hover .sticky-col-name {{
+      background: var(--row-hover);
+    }}
+    .matrix-table .col-today {{
+      background: rgba(99, 102, 241, 0.15) !important;
+      border-left: 2px solid var(--primary) !important;
+      border-right: 2px solid var(--primary) !important;
+    }}
+    .matrix-table thead th.col-today {{
+      background: var(--primary) !important;
+      color: #fff !important;
+    }}
+    .matrix-table .col-weekend {{
+      background: rgba(0, 0, 0, 0.15);
+    }}
+
+    /* Badges for shifts */
+    .badge-shift {{
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 1px;
+    }}
+    .badge-shift-off {{
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }}
+    .badge-shift-p {{
+      background: rgba(168, 85, 247, 0.2);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }}
+    .badge-shift-s {{
+      background: rgba(14, 165, 233, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(14, 165, 233, 0.35);
+    }}
+    .badge-shift-tr {{
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }}
+    .badge-shift-t {{
+      background: rgba(99, 102, 241, 0.2);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.35);
+    }}
+    .badge-shift-hc {{
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }}
+    .badge-shift-other {{
+      background: rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }}
+
     /* Hidden Zalo Capture Card */
     #zalo-snapshot-card {{
       position: fixed;
@@ -1352,6 +1635,10 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         ⏱️ Hiệu Suất Ca Trực
         <span class="tab-badge" id="badge-count-hs">0</span>
       </button>
+      <button class="tab-btn" id="tab-btn-schedule" onclick="switchTab('schedule')">
+        📅 Lịch Trực & Chấm Công
+        <span class="tab-badge" id="badge-count-schedule">14</span>
+      </button>
       <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts')">
         📈 Biểu Đồ & Thống Kê
       </button>
@@ -1455,6 +1742,178 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       <h3 style="font-size:15px;font-weight:800;margin-top:20px;margin-bottom:12px;">🎖️ BẢNG DANH HIỆU THI ĐUA ĐẶC BIỆT</h3>
       <div class="awards-grid" id="awards-content">
         <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: LỊCH TRỰC & CHẤM CÔNG (TEAM ÔNG MINH NHỰT) -->
+    <div id="tab-pane-schedule" style="display:none;">
+      <!-- Controls Card -->
+      <div class="schedule-controls-card">
+        <div class="schedule-controls-header">
+          <div class="schedule-title-wrap">
+            <h3>📅 LỊCH TRỰC & ĐỐI SOÁT CÔNG - TEAM ÔNG MINH NHỰT (CTO 1)</h3>
+            <div class="schedule-subtitle" id="sched-subtitle-time">Đồng bộ trực tiếp từ Google Sheets • Thuật toán chuẩn hóa công bất biến ≤ 1.0</div>
+          </div>
+          <div class="schedule-actions">
+            <button class="btn btn-primary" onclick="syncScheduleLive()" id="btn-sync-schedule">
+              🔄 Tải lại Lịch Trực Mới Nhất
+            </button>
+            <button class="btn" onclick="exportScheduleExcel()">
+              📥 Xuất File Excel
+            </button>
+          </div>
+        </div>
+
+        <div class="schedule-filters-grid">
+          <div class="filter-group">
+            <label class="filter-label">Chu kỳ đối soát:</label>
+            <div class="segmented-control">
+              <button class="segmented-btn active" id="btn-cycle-a" onclick="setScheduleCycle('a')">
+                Chu kỳ 26 - 25 (26/10 ➔ 25/11)
+              </button>
+              <button class="segmented-btn" id="btn-cycle-b" onclick="setScheduleCycle('b')">
+                Chu kỳ Đầu - Cuối tháng (01/11 ➔ 30/11)
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Phạm vi thời gian:</label>
+            <div class="segmented-control">
+              <button class="segmented-btn active" id="btn-range-todate" onclick="setScheduleRange('to_date')">
+                📍 Lũy kế đến hôm nay (15/11)
+              </button>
+              <button class="segmented-btn" id="btn-range-full" onclick="setScheduleRange('full')">
+                🗓️ Cả chu kỳ (Tất cả ngày)
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group" style="flex: 1; min-width: 220px;">
+            <label class="filter-label">Tìm kiếm nhân sự:</label>
+            <input type="text" id="sched-search-input" class="search-input" placeholder="Nhập tên hoặc MS (vd: 8239, Trúc Linh...)" oninput="onScheduleSearch(this.value)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats Grid -->
+      <div class="schedule-kpi-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">💼</div>
+          <div class="stat-data">
+            <div class="stat-label">Tổng Ngày Làm Việc Team</div>
+            <div class="stat-val" id="sched-stat-work">--</div>
+            <div class="stat-sub" id="sched-stat-work-sub">Tính theo chu kỳ đã chọn</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">🏖️</div>
+          <div class="stat-data">
+            <div class="stat-label">Tổng Ngày Nghỉ (OFF)</div>
+            <div class="stat-val" id="sched-stat-off">--</div>
+            <div class="stat-sub" id="sched-stat-off-sub">Nghỉ tuần theo quy định</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">🌴</div>
+          <div class="stat-data">
+            <div class="stat-label">Tổng Ngày Nghỉ Phép (P)</div>
+            <div class="stat-val" id="sched-stat-p">--</div>
+            <div class="stat-sub" id="sched-stat-p-sub">Phép năm / Phép riêng</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #6366f1;">👥</div>
+          <div class="stat-data">
+            <div class="stat-label">Quy Mô Team Ông Minh Nhựt</div>
+            <div class="stat-val" id="sched-stat-staff">14</div>
+            <div class="stat-sub">1 Leader + 13 Nhân sự CS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today's Roster Banner -->
+      <div class="today-roster-banner" id="today-roster-widget">
+        <div class="today-roster-header">
+          <div class="today-roster-title">
+            <span>⚡ PHÂN BỔ CA TRỰC HÔM NAY (<span id="roster-date-label">15/11/2026</span>)</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);">
+            Các bạn xem trực tiếp ca và kênh hỗ trợ tại đây thay vì mở Google Sheet
+          </div>
+        </div>
+        <div class="roster-groups-grid" id="roster-groups-content">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- SECTION 1: BẢNG TÍNH & ĐỐI SOÁT CÔNG -->
+      <div class="schedule-section-card">
+        <div class="schedule-section-header">
+          <div class="schedule-section-title">
+            <span>📊 BẢNG TÍNH & ĐỐI SOÁT NGÀY CÔNG / NGÀY NGHỈ</span>
+            <span class="badge" style="background:var(--primary-light);color:var(--primary);font-size:11px;" id="sched-table-cycle-badge">Chu kỳ 26-25</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);">
+            Chuẩn hóa tối đa 1.0 công/ngày (Ngày làm = 1.0 - OFF - Phép)
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table id="table-schedule-summary">
+            <thead>
+              <tr>
+                <th style="width:50px;">STT</th>
+                <th style="width:80px;">Mã NV</th>
+                <th>Họ và Tên Nhân Sự</th>
+                <th style="width:120px;">Chức Vụ</th>
+                <th class="numeric" style="width:120px;">🏖️ Ngày OFF</th>
+                <th class="numeric" style="width:120px;">🌴 Ngày Phép</th>
+                <th class="numeric" style="width:130px;">💼 Ngày Làm Việc</th>
+                <th class="numeric" style="width:120px;">📊 Tổng Ngày</th>
+                <th class="text-center" style="width:110px;">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-schedule-summary">
+              <!-- Rendered by JS -->
+            </tbody>
+            <tfoot id="tfoot-schedule-summary">
+              <!-- Rendered by JS -->
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 2: MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG -->
+      <div class="schedule-section-card">
+        <div class="schedule-section-header">
+          <div class="schedule-section-title">
+            <span>🗓️ MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG (TEAM ÔNG MINH NHỰT)</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-muted);flex-wrap:wrap;">
+            <span>Chú thích:</span>
+            <span class="badge-shift badge-shift-off">OFF (Nghỉ)</span>
+            <span class="badge-shift badge-shift-p">P (Phép)</span>
+            <span class="badge-shift badge-shift-s">S (Sáng)</span>
+            <span class="badge-shift badge-shift-tr">TR (Trưa)</span>
+            <span class="badge-shift badge-shift-t">T (Tối)</span>
+            <span class="badge-shift badge-shift-hc">HC / Kênh</span>
+          </div>
+        </div>
+
+        <div class="matrix-scroll-container" id="matrix-scroll-box">
+          <table class="matrix-table" id="table-matrix-schedule">
+            <thead id="thead-matrix-schedule">
+              <!-- Rendered by JS -->
+            </thead>
+            <tbody id="tbody-matrix-schedule">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -1684,6 +2143,9 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       updatePacingDisplay();
       buildMyNameOptions();
       renderPodiumAndAwards();
+      if (typeof initSchedule === 'function') {{
+        initSchedule();
+      }}
       applyFilters();
 
       // Kích hoạt đọc trực tiếp Realtime từ Google Sheets
@@ -1776,8 +2238,14 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       document.getElementById('tab-pane-charts').style.display = tab === 'charts' ? 'block' : 'none';
       const podiumPane = document.getElementById('tab-pane-podium');
       if (podiumPane) podiumPane.style.display = tab === 'podium' ? 'block' : 'none';
+      const schedPane = document.getElementById('tab-pane-schedule');
+      if (schedPane) schedPane.style.display = tab === 'schedule' ? 'block' : 'none';
 
       document.getElementById('filter-shift-toggle').style.display = tab === 'hs' ? 'block' : 'none';
+
+      if (tab === 'schedule' && typeof renderScheduleTab === 'function') {{
+        renderScheduleTab();
+      }}
     }}
 
     function renderKpiTable() {{
@@ -2028,7 +2496,11 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       const currentVal = select.value;
       select.innerHTML = '<option value="">👤 Tôi là ai? (Chọn tên bạn...)</option>';
       
-      const names = [...DATA.kpi_tong].map(x => x.name).sort((a,b) => a.localeCompare(b, 'vi'));
+      const allNamesSet = new Set([...DATA.kpi_tong].map(x => x.name));
+      if (DATA.schedule && DATA.schedule.employees) {{
+        DATA.schedule.employees.forEach(e => allNamesSet.add(e.name));
+      }}
+      const names = Array.from(allNamesSet).sort((a,b) => a.localeCompare(b, 'vi'));
       names.forEach(name => {{
         const opt = document.createElement('option');
         opt.value = name;
@@ -2066,7 +2538,7 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
         document.querySelectorAll('#tbody-kpi tr').forEach(tr => {{
           if (tr.innerText.toLowerCase().includes(nameLower)) {{
             tr.classList.add('my-row-highlight');
-            if (!targetRow) targetRow = tr;
+            if (!targetRow && currentTab === 'kpi') targetRow = tr;
           }}
         }});
 
@@ -2074,6 +2546,19 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
           if (tr.innerText.toLowerCase().includes(nameLower)) {{
             tr.classList.add('my-row-highlight');
             if (!targetRow && currentTab === 'hs') targetRow = tr;
+          }}
+        }});
+
+        document.querySelectorAll('#tbody-schedule-summary tr').forEach(tr => {{
+          if (tr.innerText.toLowerCase().includes(nameLower)) {{
+            tr.classList.add('my-row-highlight');
+            if (!targetRow && currentTab === 'schedule') targetRow = tr;
+          }}
+        }});
+
+        document.querySelectorAll('#tbody-matrix-schedule tr').forEach(tr => {{
+          if (tr.innerText.toLowerCase().includes(nameLower)) {{
+            tr.classList.add('my-row-highlight');
           }}
         }});
 
@@ -2484,11 +2969,378 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
       }}, 5000);
     }}
 
+    // ==========================================
+    // SCHEDULE & ATTENDANCE MODULE (TEAM ÔNG MINH NHỰT)
+    // ==========================================
+    let currentScheduleCycle = 'a'; // 'a': 26-25, 'b': 1-end
+    let currentScheduleRange = 'to_date'; // 'to_date' or 'full'
+    let scheduleSearchQuery = '';
+
+    function initSchedule() {{
+      if (!DATA.schedule) return;
+      const subtitle = document.getElementById('sched-subtitle-time');
+      if (subtitle && DATA.schedule.updated_at) {{
+        subtitle.innerText = `Đồng bộ lúc: ${{DATA.schedule.updated_at}} • Thuật toán chuẩn hóa công bất biến ≤ 1.0/ngày`;
+      }}
+      renderScheduleTab();
+    }}
+
+    function setScheduleCycle(cycle) {{
+      currentScheduleCycle = cycle;
+      const btnA = document.getElementById('btn-cycle-a');
+      const btnB = document.getElementById('btn-cycle-b');
+      if (btnA) btnA.classList.toggle('active', cycle === 'a');
+      if (btnB) btnB.classList.toggle('active', cycle === 'b');
+      const badge = document.getElementById('sched-table-cycle-badge');
+      if (badge) {{
+        badge.innerText = cycle === 'a' ? 'Chu kỳ 26 - 25' : 'Chu kỳ Đầu - Cuối tháng';
+      }}
+      renderScheduleTab();
+    }}
+
+    function setScheduleRange(range) {{
+      currentScheduleRange = range;
+      const btnT = document.getElementById('btn-range-todate');
+      const btnF = document.getElementById('btn-range-full');
+      if (btnT) btnT.classList.toggle('active', range === 'to_date');
+      if (btnF) btnF.classList.toggle('active', range === 'full');
+      renderScheduleTab();
+    }}
+
+    function onScheduleSearch(val) {{
+      scheduleSearchQuery = (val || '').toLowerCase().trim();
+      renderScheduleSummaryTable();
+      renderScheduleMatrixTable();
+    }}
+
+    function renderScheduleTab() {{
+      if (!DATA.schedule) return;
+      renderScheduleKPIStats();
+      renderTodayRoster();
+      renderScheduleSummaryTable();
+      renderScheduleMatrixTable();
+    }}
+
+    function getEmployeeStats(emp) {{
+      const cycleKey = currentScheduleCycle === 'a' ? 'cycle_a' : 'cycle_b';
+      const rangeKey = currentScheduleRange === 'to_date' ? 'to_date' : 'full';
+      if (emp.stats && emp.stats[cycleKey] && emp.stats[cycleKey][rangeKey]) {{
+        return emp.stats[cycleKey][rangeKey];
+      }}
+      return {{ off: 0, p: 0, work: 0, total: 0, days_counted: 0 }};
+    }}
+
+    function renderScheduleKPIStats() {{
+      const emps = DATA.schedule.employees || [];
+      let totalWork = 0;
+      let totalOff = 0;
+      let totalP = 0;
+      emps.forEach(emp => {{
+        const st = getEmployeeStats(emp);
+        totalWork += st.work;
+        totalOff += st.off;
+        totalP += st.p;
+      }});
+
+      const wEl = document.getElementById('sched-stat-work');
+      const oEl = document.getElementById('sched-stat-off');
+      const pEl = document.getElementById('sched-stat-p');
+      const sEl = document.getElementById('sched-stat-staff');
+
+      if (wEl) wEl.innerText = totalWork.toFixed(1);
+      if (oEl) oEl.innerText = totalOff.toFixed(1);
+      if (pEl) pEl.innerText = totalP.toFixed(1);
+      if (sEl) sEl.innerText = emps.length;
+
+      const avgWork = emps.length ? (totalWork / emps.length).toFixed(1) : 0;
+      const wSub = document.getElementById('sched-stat-work-sub');
+      const oSub = document.getElementById('sched-stat-off-sub');
+      if (wSub) wSub.innerText = `Trung bình ~${{avgWork}} ngày công/người`;
+      if (oSub) oSub.innerText = currentScheduleRange === 'to_date' ? 'Lũy kế nghỉ tuần đến hôm nay' : 'Toàn bộ ngày nghỉ trong chu kỳ';
+    }}
+
+    function renderTodayRoster(targetDateStr) {{
+      const dateStr = targetDateStr || DATA.schedule.today || new Date().toISOString().slice(0, 10);
+      const emps = DATA.schedule.employees || [];
+
+      const lbl = document.getElementById('roster-date-label');
+      if (lbl && DATA.schedule.today_display) {{
+        lbl.innerText = DATA.schedule.today_display;
+      }}
+
+      const groups = {{
+        morning: {{ label: '🌅 Ca Sáng (S / S+)', items: [], color: '#0284c7' }},
+        noon: {{ label: '☀️ Ca Trưa (TR)', items: [], color: '#d97706' }},
+        evening: {{ label: '🌙 Ca Tối (T)', items: [], color: '#4f46e5' }},
+        admin: {{ label: '🏢 Hành Chính & Kênh (HC / FB / TK)', items: [], color: '#059669' }},
+        off: {{ label: '🏖️ Nghỉ OFF & Phép (P)', items: [], color: '#dc2626' }}
+      }};
+
+      emps.forEach(emp => {{
+        const shiftList = (emp.shifts && emp.shifts[dateStr]) || [];
+        if (!shiftList.length) return;
+
+        let isOff = false;
+        let isP = false;
+        let isS = false;
+        let isTR = false;
+        let isT = false;
+        let isHC = false;
+        let detailTags = [];
+
+        shiftList.forEach(s => {{
+          const v = (s.val || '').toUpperCase().trim();
+          const ca = (s.ca || '').toUpperCase().trim();
+          detailTags.push(ca && ca !== v ? `${{ca}}: ${{v}}` : v);
+
+          if (v === 'OFF' || v === 'OFF/2') isOff = true;
+          if (v === 'P' || v === 'P/2') isP = true;
+          if (ca.includes('S') && !ca.includes('HC')) isS = true;
+          if (ca.includes('TR')) isTR = true;
+          if (ca.includes('T')) isT = true;
+          if (ca.includes('HC') || ['FB', 'TK', 'FC'].some(x => v.includes(x))) isHC = true;
+        }});
+
+        const pillText = `${{emp.name}} (${{detailTags.join(', ')}})`;
+        if (isOff || isP) groups.off.items.push(pillText);
+        else {{
+          if (isS) groups.morning.items.push(pillText);
+          if (isTR) groups.noon.items.push(pillText);
+          if (isT) groups.evening.items.push(pillText);
+          if (isHC && !isS && !isTR && !isT) groups.admin.items.push(pillText);
+        }}
+      }});
+
+      const container = document.getElementById('roster-groups-content');
+      if (!container) return;
+      container.innerHTML = Object.values(groups).map(g => `
+        <div class="roster-group-card">
+          <div class="roster-group-label" style="color: ${{g.color}}">
+            ${{g.label}} (${{g.items.length}})
+          </div>
+          <div class="roster-pills-wrap">
+            ${{g.items.length ? g.items.map(item => `
+              <span class="roster-pill" title="${{item}}">
+                ${{item.split(' (')[0]}}
+                <small style="opacity:0.75;font-weight:normal;">${{item.includes('(') ? item.substring(item.indexOf('(')) : ''}}</small>
+              </span>
+            `).join('') : '<span style="font-size:11px;color:var(--text-muted);font-style:italic;">Không có</span>'}}
+          </div>
+        </div>
+      `).join('');
+    }}
+
+    function renderScheduleSummaryTable() {{
+      const tbody = document.getElementById('tbody-schedule-summary');
+      const tfoot = document.getElementById('tfoot-schedule-summary');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      let emps = (DATA.schedule && DATA.schedule.employees) || [];
+      if (scheduleSearchQuery) {{
+        emps = emps.filter(e => e.name.toLowerCase().includes(scheduleSearchQuery) || e.id.includes(scheduleSearchQuery));
+      }}
+
+      let sumOff = 0, sumP = 0, sumWork = 0, sumTotal = 0;
+      const myName = localStorage.getItem('kpicto_my_name') || '';
+
+      emps.forEach((emp, idx) => {{
+        const st = getEmployeeStats(emp);
+        sumOff += st.off;
+        sumP += st.p;
+        sumWork += st.work;
+        sumTotal += st.total;
+
+        const isMe = myName && (emp.name.toLowerCase().includes(myName.toLowerCase()) || myName.toLowerCase().includes(emp.name.toLowerCase()));
+        const tr = document.createElement('tr');
+        if (isMe) tr.classList.add('my-row-highlight');
+
+        tr.innerHTML = `
+          <td>${{idx + 1}}</td>
+          <td><span class="badge" style="background:rgba(255,255,255,0.06);font-family:monospace;">${{emp.id}}</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <strong>${{emp.name}}</strong>
+              ${{emp.is_leader ? '<span class="badge" style="background:#fef3c7;color:#b45309;font-size:10px;padding:2px 6px;">👑 Leader</span>' : ''}}
+            </div>
+          </td>
+          <td><span style="font-size:12px;color:var(--text-muted);">${{emp.role || 'Nhân viên CS'}}</span></td>
+          <td class="numeric">
+            <span class="badge" style="background:rgba(239, 68, 68, 0.15);color:#ef4444;font-weight:700;">${{st.off}}</span>
+          </td>
+          <td class="numeric">
+            <span class="badge" style="background:rgba(168, 85, 247, 0.15);color:#a855f7;font-weight:700;">${{st.p}}</span>
+          </td>
+          <td class="numeric">
+            <span class="badge" style="background:rgba(16, 185, 129, 0.15);color:#10b981;font-weight:700;">${{st.work}}</span>
+          </td>
+          <td class="numeric">
+            <strong style="color:var(--text-main);">${{st.total}}</strong>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-sm" onclick="scrollToEmployeeMatrix('${{emp.id}}')" style="padding:4px 8px;font-size:11px;">
+              👁️ Xem Lịch
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }});
+
+      if (tfoot) {{
+        tfoot.innerHTML = `
+          <tr style="background:rgba(0,0,0,0.25);font-weight:800;">
+            <td colspan="4" style="text-align:right;padding-right:15px;">Tổng cộng cả Team:</td>
+            <td class="numeric" style="color:#ef4444;">${{sumOff.toFixed(1)}}</td>
+            <td class="numeric" style="color:#a855f7;">${{sumP.toFixed(1)}}</td>
+            <td class="numeric" style="color:#10b981;">${{sumWork.toFixed(1)}}</td>
+            <td class="numeric" style="color:var(--text-main);">${{sumTotal.toFixed(1)}}</td>
+            <td></td>
+          </tr>
+        `;
+      }}
+    }}
+
+    function renderScheduleMatrixTable() {{
+      const thead = document.getElementById('thead-matrix-schedule');
+      const tbody = document.getElementById('tbody-matrix-schedule');
+      if (!thead || !tbody || !DATA.schedule) return;
+
+      const dates = (DATA.schedule.dates || []).filter(d => {{
+        return currentScheduleCycle === 'a' ? d.in_cycle_a : d.in_cycle_b;
+      }});
+
+      thead.innerHTML = `
+        <tr>
+          <th class="sticky-col-id" rowspan="2">MS</th>
+          <th class="sticky-col-name" rowspan="2">Họ và Tên Nhân Sự</th>
+          ${{dates.map(d => `
+            <th class="${{d.is_today ? 'col-today' : (d.is_weekend ? 'col-weekend' : '')}}">
+              ${{d.thu}}
+            </th>
+          `).join('')}}
+        </tr>
+        <tr>
+          ${{dates.map(d => `
+            <th class="${{d.is_today ? 'col-today' : (d.is_weekend ? 'col-weekend' : '')}}" style="font-size:13px;font-weight:800;">
+              ${{d.day_num}}/${{d.month}}
+              ${{d.is_today ? '<div style="font-size:9px;background:#f59e0b;color:#000;border-radius:3px;padding:1px 3px;margin-top:2px;">📍 HÔM NAY</div>' : ''}}
+            </th>
+          `).join('')}}
+        </tr>
+      `;
+
+      let emps = (DATA.schedule && DATA.schedule.employees) || [];
+      if (scheduleSearchQuery) {{
+        emps = emps.filter(e => e.name.toLowerCase().includes(scheduleSearchQuery) || e.id.includes(scheduleSearchQuery));
+      }}
+
+      const myName = localStorage.getItem('kpicto_my_name') || '';
+
+      tbody.innerHTML = emps.map(emp => {{
+        const isMe = myName && (emp.name.toLowerCase().includes(myName.toLowerCase()) || myName.toLowerCase().includes(emp.name.toLowerCase()));
+        return `
+          <tr id="matrix-row-${{emp.id}}" class="${{isMe ? 'my-row-highlight' : ''}}">
+            <td class="sticky-col-id">
+              <span style="font-family:monospace;font-size:11px;color:var(--text-muted);">${{emp.id}}</span>
+            </td>
+            <td class="sticky-col-name">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span>${{emp.name}}</span>
+                ${{emp.is_leader ? '<span title="Leader" style="cursor:default;">👑</span>' : ''}}
+              </div>
+            </td>
+            ${{dates.map(d => {{
+              const shifts = (emp.shifts && emp.shifts[d.date_str]) || [];
+              let content = '';
+              if (!shifts.length) {{
+                content = '<span style="color:rgba(255,255,255,0.15);">-</span>';
+              }} else {{
+                content = shifts.map(s => {{
+                  const v = (s.val || '').trim();
+                  const vu = v.toUpperCase();
+                  let cls = 'badge-shift-other';
+                  if (vu.startsWith('OFF')) cls = 'badge-shift-off';
+                  else if (vu.startsWith('P')) cls = 'badge-shift-p';
+                  else if (s.ca.includes('S') && !s.ca.includes('HC')) cls = 'badge-shift-s';
+                  else if (s.ca.includes('TR')) cls = 'badge-shift-tr';
+                  else if (s.ca.includes('T')) cls = 'badge-shift-t';
+                  else if (s.ca.includes('HC') || ['FB', 'TK', 'FC'].some(x => vu.includes(x))) cls = 'badge-shift-hc';
+
+                  const label = (s.ca && s.ca !== v) ? `${{s.ca}}: ${{v}}` : v;
+                  return `<span class="badge-shift ${{cls}}" title="${{d.thu}} ${{d.day_num}}/${{d.month}}: ${{label}}">${{label}}</span>`;
+                }}).join('');
+              }}
+              return `<td class="${{d.is_today ? 'col-today' : (d.is_weekend ? 'col-weekend' : '')}}">${{content}}</td>`;
+            }}).join('')}}
+          </tr>
+        `;
+      }}).join('');
+    }}
+
+    function scrollToEmployeeMatrix(empId) {{
+      const row = document.getElementById('matrix-row-' + empId);
+      if (row) {{
+        row.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        row.style.outline = '2px solid #f59e0b';
+        setTimeout(() => row.style.outline = '', 3000);
+      }}
+    }}
+
+    function exportScheduleExcel() {{
+      if (!DATA.schedule) return;
+      const emps = DATA.schedule.employees || [];
+      const cycleTitle = currentScheduleCycle === 'a' ? 'Chu_ky_26_25' : 'Chu_ky_Dau_Cuoi_thang';
+      const rangeTitle = currentScheduleRange === 'to_date' ? 'Den_hom_nay' : 'Ca_chu_ky';
+
+      let csv = "\\uFEFFSTT,Mã NV,Họ và Tên,Chức Vụ,Ngày OFF,Ngày Phép,Ngày Làm Việc,Tổng Ngày\\n";
+      emps.forEach((emp, idx) => {{
+        const st = getEmployeeStats(emp);
+        csv += `"${{idx + 1}}","${{emp.id}}","${{emp.name}}","${{emp.role || ''}}","${{st.off}}","${{st.p}}","${{st.work}}","${{st.total}}"\\n`;
+      }});
+
+      const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8;' }});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Bao_Cao_Cham_Cong_Team_CTO1_${{cycleTitle}}_${{rangeTitle}}.csv`;
+      a.click();
+      showToast('📥 Đã tải xuống file CSV chấm công thành công!');
+    }}
+
+    async function syncScheduleLive() {{
+      const btn = document.getElementById('btn-sync-schedule');
+      if (btn) {{
+        btn.innerHTML = '⏳ Đang tải Google Sheets...';
+        btn.style.opacity = '0.7';
+      }}
+
+      try {{
+        const token = await getGoogleServiceAccountToken();
+        const sheetName = encodeURIComponent('Tháng 11/2026');
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/values/${{sheetName}}?valueRenderOption=FORMATTED_VALUE`;
+        const res = await fetch(url, {{
+          headers: {{ 'Authorization': 'Bearer ' + token }}
+        }});
+        const json = await res.json();
+        if (json.values && json.values.length > 5) {{
+          showToast('✅ Đã cập nhật lịch trực mới nhất trực tiếp từ Google Sheets!');
+          renderScheduleTab();
+        }}
+      }} catch (err) {{
+        console.warn('Sync schedule warning:', err);
+        showToast('⚠️ Không thể kết nối Google Sheets trực tiếp, hiển thị dữ liệu đã lưu.');
+      }} finally {{
+        if (btn) {{
+          btn.innerHTML = '🔄 Tải lại Lịch Trực Mới Nhất';
+          btn.style.opacity = '1';
+        }}
+      }}
+    }}
+
     // TV Kiosk Mode
     let tvInterval = null;
     let tvProgressInterval = null;
     let tvSlideIndex = 0;
-    const TV_SLIDES = ['kpi', 'hs', 'podium'];
+    const TV_SLIDES = ['kpi', 'hs', 'schedule', 'podium'];
     const TV_SLIDE_DURATION = 15000;
 
     function toggleTvMode() {{

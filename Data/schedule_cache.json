@@ -1,0 +1,6598 @@
+{
+  "updated_at": "15/11/2026 20:28:47",
+  "today": "2026-11-15",
+  "today_display": "15/11/2026",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/edit",
+  "cycles": {
+    "a": {
+      "title": "Chu kỳ 26 - 25",
+      "label": "26/10 -> 25/11/2026",
+      "start": "2026-10-26",
+      "end": "2026-11-25"
+    },
+    "b": {
+      "title": "Chu kỳ Đầu - Cuối tháng",
+      "label": "01/11 -> 30/11/2026",
+      "start": "2026-11-01",
+      "end": "2026-11-30"
+    }
+  },
+  "dates": [
+    {
+      "date_str": "2026-10-26",
+      "day_num": 26,
+      "month": 10,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-10-27",
+      "day_num": 27,
+      "month": 10,
+      "year": 2026,
+      "thu": "T3",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-10-28",
+      "day_num": 28,
+      "month": 10,
+      "year": 2026,
+      "thu": "T4",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-10-29",
+      "day_num": 29,
+      "month": 10,
+      "year": 2026,
+      "thu": "T5",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-10-30",
+      "day_num": 30,
+      "month": 10,
+      "year": 2026,
+      "thu": "T6",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-10-31",
+      "day_num": 31,
+      "month": 10,
+      "year": 2026,
+      "thu": "T7",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": false
+    },
+    {
+      "date_str": "2026-11-01",
+      "day_num": 1,
+      "month": 11,
+      "year": 2026,
+      "thu": "CN",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-02",
+      "day_num": 2,
+      "month": 11,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-03",
+      "day_num": 3,
+      "month": 11,
+      "year": 2026,
+      "thu": "T3",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-04",
+      "day_num": 4,
+      "month": 11,
+      "year": 2026,
+      "thu": "T4",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-05",
+      "day_num": 5,
+      "month": 11,
+      "year": 2026,
+      "thu": "T5",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-06",
+      "day_num": 6,
+      "month": 11,
+      "year": 2026,
+      "thu": "T6",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-07",
+      "day_num": 7,
+      "month": 11,
+      "year": 2026,
+      "thu": "T7",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-08",
+      "day_num": 8,
+      "month": 11,
+      "year": 2026,
+      "thu": "CN",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-09",
+      "day_num": 9,
+      "month": 11,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-10",
+      "day_num": 10,
+      "month": 11,
+      "year": 2026,
+      "thu": "T3",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-11",
+      "day_num": 11,
+      "month": 11,
+      "year": 2026,
+      "thu": "T4",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-12",
+      "day_num": 12,
+      "month": 11,
+      "year": 2026,
+      "thu": "T5",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-13",
+      "day_num": 13,
+      "month": 11,
+      "year": 2026,
+      "thu": "T6",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-14",
+      "day_num": 14,
+      "month": 11,
+      "year": 2026,
+      "thu": "T7",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-15",
+      "day_num": 15,
+      "month": 11,
+      "year": 2026,
+      "thu": "CN",
+      "is_weekend": true,
+      "is_today": true,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-16",
+      "day_num": 16,
+      "month": 11,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-17",
+      "day_num": 17,
+      "month": 11,
+      "year": 2026,
+      "thu": "T3",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-18",
+      "day_num": 18,
+      "month": 11,
+      "year": 2026,
+      "thu": "T4",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-19",
+      "day_num": 19,
+      "month": 11,
+      "year": 2026,
+      "thu": "T5",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-20",
+      "day_num": 20,
+      "month": 11,
+      "year": 2026,
+      "thu": "T6",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-21",
+      "day_num": 21,
+      "month": 11,
+      "year": 2026,
+      "thu": "T7",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-22",
+      "day_num": 22,
+      "month": 11,
+      "year": 2026,
+      "thu": "CN",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-23",
+      "day_num": 23,
+      "month": 11,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-24",
+      "day_num": 24,
+      "month": 11,
+      "year": 2026,
+      "thu": "T3",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-25",
+      "day_num": 25,
+      "month": 11,
+      "year": 2026,
+      "thu": "T4",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": true,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-26",
+      "day_num": 26,
+      "month": 11,
+      "year": 2026,
+      "thu": "T5",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": false,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-27",
+      "day_num": 27,
+      "month": 11,
+      "year": 2026,
+      "thu": "T6",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": false,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-28",
+      "day_num": 28,
+      "month": 11,
+      "year": 2026,
+      "thu": "T7",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": false,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-29",
+      "day_num": 29,
+      "month": 11,
+      "year": 2026,
+      "thu": "CN",
+      "is_weekend": true,
+      "is_today": false,
+      "in_cycle_a": false,
+      "in_cycle_b": true
+    },
+    {
+      "date_str": "2026-11-30",
+      "day_num": 30,
+      "month": 11,
+      "year": 2026,
+      "thu": "T2",
+      "is_weekend": false,
+      "is_today": false,
+      "in_cycle_a": false,
+      "in_cycle_b": true
+    }
+  ],
+  "employees": [
+    {
+      "id": "8239",
+      "name": "Ông Minh Nhựt",
+      "is_leader": true,
+      "role": "Leader",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: x | HC-C: x | T: N",
+        "2026-10-27": "HC-S: x | HC-C: x",
+        "2026-10-28": "HC-S: x | HC-C: x | T: N",
+        "2026-10-29": "S: OFF",
+        "2026-10-30": "HC-S: x | TR | HC-C: x",
+        "2026-10-31": "HC-S: x | HC-C: x",
+        "2026-11-01": "HC-S: x | HC-C: x | T: N",
+        "2026-11-02": "HC-S: x | HC-C: x",
+        "2026-11-03": "S: OFF",
+        "2026-11-04": "HC-S: x | HC-C: x | T: N",
+        "2026-11-05": "HC-S: x | HC-C: x",
+        "2026-11-06": "HC-S: x | HC-C: x | T: N",
+        "2026-11-07": "HC-S: x | HC-C: x",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "S: P",
+        "2026-11-10": "S: P",
+        "2026-11-11": "S: P",
+        "2026-11-12": "HC-S: x | HC-C: x | T: N",
+        "2026-11-13": "HC-S: x | HC-C: x | T: N",
+        "2026-11-14": "HC-S: x | HC-C: x | T: N",
+        "2026-11-15": "HC-S: x | HC-C: x",
+        "2026-11-16": "S: OFF",
+        "2026-11-17": "HC-S: x | HC-C: x | T: N",
+        "2026-11-18": "HC-S: x | HC-C: x | T: N",
+        "2026-11-19": "HC-S: x | HC-C: x | T: N",
+        "2026-11-20": "HC-S: x | HC-C: x | T: N",
+        "2026-11-21": "HC-S: x | TR | HC-C: x",
+        "2026-11-22": "S: OFF",
+        "2026-11-23": "S: OFF",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 3.0,
+            "p": 3.0,
+            "work": 15.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 3.0,
+            "work": 22.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 2.0,
+            "p": 3.0,
+            "work": 10.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 3.0,
+            "work": 17.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8131",
+      "name": "Lê Thị Trúc Linh",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FB"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "T",
+            "val": "FB"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC9"
+          },
+          {
+            "ca": "T",
+            "val": "FC9"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FB"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FB"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FB"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC5"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FB"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          },
+          {
+            "ca": "T",
+            "val": "Miss"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC5"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC14"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "FB"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: TK | HC-C: FB",
+        "2026-10-27": "S: OFF | T: FB",
+        "2026-10-28": "S: FC1 | HC-S: FB | HC-C: TK",
+        "2026-10-29": "HC-S: FB | HC-C: FC2",
+        "2026-10-30": "S: FC2 | HC-S: FC2 | HC-C: TK",
+        "2026-10-31": "S: OFF",
+        "2026-11-01": "HC-S: FB | HC-C: FC9 | T: FC9",
+        "2026-11-02": "S: S+ | HC-S: TK | HC-C: P/2",
+        "2026-11-03": "HC-S: FB | HC-C: TK | T: FB",
+        "2026-11-04": "S: FB | HC-S: FB | HC-C: TK",
+        "2026-11-05": "HC-S: Miss | TR: TK | HC-C: FB",
+        "2026-11-06": "HC-C: TK | T: CH",
+        "2026-11-07": "S: OFF",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "HC-S: TK | HC-C: x | T: FB",
+        "2026-11-10": "HC-S: FB | HC-C: FC5",
+        "2026-11-11": "S: FB | HC-S: TK | HC-C: FB",
+        "2026-11-12": "S: OFF | T",
+        "2026-11-13": "HC-S: FC2 | HC-C: FC2 | T: N",
+        "2026-11-14": "S: FB | HC-S: TK | HC-C: P/2",
+        "2026-11-15": "HC-S: FB | HC-C: FC1 | T: Miss",
+        "2026-11-16": "HC-S: TK | TR: FC1 | HC-C: FC1",
+        "2026-11-17": "S: FC1 | HC-S: FC1 | HC-C: TK",
+        "2026-11-18": "HC-C: TK | T: CH",
+        "2026-11-19": "S: FB | HC-S: FC5 | HC-C: x",
+        "2026-11-20": "S: OFF",
+        "2026-11-21": "HC-S: FB | HC-C: FC14 | T: FC3",
+        "2026-11-22": "HC-S: FB | HC-C: TK",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 5.0,
+            "p": 1.0,
+            "work": 15.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 1.0,
+            "work": 24.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.0,
+            "p": 1.0,
+            "work": 11.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 4.0,
+            "p": 1.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8171",
+      "name": "Nguyễn Thị Ngọc Trâm",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "FC9"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CHFC4"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC7"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "FC7"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC7"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "FC14"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "S",
+            "val": "NL"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: FC3 | HC-C: FC3 | T: FC3",
+        "2026-10-27": "HC-S: FC3 | HC-C: FC3",
+        "2026-10-28": "HC-S: FC3 | HC-C: FC3 | T: TK",
+        "2026-10-29": "S: OFF",
+        "2026-10-30": "HC-S: TK | HC-C: FC2",
+        "2026-10-31": "HC-S: TK | HC-C: FC3",
+        "2026-11-01": "HC-S: TK | HC-C: FC1 | T: FC1",
+        "2026-11-02": "HC-S: FC1 | TR: FC1 | HC-C: FC1",
+        "2026-11-03": "HC-S: FC3 | HC-C: TK | T: FC1",
+        "2026-11-04": "HC-S: FC1 | HC-C: FC1 | T: TK",
+        "2026-11-05": "S: OFF",
+        "2026-11-06": "HC-S: FC1 | HC-C: Miss | T: FC1",
+        "2026-11-07": "HC-S: x | HC-C: FC1",
+        "2026-11-08": "HC-S: FC2 | HC-C: TK | T: FC1",
+        "2026-11-09": "HC-S: Miss | HC-C: FC2 | T: FC9",
+        "2026-11-10": "S: OFF",
+        "2026-11-11": "HC-C: TK | T: CHFC4",
+        "2026-11-12": "HC-S: TK | HC-C: FC7",
+        "2026-11-13": "HC-S: FC7 | HC-C: FC7 | T: N",
+        "2026-11-14": "HC-S: FC2 | HC-C: TK | T: FC4",
+        "2026-11-15": "S: OFF",
+        "2026-11-16": "HC-S: TK | HC-C: FC2 | T: FC2",
+        "2026-11-17": "HC-S: FC2 | HC-C: Miss | T: FC3",
+        "2026-11-18": "HC-S: TK | TR: FC1 | HC-C: FC1",
+        "2026-11-19": "HC-S: FC1 | HC-C: TK | T: FC4",
+        "2026-11-20": "HC-S: FC14 | HC-C: TK | T: FC1",
+        "2026-11-21": "HC-S: x | TR | HC-C: FC1",
+        "2026-11-22": "HC-S: FC1 | TR: FC1 | HC-C: FC1",
+        "2026-11-23": "S: OFF",
+        "2026-11-24": "S: NL",
+        "2026-11-25": "S: OFF"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.0,
+            "work": 17.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 25.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.0,
+            "work": 12.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8116",
+      "name": "Lưu Cẩm Tú",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "FC8"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC5"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "OFF/2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC5"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S: FC1 | HC-S: FC1 | HC-C: FC1",
+        "2026-10-27": "HC-S: FC1 | HC-C: TK | T",
+        "2026-10-28": "S: FC8 | HC-S: TK | TR: TK | HC-C: FC2",
+        "2026-10-29": "S: FC1 | HC-S: TK | HC-C: P/2",
+        "2026-10-30": "S: OFF",
+        "2026-10-31": "HC-S: x | HC-C: x | T: FC4",
+        "2026-11-01": "S: FC1 | HC-S: FC1 | HC-C: x",
+        "2026-11-02": "HC-S: TK | HC-C: FC3 | T",
+        "2026-11-03": "S: OFF",
+        "2026-11-04": "S: FC1 | HC-S: TK | HC-C: x",
+        "2026-11-05": "HC-S: FC1 | HC-C: x",
+        "2026-11-06": "S | HC-S: Miss | HC-C: TK",
+        "2026-11-07": "S: FC1 | HC-S: TK | TR: FC2 | HC-C: OFF/2",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "HC-S: FC3 | HC-C: TK | T: FC3",
+        "2026-11-10": "S | HC-S: x | HC-C: FC1",
+        "2026-11-11": "S: FC1 | HC-S: FC1 | HC-C: FC5",
+        "2026-11-12": "HC-C: TK | T: CH",
+        "2026-11-13": "HC-S: OFF/2 | HC-C: OFF/2 | T: N",
+        "2026-11-14": "HC-S: FC3 | HC-C: TK | T: FC5",
+        "2026-11-15": "HC-S: TK | TR | HC-C: Miss",
+        "2026-11-16": "HC-S: FC1 | HC-C: TK | T",
+        "2026-11-17": "HC-S: Miss | TR: TK | HC-C: FC3",
+        "2026-11-18": "HC-S: FC1 | HC-C: x | T: TK",
+        "2026-11-19": "HC-S: x | TR: FC1 | HC-C: FC1",
+        "2026-11-20": "S: FC1 | HC-S: FC1 | HC-C: Miss",
+        "2026-11-21": "S: FC1 | HC-S: FC1 | HC-C: OFF/2",
+        "2026-11-22": "S: OFF",
+        "2026-11-23": "S: P",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 4.5,
+            "p": 0.5,
+            "work": 16.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 1.5,
+            "work": 23.5,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.5,
+            "p": 0.0,
+            "work": 11.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 1.0,
+            "work": 19.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8177",
+      "name": "Hồ Hồng Nhi",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC14"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC9"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "TR",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC8"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC8"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC5"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC5"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC14"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC4"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "FC16"
+          },
+          {
+            "ca": "TR",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: TK | TR: TK | HC-C: FC14",
+        "2026-10-27": "HC-C: TK | T: CH",
+        "2026-10-28": "S: OFF",
+        "2026-10-29": "HC-S: FC3 | HC-C: x | T: FC9",
+        "2026-10-30": "HC-S: FC1 | TR: FC1 | HC-C: FC1",
+        "2026-10-31": "S: FC1 | HC-S: FC1 | HC-C: FC1",
+        "2026-11-01": "HC-S: TK | HC-C: FC3 | T: FC3",
+        "2026-11-02": "HC-S: FC2 | TR: FC2 | HC-C: FC2",
+        "2026-11-03": "HC-S: FC1 | HC-C: FC1 | T",
+        "2026-11-04": "S: OFF",
+        "2026-11-05": "HC-S: FC3 | HC-C: Miss | T: FC1",
+        "2026-11-06": "HC-S: TK | TR: FC8 | HC-C: FC8",
+        "2026-11-07": "HC-S: FC3 | HC-C: TK | T: FC3",
+        "2026-11-08": "HC-S: TK | TR: FC5 | HC-C: FC5",
+        "2026-11-09": "S: FC3 | HC-S: TK | HC-C: FC14",
+        "2026-11-10": "HC-S: TK | HC-C: Miss | T: FC1",
+        "2026-11-11": "S: OFF",
+        "2026-11-12": "S: FC1 | HC-S: FC1 | HC-C: x",
+        "2026-11-13": "HC-S: TK | HC-C: FC4 | T: N",
+        "2026-11-14": "HC-S: FC1 | HC-C: Miss",
+        "2026-11-15": "HC-S: FC2 | HC-C: TK | T: FC4",
+        "2026-11-16": "S: OFF",
+        "2026-11-17": "S: OFF",
+        "2026-11-18": "S: OFF",
+        "2026-11-19": "HC-S: TK | HC-C: x | T: FC3",
+        "2026-11-20": "HC-S: FC16 | TR: FC1 | HC-C: FC1",
+        "2026-11-21": "HC-S: FC3 | HC-C: TK | T",
+        "2026-11-22": "HC-S: TK | HC-C: FC3 | T: FC3",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.0,
+            "work": 18.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 25.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 2.0,
+            "p": 0.0,
+            "work": 13.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8222",
+      "name": "Bùi Đăng Quang",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "P/2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S: OFF",
+        "2026-10-27": "S | HC-S: x | HC-C: x",
+        "2026-10-28": "HC-S: x | HC-C: x | T: N",
+        "2026-10-29": "S | HC-S: x | HC-C: x",
+        "2026-10-30": "S | HC-S: x | HC-C: OFF/2",
+        "2026-10-31": "HC-S: P/2 | HC-C: OFF/2",
+        "2026-11-01": "HC-C: TK | T: CH",
+        "2026-11-02": "S | HC-S: x | HC-C: x",
+        "2026-11-03": "S: OFF",
+        "2026-11-04": "S | HC-S: x | HC-C: x",
+        "2026-11-05": "HC-S: x | HC-C: x",
+        "2026-11-06": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-07": "S: OFF",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "HC-C: x | T: CH",
+        "2026-11-10": "S | HC-S: x | HC-C: x",
+        "2026-11-11": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-12": "HC-S: x | HC-C: x",
+        "2026-11-13": "S: TK | HC-S: x | HC-C: x",
+        "2026-11-14": "S: S+ | HC-S: x | HC-C: P/2",
+        "2026-11-15": "S: OFF",
+        "2026-11-16": "HC-C: x | T: CH",
+        "2026-11-17": "S | HC-S: x | HC-C: x",
+        "2026-11-18": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-19": "HC-S: x | HC-C: x | T: N",
+        "2026-11-20": "S: P",
+        "2026-11-21": "S | HC-S: x | HC-C: x | T: TK",
+        "2026-11-22": "HC-S: Miss | TR | HC-C: Miss",
+        "2026-11-23": "S: P",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 6.0,
+            "p": 1.0,
+            "work": 14.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 3.0,
+            "work": 22.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.5,
+            "work": 10.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 4.0,
+            "p": 2.5,
+            "work": 18.5,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8257",
+      "name": "Phạm Hoàng Hậu",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC18"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC17"
+          },
+          {
+            "ca": "TR",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S | HC-S: FC15 | HC-C: x",
+        "2026-10-27": "HC-C: x | T: CH",
+        "2026-10-28": "S: S+ | HC-S: x | HC-C: TK",
+        "2026-10-29": "HC-S: x | HC-C: x | T: FC15",
+        "2026-10-30": "S | HC-S: x | HC-C: x",
+        "2026-10-31": "HC-S: x | HC-C: TK | T: FC15",
+        "2026-11-01": "S: OFF",
+        "2026-11-02": "S: OFF",
+        "2026-11-03": "S: FC15 | HC-S: x | HC-C: x",
+        "2026-11-04": "S | HC-S: x | HC-C: FC15",
+        "2026-11-05": "HC-S: x | HC-C: TK | T: N",
+        "2026-11-06": "S | HC-S: x | HC-C: FC18",
+        "2026-11-07": "S: FC15 | HC-S: x | HC-C: x",
+        "2026-11-08": "TR | HC-C: x | T: CH",
+        "2026-11-09": "S: OFF",
+        "2026-11-10": "HC-S: x | HC-C: x",
+        "2026-11-11": "S | HC-S: x | HC-C: x",
+        "2026-11-12": "S | HC-S: x | HC-C: x",
+        "2026-11-13": "HC-S: TK | TR: FC15 | HC-C: FC15",
+        "2026-11-14": "S: FC17 | HC-S: FC17 | TR: FC17 | HC-C: x",
+        "2026-11-15": "HC-S: FC15 | HC-C: x | T: TK",
+        "2026-11-16": "S: TK | HC-S: FC17 | HC-C: x",
+        "2026-11-17": "S: OFF",
+        "2026-11-18": "HC-C: x | T: CH",
+        "2026-11-19": "HC-S: x | HC-C: x",
+        "2026-11-20": "S: FC15 | HC-S: FC15 | HC-C: x",
+        "2026-11-21": "S: OFF",
+        "2026-11-22": "HC-S: x | TR | HC-C: x",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "S: OFF"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.0,
+            "work": 18.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 25.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.0,
+            "work": 12.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 19.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8274",
+      "name": "Nguyễn Hửu Thuận",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "P"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH/FC15"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "Miss"
+          },
+          {
+            "ca": "HC-C",
+            "val": "Miss"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH/FC18"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: FC17 | HC-C: x",
+        "2026-10-27": "S: OFF | T: N",
+        "2026-10-28": "S | HC-S: x | TR | HC-C: FC15",
+        "2026-10-29": "S: FC15 | HC-S: x | HC-C: x",
+        "2026-10-30": "S: P",
+        "2026-10-31": "HC-S: x | TR: FC15 | HC-C: x",
+        "2026-11-01": "S | HC-S: x | HC-C: x",
+        "2026-11-02": "HC-C: x | T: CH",
+        "2026-11-03": "HC-S: x | TR | HC-C: x",
+        "2026-11-04": "S: FC18 | HC-S: FC18 | HC-C: x",
+        "2026-11-05": "S: OFF",
+        "2026-11-06": "HC-S: x | HC-C: x | T: N",
+        "2026-11-07": "HC-S: x | TR: FC18 | HC-C: x",
+        "2026-11-08": "HC-S: x | HC-C: x | T: FC15",
+        "2026-11-09": "S: FC15 | HC-S: x | HC-C: x",
+        "2026-11-10": "S: FC15 | HC-S: FC15 | HC-C: x | T: N",
+        "2026-11-11": "HC-S: x | TR | HC-C: x",
+        "2026-11-12": "HC-C: x | T: CH/FC15",
+        "2026-11-13": "S: OFF",
+        "2026-11-14": "S: OFF",
+        "2026-11-15": "S: OFF",
+        "2026-11-16": "HC-S: Miss | HC-C: Miss | T: FC15",
+        "2026-11-17": "HC-S: x | TR | HC-C: x",
+        "2026-11-18": "S: TK | HC-S: x | HC-C: x",
+        "2026-11-19": "S: OFF",
+        "2026-11-20": "HC-C: x | T: CH/FC18",
+        "2026-11-21": "HC-S: x | TR: TK | HC-C: x",
+        "2026-11-22": "S | HC-S: FC15 | HC-C: x",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 5.0,
+            "p": 1.0,
+            "work": 15.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 1.0,
+            "work": 24.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.0,
+            "work": 11.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8284",
+      "name": "Lê Nhựt Toàn",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "T",
+            "val": "Miss"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC18"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC18"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: TK | TR | HC-C: x",
+        "2026-10-27": "HC-S: x | TR: FC18 | HC-C: x | T: FC15",
+        "2026-10-28": "HC-S: x | TR | HC-C: x",
+        "2026-10-29": "S: OFF | T: Miss",
+        "2026-10-30": "HC-C: x | T: CH",
+        "2026-10-31": "S: FC15 | HC-S: FC15 | HC-C: x",
+        "2026-11-01": "HC-S: x | TR | HC-C: x",
+        "2026-11-02": "HC-S: FC17 | HC-C: P/2 | T: N",
+        "2026-11-03": "HC-S: x | TR | HC-C: x",
+        "2026-11-04": "S: OFF",
+        "2026-11-05": "HC-S: x | HC-C: x | T: FC15",
+        "2026-11-06": "HC-S: x | TR | HC-C: x",
+        "2026-11-07": "HC-S: x | HC-C: x | T: FC15",
+        "2026-11-08": "S | HC-S: x | HC-C: x",
+        "2026-11-09": "HC-C: x | T: CH",
+        "2026-11-10": "S: OFF",
+        "2026-11-11": "HC-S: x | TR: FC15 | HC-C: FC15",
+        "2026-11-12": "HC-S: TK | HC-C: x | T: N",
+        "2026-11-13": "HC-S: x | HC-C: FC18 | T: FC15",
+        "2026-11-14": "HC-S: x | HC-C: x | T: TK",
+        "2026-11-15": "HC-S: x | TR: FC15 | HC-C: x",
+        "2026-11-16": "S: OFF",
+        "2026-11-17": "S: OFF",
+        "2026-11-18": "S: OFF",
+        "2026-11-19": "HC-C: TK | T: CH",
+        "2026-11-20": "HC-S: x | TR | HC-C: FC18",
+        "2026-11-21": "HC-S: FC15 | HC-C: x",
+        "2026-11-22": "HC-S: x | HC-C: x | T: TK",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.5,
+            "work": 17.5,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.5,
+            "work": 24.5,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 2.0,
+            "p": 0.5,
+            "work": 12.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.5,
+            "work": 19.5,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8285",
+      "name": "Trương Thiết Long",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "FC17"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC17"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "P/2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH/FC15"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC17"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC15"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "S",
+            "val": "FC15"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC18"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S | HC-S: x | TR | HC-C: x | T: N",
+        "2026-10-27": "S: S+ | HC-S: x | HC-C: x",
+        "2026-10-28": "S: FC17 | HC-S: x | HC-C: x",
+        "2026-10-29": "S: FC18 | HC-C: x | T: CH",
+        "2026-10-30": "S | HC-S: x | HC-C: FC15",
+        "2026-10-31": "S: OFF",
+        "2026-11-01": "HC-S: x | TR: FC18 | HC-C: x | T: FC15",
+        "2026-11-02": "S: FC18 | HC-S: x | TR: FC15 | HC-C: x",
+        "2026-11-03": "S: FC18 | HC-S: x | HC-C: x | T: FC17",
+        "2026-11-04": "S: FC15 | HC-S: FC15 | HC-C: x",
+        "2026-11-05": "S: FC18 | HC-S: P/2 | HC-C: x",
+        "2026-11-06": "HC-C: x | T: CH/FC15",
+        "2026-11-07": "S: OFF",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "HC-S: x | HC-C: x | T: FC15",
+        "2026-11-10": "HC-S: x | TR | HC-C: x",
+        "2026-11-11": "S: FC18 | HC-S: FC18 | HC-C: x",
+        "2026-11-12": "S: OFF",
+        "2026-11-13": "HC-S: x | HC-C: x | T: N",
+        "2026-11-14": "S | HC-S: x | HC-C: x",
+        "2026-11-15": "S | HC-S: x | HC-C: x | T: FC17",
+        "2026-11-16": "HC-S: x | HC-C: FC15",
+        "2026-11-17": "S | HC-S: x | HC-C: x",
+        "2026-11-18": "S: FC18 | HC-S: FC18 | HC-C: x | T: N",
+        "2026-11-19": "S: FC15 | HC-S: x | HC-C: x",
+        "2026-11-20": "S: OFF",
+        "2026-11-21": "S: OFF",
+        "2026-11-22": "S | HC-S: FC18 | HC-C: x | T: N",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.5,
+            "work": 16.5,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.5,
+            "work": 24.5,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.5,
+            "work": 11.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.5,
+            "work": 19.5,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8817",
+      "name": "Nguyễn Thanh Tố Trân",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "FC4"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC7"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "TR",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "FC14"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC14"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC9"
+          },
+          {
+            "ca": "TR",
+            "val": "FC9"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "S",
+            "val": "FC1"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          },
+          {
+            "ca": "T",
+            "val": "FC6"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "P/2"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC4"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC5"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "S+/FC6"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S | HC-S: x | HC-C: TK | T: N",
+        "2026-10-27": "HC-S: FC4 | HC-C: x | T: FC7",
+        "2026-10-28": "S: OFF | T: FC4",
+        "2026-10-29": "S: S+ | HC-S: FC6 | TR: FC6 | HC-C: FC3 | T: FC4",
+        "2026-10-30": "HC-S: FC14 | HC-C: FC14 | T: N",
+        "2026-10-31": "S | HC-S: FC9 | TR: FC9 | HC-C: TK",
+        "2026-11-01": "S | HC-S: x | HC-C: TK",
+        "2026-11-02": "S: OFF",
+        "2026-11-03": "HC-C: TK | T: CH",
+        "2026-11-04": "HC-S: x | TR: TK | HC-C: FC2",
+        "2026-11-05": "S: FC1 | HC-S: TK | HC-C: FC1",
+        "2026-11-06": "HC-S: x | HC-C: FC2",
+        "2026-11-07": "HC-S: FC6 | HC-C: FC6 | T: FC6",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "S | HC-S: FC6 | HC-C: P/2",
+        "2026-11-10": "HC-S: TK | HC-C: FC4 | T: N",
+        "2026-11-11": "HC-S: x | TR | HC-C: TK",
+        "2026-11-12": "S | HC-S: TK | HC-C: x",
+        "2026-11-13": "HC-S: x | HC-C: FC5 | T: TK",
+        "2026-11-14": "S: S+/FC6 | HC-S: FC6 | HC-C: FC6",
+        "2026-11-15": "S: OFF",
+        "2026-11-16": "S: OFF",
+        "2026-11-17": "HC-S: FC6 | HC-C: x | T: N",
+        "2026-11-18": "HC-S: TK | TR | HC-C: FC2",
+        "2026-11-19": "S | HC-S: FC6 | HC-C: FC2",
+        "2026-11-20": "HC-S: x | HC-C: x | T: TK",
+        "2026-11-21": "HC-S: x | TR | HC-C: FC6",
+        "2026-11-22": "HC-S: FC2 | HC-C: TK | T",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "S: OFF"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.5,
+            "work": 16.5,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.5,
+            "work": 24.5,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.0,
+            "p": 0.5,
+            "work": 11.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.5,
+            "work": 19.5,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8818",
+      "name": "Đoàn Thị Ngọc Duyên",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "OFF/2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC6"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC7"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC4"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "FC14"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC14"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC16"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC16"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "FC5"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH/TK"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC16"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC1"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: OFF/2 | HC-C: x | T: FC6",
+        "2026-10-27": "S | HC-S: TK | TR: FC7 | HC-C: OFF/2",
+        "2026-10-28": "HC-S: TK | TR | HC-C: FC4",
+        "2026-10-29": "HC-S: FC14 | HC-C: x | T: N",
+        "2026-10-30": "S: S+ | HC-S: TK | HC-C: FC6 | T: N",
+        "2026-10-31": "HC-S: FC3 | HC-C: x | T",
+        "2026-11-01": "S: OFF",
+        "2026-11-02": "HC-S: x | HC-C: FC14 | T: TK",
+        "2026-11-03": "HC-S: x | TR: TK | HC-C: x",
+        "2026-11-04": "S: OFF",
+        "2026-11-05": "S: OFF",
+        "2026-11-06": "HC-S: FC6 | HC-C: x",
+        "2026-11-07": "HC-S: TK | TR: FC16 | HC-C: FC16",
+        "2026-11-08": "HC-S: TK | HC-C: FC3 | T: FC3",
+        "2026-11-09": "HC-S: TK | TR: FC6 | HC-C: FC6",
+        "2026-11-10": "HC-S: FC5 | HC-C: x",
+        "2026-11-11": "HC-S: FC6 | HC-C: x | T: TK",
+        "2026-11-12": "HC-S: x | HC-C: x",
+        "2026-11-13": "S | HC-S: x | HC-C: x",
+        "2026-11-14": "HC-C: TK | T: CH/TK",
+        "2026-11-15": "S: OFF",
+        "2026-11-16": "HC-S: x | HC-C: FC16 | T: TK",
+        "2026-11-17": "HC-S: x | TR: TK | HC-C: x",
+        "2026-11-18": "S | HC-S: TK | HC-C: x",
+        "2026-11-19": "HC-S: x | HC-C: TK | T",
+        "2026-11-20": "S | HC-S: x | HC-C: FC2",
+        "2026-11-21": "HC-S: FC6 | HC-C: x | T: FC1",
+        "2026-11-22": "S: OFF",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 16.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 25.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.0,
+            "work": 11.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8805",
+      "name": "Nguyễn Thị Việt Trinh",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC2"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "FC2"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "TK"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC6"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "FC7"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH/TK"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "FC14"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "FC16"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "FC4"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC2"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          },
+          {
+            "ca": "T",
+            "val": "T"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "CH"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "FC7"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "TK"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TK"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC3"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "HC-S",
+            "val": "FC6"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC16"
+          },
+          {
+            "ca": "T",
+            "val": "N"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "TK"
+          },
+          {
+            "ca": "TR",
+            "val": "FC3"
+          },
+          {
+            "ca": "HC-C",
+            "val": "FC9"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "S: OFF",
+        "2026-10-27": "S | HC-S: TK | HC-C: x | T: FC2",
+        "2026-10-28": "HC-S: FC2 | HC-C: x | T: TK",
+        "2026-10-29": "HC-S: x | HC-C: TK | T: N",
+        "2026-10-30": "HC-S: x | HC-C: TK",
+        "2026-10-31": "HC-S: x | HC-C: FC6 | T",
+        "2026-11-01": "S: OFF",
+        "2026-11-02": "HC-S: TK | HC-C: FC6",
+        "2026-11-03": "HC-S: FC7 | HC-C: x | T: FC4",
+        "2026-11-04": "HC-C: x | T: CH/TK",
+        "2026-11-05": "HC-S: FC14 | HC-C: FC2 | T: N",
+        "2026-11-06": "HC-S: FC16 | TR: TK | HC-C: TK",
+        "2026-11-07": "S: OFF",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "S: OFF",
+        "2026-11-10": "HC-C: x | T: CH",
+        "2026-11-11": "HC-S: TK | HC-C: FC2 | T",
+        "2026-11-12": "HC-S: FC3 | HC-C: TK | T: FC4",
+        "2026-11-13": "HC-S: FC6 | HC-C: x",
+        "2026-11-14": "HC-S: TK | HC-C: FC2 | T: N",
+        "2026-11-15": "HC-S: FC6 | HC-C: FC3 | T",
+        "2026-11-16": "HC-C: TK | T: CH",
+        "2026-11-17": "HC-S: x | TR: FC7 | HC-C: x",
+        "2026-11-18": "HC-S: x | HC-C: TK | T: N",
+        "2026-11-19": "HC-S: x | TR: TK | HC-C: FC3",
+        "2026-11-20": "HC-S: FC6 | HC-C: FC16 | T: N",
+        "2026-11-21": "S: OFF",
+        "2026-11-22": "HC-S: TK | TR: FC3 | HC-C: FC9",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "HC-S: x | HC-C: x",
+        "2026-11-25": "HC-S: x | HC-C: x"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 16.0,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 6.0,
+            "p": 0.0,
+            "work": 25.0,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 4.0,
+            "p": 0.0,
+            "work": 11.0,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.0,
+            "p": 0.0,
+            "work": 20.0,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    },
+    {
+      "id": "8823",
+      "name": "Phan Thị Hoài Thư",
+      "is_leader": false,
+      "role": "Nhân viên CS",
+      "shifts": {
+        "2026-10-26": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-27": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-28": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-29": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-30": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-10-31": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-01": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-02": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-03": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-04": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-05": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-06": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-07": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-08": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-09": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "OFF/2"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          }
+        ],
+        "2026-11-14": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-15": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-16": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-17": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-18": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ],
+        "2026-11-19": [
+          {
+            "ca": "S",
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-20": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-21": [
+          {
+            "ca": "S",
+            "val": "S+"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-22": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-23": [
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "ca": "S",
+            "val": "NL"
+          }
+        ],
+        "2026-11-25": [
+          {
+            "ca": "S",
+            "val": "OFF"
+          }
+        ]
+      },
+      "display_shifts": {
+        "2026-10-26": "HC-S: x | HC-C: x",
+        "2026-10-27": "HC-S: x | HC-C: x",
+        "2026-10-28": "HC-S: x | HC-C: x",
+        "2026-10-29": "HC-S: x | HC-C: x",
+        "2026-10-30": "HC-S: x | HC-C: x",
+        "2026-10-31": "HC-S: x | HC-C: x",
+        "2026-11-01": "S: OFF",
+        "2026-11-02": "HC-S: x | HC-C: x",
+        "2026-11-03": "HC-S: x | HC-C: x",
+        "2026-11-04": "HC-S: x | HC-C: x",
+        "2026-11-05": "HC-S: x | HC-C: x",
+        "2026-11-06": "HC-S: x | HC-C: x",
+        "2026-11-07": "HC-S: x | HC-C: x",
+        "2026-11-08": "S: OFF",
+        "2026-11-09": "HC-S: x | HC-C: x",
+        "2026-11-10": "HC-S: x | HC-C: x",
+        "2026-11-11": "HC-S: x | HC-C: x",
+        "2026-11-12": "HC-S: x | HC-C: OFF/2",
+        "2026-11-13": "S: OFF | TR",
+        "2026-11-14": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-15": "S | HC-S: x | HC-C: x",
+        "2026-11-16": "S | HC-S: x | HC-C: x",
+        "2026-11-17": "HC-S: x | HC-C: x",
+        "2026-11-18": "S: OFF",
+        "2026-11-19": "S | HC-S: x | HC-C: x",
+        "2026-11-20": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-21": "S: S+ | HC-S: x | HC-C: x",
+        "2026-11-22": "HC-S: x | TR | HC-C: x",
+        "2026-11-23": "HC-S: x | HC-C: x",
+        "2026-11-24": "S: NL",
+        "2026-11-25": "S: OFF"
+      },
+      "stats": {
+        "cycle_a": {
+          "to_date": {
+            "off": 3.5,
+            "p": 0.0,
+            "work": 17.5,
+            "total": 21.0,
+            "days_counted": 21
+          },
+          "full": {
+            "off": 5.5,
+            "p": 0.0,
+            "work": 25.5,
+            "total": 31.0,
+            "days_counted": 31
+          },
+          "start_str": "26/10/2026",
+          "end_str": "25/11/2026"
+        },
+        "cycle_b": {
+          "to_date": {
+            "off": 3.5,
+            "p": 0.0,
+            "work": 11.5,
+            "total": 15.0,
+            "days_counted": 15
+          },
+          "full": {
+            "off": 5.5,
+            "p": 0.0,
+            "work": 19.5,
+            "total": 25.0,
+            "days_counted": 25
+          },
+          "start_str": "01/11/2026",
+          "end_str": "30/11/2026"
+        }
+      }
+    }
+  ]
+}
