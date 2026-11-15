@@ -1780,23 +1780,777 @@ body.tv-kiosk-mode .tv-exit-pill {{
   thead th {{ background-color: #f1f5f9 !important; color: #000 !important; }}
 }}
 
+/* ============================================================
+   RESPONSIVE DESIGN SYSTEM (MOBILE & TABLET)
+   evondevKit Standards: R1 to R11
+   Tested strictly at 375px (iPhone) & 390px
+   ============================================================ */
+
+/* Utility classes */
+.mobile-only {{
+  display: none !important;
+}}
+.desktop-only {{
+  display: block;
+}}
+.desktop-inline {{
+  display: inline;
+}}
+.mobile-inline {{
+  display: none;
+}}
+
+/* Mobile Card View for KPI */
+.mobile-view-toggle {{
+  display: none;
+}}
+.mobile-kpi-cards-grid {{
+  display: none;
+}}
+
+/* Subtle hint for swipeable tables */
+.swipe-hint {{
+  display: none;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: var(--surface-subtle);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  width: fit-content;
+}}
+
+/* ============================================================
+   BREAKPOINT: TABLET & MOBILE (< 768px)
+   ============================================================ */
 @media (max-width: 768px) {{
+  html, body {{
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    -webkit-text-size-adjust: 100% !important;
+  }}
+
   body {{
-    padding: 12px;
+    padding: 8px 10px 28px !important;
   }}
+
+  .container {{
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }}
+
+  /* Header */
   .header {{
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
   }}
+
+  .brand {{
+    gap: 10px !important;
+  }}
+
+  .logo-badge {{
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 13px !important;
+    border-radius: 9px !important;
+  }}
+
+  .brand-title h1 {{
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+  }}
+
+  .brand-title p {{
+    font-size: 11px !important;
+  }}
+
   .header-actions {{
-    width: 100%;
-    justify-content: flex-start;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
   }}
+
+  .badge-live {{
+    font-size: 10.5px !important;
+    padding: 4px 8px !important;
+  }}
+
+  .btn {{
+    padding: 7px 10px !important;
+    font-size: 11.5px !important;
+    border-radius: 8px !important;
+  }}
+
+  /* Hide excessive buttons on mobile header */
+  #hdr-btn-toggle-sched,
+  .header-actions button[onclick="window.print()"],
+  .header-actions button[onclick="toggleTvMode()"] {{
+    display: none !important;
+  }}
+
+  /* Top Nav Tab Switcher */
+  .top-nav-bar {{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+    padding: 4px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }}
+
+  .top-nav-tab {{
+    padding: 10px 6px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    justify-content: center !important;
+    min-height: 42px !important;
+    border-radius: 9px !important;
+  }}
+
+  .top-nav-tab .top-nav-badge {{
+    display: none !important;
+  }}
+
+  /* Pacing Bar */
+  .pacing-bar {{
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }}
+
+  .pacing-info {{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+  }}
+
+  .pacing-title span {{
+    font-size: 13.5px !important;
+  }}
+
+  .pacing-day-selector {{
+    font-size: 12px !important;
+    flex-wrap: wrap !important;
+  }}
+
+  .pacing-day-selector input {{
+    font-size: 16px !important; /* R8: No iOS zoom */
+    padding: 4px 6px !important;
+  }}
+
+  .pacing-target-badge {{
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    width: fit-content !important;
+  }}
+
+  /* Stats Cards Grid - 2x2 Clean Layout */
+  .stats-grid {{
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+  }}
+
+  .stat-card {{
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }}
+
+  .stat-label {{
+    font-size: 10px !important;
+    letter-spacing: 0.02em !important;
+  }}
+
+  .stat-value {{
+    font-size: 19px !important;
+    margin: 3px 0 2px !important;
+  }}
+
+  .stat-sub {{
+    font-size: 9.5px !important;
+    line-height: 1.2 !important;
+  }}
+
+  .stat-card:nth-child(5) {{
+    grid-column: span 2 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 8px 12px !important;
+  }}
+
+  .stat-card:nth-child(5) .stat-value {{
+    font-size: 17px !important;
+    margin: 0 !important;
+  }}
+
+  /* Controls Card & Search */
+  .controls-card {{
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }}
+
+  .filter-group {{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }}
+
+  .search-box,
+  .find-me-box {{
+    width: 100% !important;
+    min-width: 100% !important;
+  }}
+
+  .search-input,
+  .find-me-select {{
+    font-size: 16px !important; /* R8: No iOS zoom */
+    height: 42px !important;
+    border-radius: 8px !important;
+  }}
+
+  /* KPI Sub Tabs */
+  .tabs-nav {{
+    display: flex !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 10px !important;
+  }}
+
+  .tab-btn {{
+    flex-shrink: 0 !important;
+    padding: 7px 11px !important;
+    font-size: 12px !important;
+  }}
+
+  /* Mobile View Switcher (Cards vs Table) */
+  .mobile-view-toggle {{
+    display: flex !important;
+    gap: 6px !important;
+    margin-bottom: 10px !important;
+    background: var(--surface-subtle) !important;
+    padding: 3px !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--border) !important;
+  }}
+
+  .mv-btn {{
+    flex: 1 !important;
+    padding: 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 7px !important;
+    color: var(--text-muted) !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: all 0.2s !important;
+  }}
+
+  .mv-btn.active {{
+    background: var(--surface) !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12) !important;
+    font-weight: 700 !important;
+  }}
+
+  /* Mobile Cards Grid */
+  .mobile-kpi-cards-grid {{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }}
+
+  .mobile-kpi-card {{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: var(--elevation-card);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+  }}
+
+  .mobile-kpi-card:active {{
+    transform: scale(0.985);
+    border-color: var(--primary);
+  }}
+
+  .mkc-header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+  }}
+
+  .mkc-left {{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+  }}
+
+  .mkc-rank {{
+    font-size: 15px;
+    font-weight: 800;
+    min-width: 24px;
+    text-align: center;
+    font-family: var(--mono-font);
+  }}
+
+  .mkc-avatar {{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.2));
+    border: 1px solid rgba(99,102,241,0.35);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }}
+
+  .mkc-name-wrap {{
+    min-width: 0;
+  }}
+
+  .mkc-name {{
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }}
+
+  .mkc-sub {{
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }}
+
+  .mkc-right {{
+    text-align: right;
+    flex-shrink: 0;
+  }}
+
+  .mkc-kpi-pct {{
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--mono-font);
+    line-height: 1.2;
+  }}
+
+  .mkc-tag {{
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 2px;
+    line-height: 1.2;
+  }}
+
+  .tag-success {{
+    background: rgba(16,185,129,0.12);
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.25);
+  }}
+
+  .tag-warning {{
+    background: rgba(245,158,11,0.12);
+    color: #f59e0b;
+    border: 1px solid rgba(245,158,11,0.25);
+  }}
+
+  .tag-danger {{
+    background: rgba(239,68,68,0.12);
+    color: #ef4444;
+    border: 1px solid rgba(239,68,68,0.25);
+  }}
+
+  .mkc-progress-track {{
+    position: relative;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 9999px;
+    overflow: visible;
+    margin-bottom: 10px;
+  }}
+
+  .mkc-marker-target {{
+    position: absolute;
+    top: -2px;
+    width: 2px;
+    height: 10px;
+    background: #f59e0b;
+    border-radius: 1px;
+    box-shadow: 0 0 4px #f59e0b;
+  }}
+
+  .mkc-stats-grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    background: var(--surface-subtle);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }}
+
+  .mkc-stat-item {{
+    text-align: center;
+  }}
+
+  .mkc-stat-lbl {{
+    font-size: 9.5px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }}
+
+  .mkc-stat-val {{
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-main);
+    font-family: var(--mono-font);
+    line-height: 1.2;
+  }}
+
+  .mkc-stat-val small {{
+    font-size: 9.5px;
+    color: var(--text-muted);
+    font-weight: normal;
+  }}
+
+  .mkc-stat-pct {{
+    font-size: 10px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 1px;
+  }}
+
+  .mkc-footer {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10.5px;
+    color: var(--text-subtle);
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
+  }}
+
+  /* Table View Enhancements for Mobile (when user toggles to table) */
+  .table-responsive {{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 10px !important;
+  }}
+
+  .swipe-hint {{
+    display: flex !important;
+  }}
+
+  #table-kpi th:nth-child(1),
+  #table-kpi td:nth-child(1) {{
+    display: none !important; /* Hide STT on mobile table to give room */
+  }}
+
+  #table-kpi th:nth-child(2),
+  #table-kpi td:nth-child(2) {{
+    display: none !important; /* Hide MS on mobile table, MS shown in modal */
+  }}
+
+  #table-kpi th:nth-child(3),
+  #table-kpi td:nth-child(3) {{
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 5 !important;
+    background: var(--surface) !important;
+    min-width: 120px !important;
+    max-width: 130px !important;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.12) !important;
+    font-size: 11.5px !important;
+    white-space: nowrap !important;
+  }}
+
+  #table-kpi thead th:nth-child(3) {{
+    z-index: 10 !important;
+    background: var(--table-header) !important;
+  }}
+
+  /* Schedule Tab Responsive Fixes */
+  .schedule-controls-card {{
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }}
+
+  .schedule-controls-header {{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }}
+
+  .schedule-title-wrap h3 {{
+    font-size: 14.5px !important;
+    line-height: 1.3 !important;
+  }}
+
+  .schedule-subtitle {{
+    font-size: 11px !important;
+  }}
+
+  .schedule-actions {{
+    width: 100% !important;
+    display: flex !important;
+    gap: 6px !important;
+  }}
+
+  .schedule-actions .btn {{
+    flex: 1 !important;
+    font-size: 11.5px !important;
+    padding: 8px 6px !important;
+    justify-content: center !important;
+  }}
+
+  .schedule-filters-grid {{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }}
+
+  .schedule-filters-grid .filter-group {{
+    width: 100% !important;
+    min-width: 0 !important;
+  }}
+
+  .filter-label {{
+    font-size: 11px !important;
+    margin-bottom: 4px !important;
+  }}
+
+  .segmented-control {{
+    width: 100% !important;
+    display: flex !important;
+  }}
+
+  .segmented-btn {{
+    flex: 1 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    font-size: 11px !important;
+    padding: 7px 4px !important;
+    line-height: 1.25 !important;
+  }}
+
+  .desktop-inline {{
+    display: none !important;
+  }}
+
+  .mobile-inline {{
+    display: inline !important;
+  }}
+
+  /* Today Column Jump Button */
+  .schedule-filters-grid button[onclick="jumpToTodayColumn()"] {{
+    width: 100% !important;
+    padding: 10px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+  }}
+
+  /* Today's Roster Banner */
+  .today-roster-banner {{
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }}
+
+  .today-roster-header {{
+    margin-bottom: 10px !important;
+  }}
+
+  .today-roster-title {{
+    font-size: 13.5px !important;
+  }}
+
+  .roster-groups-grid {{
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }}
+
+  .roster-group-card {{
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+  }}
+
+  .roster-group-label {{
+    font-size: 11.5px !important;
+    margin-bottom: 6px !important;
+  }}
+
+  .roster-pill {{
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }}
+
+  /* Matrix Table Mobile Fixes (R1 & R9) */
+  .schedule-section-card {{
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+  }}
+
+  .schedule-section-header {{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+  }}
+
+  .schedule-section-title span {{
+    font-size: 13.5px !important;
+    line-height: 1.3 !important;
+  }}
+
+  .matrix-nav-buttons {{
+    width: 100% !important;
+    display: flex !important;
+    gap: 6px !important;
+  }}
+
+  .matrix-nav-buttons .btn,
+  .matrix-nav-buttons .segmented-control {{
+    flex: 1 !important;
+  }}
+
+  .matrix-scroll-container {{
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 10px !important;
+    max-height: 520px !important;
+  }}
+
+  /* Hide Employee ID column on mobile matrix */
+  .matrix-table .sticky-col-id,
+  .matrix-table thead th.sticky-col-id {{
+    display: none !important;
+  }}
+
+  /* Sticky Employee Name pinned to left: 0 */
+  .matrix-table .sticky-col-name,
+  .matrix-table thead th.sticky-col-name {{
+    left: 0 !important;
+    min-width: 110px !important;
+    max-width: 120px !important;
+    font-size: 11px !important;
+    padding: 6px 8px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.15) !important;
+  }}
+
+  .matrix-table th,
+  .matrix-table td {{
+    padding: 5px 3px !important;
+    font-size: 11px !important;
+    min-width: 42px !important;
+  }}
+
+  .badge-shift {{
+    padding: 2px 4px !important;
+    font-size: 9.5px !important;
+  }}
+
+  /* Modal Popup (Thẻ Năng Lực) Mobile Bottom Sheet */
+  .modal-overlay {{
+    padding: 8px !important;
+    align-items: flex-end !important;
+  }}
+
+  .modal-content {{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 16px 14px !important;
+    max-height: 90vh !important;
+    border-radius: 16px 16px 8px 8px !important;
+  }}
+
+  .modal-header {{
+    margin-bottom: 12px !important;
+  }}
+
+  .modal-title {{
+    font-size: 15px !important;
+  }}
+
+  .modal-close {{
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 18px !important;
+    top: 10px !important;
+    right: 10px !important;
+  }}
+
+  .modal-tabs {{
+    gap: 4px !important;
+    margin-bottom: 12px !important;
+  }}
+
+  .modal-tab-btn {{
+    padding: 6px 10px !important;
+    font-size: 11.5px !important;
+  }}
+
+  .forecast-box {{
+    padding: 12px !important;
+  }}
+
+  .forecast-grid {{
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }}
+
+  /* Charts & Podium on mobile */
   .charts-grid {{
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }}
+
   .podium-grid {{
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }}
+
+  .podium-card.rank-1 {{
+    order: -1 !important; /* Top 1 appears first on mobile! */
   }}
 }}
 
@@ -1974,8 +2728,29 @@ body.tv-kiosk-mode .tv-exit-pill {{
 
     <!-- TAB 1: KPI TONG -->
     <div id="tab-pane-kpi" class="table-card">
-      <div class="table-responsive">
-        <table id="table-kpi">
+      <!-- MOBILE VIEW TOGGLE (CHỈ HIỆN TRÊN MOBILE) -->
+      <div class="mobile-view-toggle">
+        <button class="mv-btn active" id="btn-view-cards" onclick="setKpiMobileView('cards')">
+          📱 Dạng Thẻ Nhân Sự
+        </button>
+        <button class="mv-btn" id="btn-view-table" onclick="setKpiMobileView('table')">
+          📊 Dạng Bảng Vuốt Ngang
+        </button>
+      </div>
+
+      <!-- CONTAINER DẠNG THẺ MOBILE -->
+      <div id="kpi-mobile-cards" class="mobile-kpi-cards-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- CONTAINER DẠNG BẢNG (DESKTOP HOẶC KHI BẬT) -->
+      <div id="kpi-table-view-wrap">
+        <div class="swipe-hint">
+          <span>👉</span>
+          <span>Vuốt ngang bảng để xem đầy đủ 13 cột số liệu</span>
+        </div>
+        <div class="table-responsive">
+          <table id="table-kpi">
           <thead>
             <tr>
               <th onclick="sortTable('kpi', 'id')">STT ⬍</th>
@@ -1998,6 +2773,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
           </tbody>
         </table>
       </div>
+      </div> <!-- /#kpi-table-view-wrap -->
     </div>
 
     <!-- TAB 2: HS CA TRUC -->
@@ -2029,6 +2805,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
           </tbody>
         </table>
       </div>
+      </div> <!-- /#kpi-table-view-wrap -->
     </div>
 
     <!-- TAB 3: CHARTS -->
@@ -2096,10 +2873,12 @@ body.tv-kiosk-mode .tv-exit-pill {{
             <label class="filter-label">Chu kỳ đối soát:</label>
             <div class="segmented-control">
               <button class="segmented-btn active" id="btn-cycle-a" onclick="setScheduleCycle('a')">
-                Chu kỳ 26 - 25 (26/10 ➔ 25/11)
+                <span class="desktop-inline">Chu kỳ 26 - 25 (26/10 ➔ 25/11)</span>
+                <span class="mobile-inline">26/10 ➔ 25/11</span>
               </button>
               <button class="segmented-btn" id="btn-cycle-b" onclick="setScheduleCycle('b')">
-                Chu kỳ Đầu - Cuối tháng (01/11 ➔ 30/11)
+                <span class="desktop-inline">Chu kỳ Đầu - Cuối tháng (01/11 ➔ 30/11)</span>
+                <span class="mobile-inline">01/11 ➔ 30/11</span>
               </button>
             </div>
           </div>
@@ -2108,10 +2887,12 @@ body.tv-kiosk-mode .tv-exit-pill {{
             <label class="filter-label">Phạm vi thời gian tính công:</label>
             <div class="segmented-control">
               <button class="segmented-btn active" id="btn-range-todate" onclick="setScheduleRange('to_date')">
-                📍 Lũy kế đến hôm nay (15/11)
+                <span class="desktop-inline">📍 Lũy kế đến hôm nay (15/11)</span>
+                <span class="mobile-inline">📍 Đến hôm nay</span>
               </button>
               <button class="segmented-btn" id="btn-range-full" onclick="setScheduleRange('full')">
-                🗓️ Cả chu kỳ
+                <span class="desktop-inline">🗓️ Cả chu kỳ</span>
+                <span class="mobile-inline">🗓️ Cả chu kỳ</span>
               </button>
             </div>
           </div>
@@ -2120,10 +2901,12 @@ body.tv-kiosk-mode .tv-exit-pill {{
             <label class="filter-label">Chế độ xem lịch:</label>
             <div class="segmented-control">
               <button class="segmented-btn active" id="btn-matrix-all" onclick="setMatrixDateFilter('all')">
-                🗓️ Toàn bộ tháng
+                <span class="desktop-inline">🗓️ Toàn bộ tháng</span>
+                <span class="mobile-inline">🗓️ Cả tháng</span>
               </button>
               <button class="segmented-btn" id="btn-matrix-week" onclick="setMatrixDateFilter('week')">
-                📅 Chỉ hiện Tuần này
+                <span class="desktop-inline">📅 Chỉ hiện Tuần này</span>
+                <span class="mobile-inline">📅 Tuần này</span>
               </button>
             </div>
           </div>
@@ -2345,6 +3128,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
           </tbody>
         </table>
       </div>
+      </div> <!-- /#kpi-table-view-wrap -->
     </div>
   </div>
 
@@ -2657,6 +3441,111 @@ body.tv-kiosk-mode .tv-exit-pill {{
         `;
         tbody.appendChild(tr);
       }});
+
+// Render Mobile Cards View
+      renderKpiMobileCards();
+    }}
+
+    let currentKpiMobileView = 'cards';
+    function setKpiMobileView(view) {{
+      currentKpiMobileView = view;
+      const cardsEl = document.getElementById('kpi-mobile-cards');
+      const tableEl = document.getElementById('kpi-table-view-wrap');
+      const btnCards = document.getElementById('btn-view-cards');
+      const btnTable = document.getElementById('btn-view-table');
+
+      if (view === 'cards') {{
+        if (cardsEl) cardsEl.style.display = 'grid';
+        if (tableEl) tableEl.style.display = 'none';
+        if (btnCards) btnCards.classList.add('active');
+        if (btnTable) btnTable.classList.remove('active');
+      }} else {{
+        if (cardsEl) cardsEl.style.display = 'none';
+        if (tableEl) tableEl.style.display = 'block';
+        if (btnCards) btnCards.classList.remove('active');
+        if (btnTable) btnTable.classList.add('active');
+      }}
+    }}
+
+    function openModalByMa(ma) {{
+      const item = (DATA.kpi_tong || []).find(x => String(x.ma) === String(ma));
+      if (item) {{
+        openModal(item);
+      }}
+    }}
+
+    function renderKpiMobileCards() {{
+      const container = document.getElementById('kpi-mobile-cards');
+      if (!container) return;
+
+      const sortedByKpi = [...(DATA.kpi_tong || [])].sort((a,b) => b.pct_kpi_tong - a.pct_kpi_tong);
+
+      container.innerHTML = filteredKpi.map((item) => {{
+        const p = item.pacing_info || calculatePacingDetails(item);
+        const rankIdx = sortedByKpi.findIndex(x => x.ma === item.ma);
+        const rank = rankIdx >= 0 ? rankIdx + 1 : 1;
+        const rankMedal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${{rank}}`;
+        const isLeader = item.name.toLowerCase().includes('minh nhựt') || item.name.toLowerCase().includes('nhựt');
+
+        const nameParts = item.name.trim().split(' ');
+        const initials = nameParts.length >= 2 
+          ? (nameParts[nameParts.length - 2][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+          : item.name.substring(0, 2).toUpperCase();
+
+        const diffPct = (p.diff * 100).toFixed(1);
+        const diffText = p.diff >= 0 ? `+${{diffPct}}%` : `${{diffPct}}%`;
+        const tagClass = p.isAhead ? 'tag-success' : p.isCritical ? 'tag-danger' : 'tag-warning';
+        const tagLabel = p.isAhead ? `🟢 Vượt (${{diffText}})` : p.isCritical ? `🔴 Chậm (${{diffText}})` : `🟡 Cận (${{diffText}})`;
+
+        return `
+          <div class="mobile-kpi-card" onclick="openModalByMa('${{item.ma}}')">
+            <div class="mkc-header">
+              <div class="mkc-left">
+                <span class="mkc-rank">${{rankMedal}}</span>
+                <div class="mkc-avatar">${{initials}}</div>
+                <div class="mkc-name-wrap">
+                  <div class="mkc-name">${{item.name}} ${{isLeader ? '👑' : ''}}</div>
+                  <div class="mkc-sub">MS: ${{item.ma}} • Level ${{item.level}}</div>
+                </div>
+              </div>
+              <div class="mkc-right">
+                <div class="mkc-kpi-pct ${{(item.pct_kpi_tong >= targetPacing) ? 'text-success' : 'text-danger'}}">
+                  ${{(item.pct_kpi_tong * 100).toFixed(1)}}%
+                </div>
+                <div class="mkc-tag ${{tagClass}}">${{tagLabel}}</div>
+              </div>
+            </div>
+
+            <div class="mkc-progress-track">
+              <div class="progress-fill ${{(item.pct_kpi_tong >= targetPacing) ? 'bg-excel' : 'bg-low'}}" style="width:${{Math.min(item.pct_kpi_tong * 100, 100)}}%;"></div>
+              <div class="mkc-marker-target" style="left:${{Math.min(targetPacing * 100, 100)}}%;" title="Chuẩn ngày: ${{(targetPacing * 100).toFixed(1)}}%"></div>
+            </div>
+
+            <div class="mkc-stats-grid">
+              <div class="mkc-stat-item">
+                <div class="mkc-stat-lbl">🎫 Tickets</div>
+                <div class="mkc-stat-val">${{item.slg_kh.toLocaleString('vi-VN')}} <small>/ ${{item.kpi_ticket.toLocaleString('vi-VN')}}</small></div>
+                <div class="mkc-stat-pct">${{(item.pct_kpi_ticket * 100).toFixed(0)}}% KPI</div>
+              </div>
+              <div class="mkc-stat-item">
+                <div class="mkc-stat-lbl">💼 Công Việc</div>
+                <div class="mkc-stat-val">${{item.slg_cv.toLocaleString('vi-VN')}} <small>/ ${{item.kpi_cv.toLocaleString('vi-VN')}}</small></div>
+                <div class="mkc-stat-pct">${{(item.pct_kpi_cv * 100).toFixed(0)}}% KPI</div>
+              </div>
+              <div class="mkc-stat-item">
+                <div class="mkc-stat-lbl">🤝 2 CV Hỗ Trợ</div>
+                <div class="mkc-stat-val">${{item.no_ticket_2ht}}</div>
+                <div class="mkc-stat-pct" style="color:var(--text-muted);">${{item.no_ticket_2ht > 0 ? 'Có hỗ trợ' : '0'}}</div>
+              </div>
+            </div>
+
+            <div class="mkc-footer">
+              <span>Chạm để xem chi tiết thẻ năng lực</span>
+              <span style="font-size:13px;color:var(--primary);">➔</span>
+            </div>
+          </div>
+        `;
+      }}).join('');
     }}
 
     function renderHsTable() {{
@@ -3367,7 +4256,8 @@ body.tv-kiosk-mode .tv-exit-pill {{
       if (!box) return;
       const todayTh = box.querySelector('thead th.col-today');
       if (todayTh) {{
-        const left = todayTh.offsetLeft - 240;
+        const stickyOffset = window.innerWidth <= 768 ? 115 : 240;
+        const left = todayTh.offsetLeft - stickyOffset;
         box.scrollTo({{ left: Math.max(0, left), behavior: 'smooth' }});
         todayTh.style.animation = 'pulseTodayCol 1.5s 2';
         setTimeout(() => {{ todayTh.style.animation = ''; }}, 3000);
