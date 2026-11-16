@@ -3324,6 +3324,17 @@ body.tv-kiosk-mode .tv-exit-pill {{
     // Embedded Data
     const DATA = {dataset_json};
 
+    // Khôi phục Lịch trực từ Browser Cache (localStorage) nếu đã có
+    try {{
+      const cachedSch = localStorage.getItem('kpicto_schedule_cache');
+      if (cachedSch) {{
+        const parsedSch = JSON.parse(cachedSch);
+        if (parsedSch && parsedSch.employees && parsedSch.employees.length > 0) {{
+          DATA.schedule = parsedSch;
+        }}
+      }}
+    }} catch (e) {{}}
+
     let currentDay = DATA.current_day || 14;
     let totalDays = DATA.days_in_month || 30;
     let targetPacing = currentDay / totalDays;
@@ -4734,31 +4745,57 @@ body.tv-kiosk-mode .tv-exit-pill {{
     async function syncScheduleLive() {{
       const btn = document.getElementById('btn-sync-schedule');
       if (btn) {{
-        btn.innerHTML = '⏳ Đang tải dữ liệu...';
+        btn.innerHTML = '⏳ Đang kết nối Google Sheets...';
         btn.style.opacity = '0.7';
       }}
 
       try {{
-        const cacheUrl = './Data/schedule_cache.json?t=' + Date.now();
-        const res = await fetch(cacheUrl);
-        if (res.ok) {{
-          const freshSchedule = await res.json();
-          if (freshSchedule && freshSchedule.employees && freshSchedule.employees.length > 0) {{
-            DATA.schedule = freshSchedule;
-            renderScheduleTab();
-            showToast('✅ Đã đồng bộ lịch trực mới nhất! (' + (freshSchedule.updated_at || 'Mới cập nhật') + ')');
-            return;
-          }}
-        }}
+        // Lấy token bot (chạy hoàn toàn trong RAM trình duyệt qua WebCrypto)
+        const token = await getGoogleServiceAccountToken();
+        const schedSheetId = '1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo';
+        const now = new Date();
+        const pad = n => n < 10 ? '0' + n : String(n);
+        const mCurr = now.getMonth() + 1;
+        const yCurr = now.getFullYear();
+        const sheetName = encodeURIComponent(`Tháng ${{pad(mCurr)}}/${{yCurr}}`);
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${{schedSheetId}}/values/${{sheetName}}?valueRenderOption=FORMATTED_VALUE`;
 
-        if (DATA.schedule && DATA.schedule.employees) {{
+        const res = await fetch(url, {{
+          headers: {{ 'Authorization': 'Bearer ' + token }}
+        }});
+
+        if (!res.ok) throw new Error('Google Sheets API trả về mã lỗi: ' + res.status);
+        const data = await res.json();
+        if (!data.values || data.values.length < 5) throw new Error('Dữ liệu sheet rỗng hoặc chưa tải được');
+
+        // Parse bảng lịch trực và tính công 13 nhân sự
+        const freshSchedule = buildScheduleFromRawSheet(data.values, now);
+        if (freshSchedule && freshSchedule.employees && freshSchedule.employees.length > 0) {{
+          DATA.schedule = freshSchedule;
+          try {{
+            // Lưu vào Browser Cache (localStorage) để lần sau mở web có ngay lập tức
+            localStorage.setItem('kpicto_schedule_cache', JSON.stringify(freshSchedule));
+          }} catch (e) {{}}
           renderScheduleTab();
-          showToast('✅ Dữ liệu lịch trực đang là bản mới nhất (' + (DATA.schedule.updated_at || '13 nhân sự') + ')!');
-        }} else {{
-          showToast('ℹ️ Đang hiển thị lịch trực mới nhất!');
+          showToast('✅ Đã tải trực tiếp từ Google Sheets lúc ' + freshSchedule.updated_at + '!');
+          return;
         }}
       }} catch (err) {{
-        console.warn('Sync schedule:', err);
+        console.warn('Lỗi đọc Google Sheets trực tiếp, chuyển sang nạp bản lưu gần nhất:', err);
+        try {{
+          const cacheUrl = './Data/schedule_cache.json?t=' + Date.now();
+          const res = await fetch(cacheUrl);
+          if (res.ok) {{
+            const freshSchedule = await res.json();
+            if (freshSchedule && freshSchedule.employees && freshSchedule.employees.length > 0) {{
+              DATA.schedule = freshSchedule;
+              renderScheduleTab();
+              showToast('✅ Đã đồng bộ lịch trực từ bản lưu gần nhất (' + (freshSchedule.updated_at || '') + ')');
+              return;
+            }}
+          }}
+        }} catch (e2) {{}}
+
         if (DATA.schedule && DATA.schedule.employees) {{
           renderScheduleTab();
           showToast('✅ Dữ liệu lịch trực đang là bản mới nhất (' + (DATA.schedule.updated_at || '13 nhân sự') + ')!');
@@ -4878,13 +4915,250 @@ body.tv-kiosk-mode .tv-exit-pill {{
 
     /* ============================================================
        GOOGLE SHEETS WEBCRYPTO SERVICE ACCOUNT DIRECT REALTIME
-       (Cơ chế Realtime tức thì 0s delay từ TeamCoacherDashboard)
+       (Cơ chế Realtime trực tiếp 0s delay từ Google Sheets qua WebCrypto trong RAM)
        ============================================================ */
+    const APPS_SCRIPT_AUTH_URL = 'https://script.google.com/macros/s/AKfycbwHmR0xSG4uZrBdyPrv-lypX5qjP1bOC2Ca1_8vY1oRfIAe_LeFnJa7wAWrGzCmPrU/exec?apiKey=my_secret_token_2026';
     const SA_CONFIG = {creds_json};
     const SPREADSHEET_ID = '1Gp4UVa_6YyQHA9SZxts8ey9z_mwB3j-BEKx20fvPPfk';
     const APPS_SCRIPT_API = window.APPS_SCRIPT_API || '';
+    let _saCreds = null;
     let _gSaToken = '';
     let _gSaTokenExp = 0;
+
+    const TARGET_SCHEDULE_IDS = ["8239", "8131", "8171", "8116", "8177", "8222", "8257", "8274", "8284", "8285", "8817", "8818", "8805", "8607"];
+
+    function parseRawScheduleRows(rows, m, y) {{
+      if (!rows || rows.length === 0) return {{ empSchedules: {{}}, colToDate: {{}} }};
+      let ngayRowIdx = null, caRowIdx = null, thuRowIdx = null;
+      for (let idx = 0; idx < Math.min(12, rows.length); idx++) {{
+        const txt = rows[idx].join(' ').toLowerCase();
+        if (txt.includes('thứ') || txt.includes('cn')) {{
+          if (thuRowIdx === null) thuRowIdx = idx;
+        }}
+        const sCount = rows[idx].filter(c => ['S', 'TR', 'T', 'HC-S', 'HC-C'].includes(String(c).trim())).length;
+        if (sCount >= 5 && caRowIdx === null) caRowIdx = idx;
+      }}
+      if (caRowIdx !== null) {{
+        ngayRowIdx = caRowIdx - 1;
+        if (thuRowIdx === null) thuRowIdx = caRowIdx - 2;
+      }} else {{
+        thuRowIdx = 2; ngayRowIdx = 3; caRowIdx = 4;
+      }}
+
+      const thuRow = rows[thuRowIdx] || [];
+      const ngayRow = rows[ngayRowIdx] || [];
+      const caRow = rows[caRowIdx] || [];
+
+      let endCol = caRow.length;
+      for (let i = 4; i < caRow.length; i++) {{
+        const caName = (String(caRow[i] || (ngayRow[i] || ''))).toLowerCase();
+        if (caName.includes('tổng') || caName.includes('tong')) {{
+          endCol = i;
+          break;
+        }}
+      }}
+
+      const colToDate = {{}};
+      let currDay = "", currThu = "";
+      for (let i = 4; i < endCol; i++) {{
+        if (thuRow[i] && String(thuRow[i]).trim()) currThu = String(thuRow[i]).trim();
+        if (ngayRow[i] && String(ngayRow[i]).trim()) currDay = String(ngayRow[i]).trim();
+        if (!currDay) continue;
+        const dayNum = parseInt(currDay);
+        if (isNaN(dayNum)) continue;
+
+        let dm = (dayNum >= 26) ? (m - 1) : m;
+        let dy = (m > 1 || dayNum < 26) ? y : (y - 1);
+        if (dm === 0) dm = 12;
+
+        const pad = n => n < 10 ? '0' + n : String(n);
+        const dateStr = `${{dy}}-${{pad(dm)}}-${{pad(dayNum)}}`;
+        colToDate[i] = {{
+          dateStr,
+          dayNum,
+          dm,
+          dy,
+          thu: currThu,
+          ca: String(caRow[i] || '').trim()
+        }};
+      }}
+
+      const empSchedules = {{}};
+      const startEmpRow = (caRowIdx !== null) ? (caRowIdx + 1) : 5;
+      for (let rIdx = startEmpRow; rIdx < rows.length; rIdx++) {{
+        const row = rows[rIdx];
+        if (row.length <= 3) continue;
+        const empId = String(row[2] || '').trim();
+        const empName = String(row[3] || '').trim();
+        if (!empId || !TARGET_SCHEDULE_IDS.includes(empId)) continue;
+
+        if (!empSchedules[empId]) {{
+          empSchedules[empId] = {{ name: empName, shifts: {{}} }};
+        }}
+
+        for (const [colIdxStr, colInfo] of Object.entries(colToDate)) {{
+          const colIdx = parseInt(colIdxStr);
+          const val = String(row[colIdx] || '').trim();
+          const dStr = colInfo.dateStr;
+          if (!empSchedules[empId].shifts[dStr]) {{
+            empSchedules[empId].shifts[dStr] = [];
+          }}
+          if (val) {{
+            empSchedules[empId].shifts[dStr].push({{ ca: colInfo.ca, val }});
+          }}
+        }}
+      }}
+
+      return {{ empSchedules, colToDate }};
+    }}
+
+    function calcScheduleStats(shiftsDict, startD, endD, limitD = null) {{
+      let totOff = 0.0, totP = 0.0, totWork = 0.0, daysCt = 0;
+      const curr = new Date(startD.getTime());
+      const lim = limitD ? new Date(Math.min(endD.getTime(), limitD.getTime())) : endD;
+      const pad = n => n < 10 ? '0' + n : String(n);
+
+      while (curr <= lim) {{
+        const dStr = `${{curr.getFullYear()}}-${{pad(curr.getMonth() + 1)}}-${{pad(curr.getDate())}}`;
+        const sList = shiftsDict[dStr] || [];
+        if (sList.length > 0) {{
+          daysCt++;
+          let offVal = 0.0, pVal = 0.0, hasActive = false;
+          for (const item of sList) {{
+            const v = (item.val || '').toUpperCase().trim();
+            if (v === 'OFF') offVal += 1.0;
+            else if (v === 'OFF/2') offVal += 0.5;
+            else if (v === 'P') pVal += 1.0;
+            else if (v === 'P/2') pVal += 0.5;
+            else if (v !== '') hasActive = true;
+          }}
+          const dOff = Math.min(1.0, offVal);
+          const dP = Math.min(1.0 - dOff, pVal);
+          const dWork = hasActive ? (1.0 - dOff - dP) : 0.0;
+          totOff += dOff; totP += dP; totWork += dWork;
+        }}
+        curr.setDate(curr.getDate() + 1);
+      }}
+      return {{
+        off: totOff,
+        p: totP,
+        work: totWork,
+        total: totOff + totP + totWork,
+        days_counted: daysCt
+      }};
+    }}
+
+    function buildScheduleFromRawSheet(rows, refDate = new Date()) {{
+      const pad = n => n < 10 ? '0' + n : String(n);
+      const now = refDate;
+      const mCurr = now.getMonth() + 1;
+      const yCurr = now.getFullYear();
+      const mNext = (mCurr < 12) ? mCurr + 1 : 1;
+      const yNext = (mCurr < 12) ? yCurr : yCurr + 1;
+      const mPrev = (mCurr > 1) ? mCurr - 1 : 12;
+      const yPrev = (mCurr > 1) ? yCurr : yCurr - 1;
+
+      const {{ empSchedules: schedCurr }} = parseRawScheduleRows(rows, mCurr, yCurr);
+
+      const allEmployees = {{}};
+      for (const [eid, info] of Object.entries(schedCurr)) {{
+        if (!allEmployees[eid]) allEmployees[eid] = {{ id: eid, name: info.name, shifts: {{}} }};
+        for (const [d, s] of Object.entries(info.shifts)) {{
+          allEmployees[eid].shifts[d] = s;
+        }}
+      }}
+
+      const isAfter26 = now.getDate() >= 26;
+      const cycleAStart = isAfter26 ? new Date(yCurr, mCurr - 1, 26) : new Date(yPrev, mPrev - 1, 26);
+      const cycleAEnd = isAfter26 ? new Date(yNext, mNext - 1, 25) : new Date(yCurr, mCurr - 1, 25);
+      const cycleBStart = new Date(yCurr, mCurr - 1, 1);
+      const lastD = new Date(yCurr, mCurr, 0).getDate();
+      const cycleBEnd = new Date(yCurr, mCurr - 1, lastD);
+      const today = new Date(yCurr, now.getMonth(), now.getDate());
+
+      const minDate = new Date(Math.min(cycleAStart.getTime(), cycleBStart.getTime()));
+      const maxDate = new Date(Math.max(cycleAEnd.getTime(), cycleBEnd.getTime()));
+
+      const thuNamesVi = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+      const datesList = [];
+      const cD = new Date(minDate.getTime());
+      while (cD <= maxDate) {{
+        const dStr = `${{cD.getFullYear()}}-${{pad(cD.getMonth() + 1)}}-${{pad(cD.getDate())}}`;
+        const dayOfWeek = cD.getDay();
+        const thuIdx = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        datesList.push({{
+          date_str: dStr,
+          day_num: cD.getDate(),
+          month: cD.getMonth() + 1,
+          year: cD.getFullYear(),
+          thu: thuNamesVi[thuIdx],
+          is_weekend: (thuIdx >= 5),
+          is_today: (dStr === `${{now.getFullYear()}}-${{pad(now.getMonth() + 1)}}-${{pad(now.getDate())}}`),
+          in_cycle_a: (cD >= cycleAStart && cD <= cycleAEnd),
+          in_cycle_b: (cD >= cycleBStart && cD <= cycleBEnd)
+        }});
+        cD.setDate(cD.getDate() + 1);
+      }}
+
+      const empList = [];
+      const orderedIds = ['8239', ...TARGET_SCHEDULE_IDS.filter(x => x !== '8239')];
+      for (const eid of orderedIds) {{
+        if (allEmployees[eid]) {{
+          const e = allEmployees[eid];
+          const shifts = e.shifts;
+          const statsATodate = calcScheduleStats(shifts, cycleAStart, cycleAEnd, today);
+          const statsAFull = calcScheduleStats(shifts, cycleAStart, cycleAEnd, null);
+          const statsBTodate = calcScheduleStats(shifts, cycleBStart, cycleBEnd, today);
+          const statsBFull = calcScheduleStats(shifts, cycleBStart, cycleBEnd, null);
+
+          const displayShifts = {{}};
+          for (const [dStr, sItems] of Object.entries(shifts)) {{
+            if (!sItems || sItems.length === 0) {{
+              displayShifts[dStr] = "";
+              continue;
+            }}
+            const vals = sItems.map(x => (x.ca && x.ca !== x.val) ? `${{x.ca}}: ${{x.val}}` : x.val);
+            displayShifts[dStr] = vals.join(' | ');
+          }}
+
+          empList.push({{
+            id: eid,
+            name: e.name,
+            is_leader: (eid === '8239'),
+            role: (eid === '8239') ? 'Leader' : 'Nhân viên CS',
+            shifts: e.shifts,
+            display_shifts: displayShifts,
+            stats: {{
+              cycle_a: {{
+                to_date: statsATodate,
+                full: statsAFull,
+                start_str: `${{pad(cycleAStart.getDate())}}/${{pad(cycleAStart.getMonth() + 1)}}/${{cycleAStart.getFullYear()}}`,
+                end_str: `${{pad(cycleAEnd.getDate())}}/${{pad(cycleAEnd.getMonth() + 1)}}/${{cycleAEnd.getFullYear()}}`
+              }},
+              cycle_b: {{
+                to_date: statsBTodate,
+                full: statsBFull,
+                start_str: `${{pad(cycleBStart.getDate())}}/${{pad(cycleBStart.getMonth() + 1)}}/${{cycleBStart.getFullYear()}}`,
+                end_str: `${{pad(cycleBEnd.getDate())}}/${{pad(cycleBEnd.getMonth() + 1)}}/${{cycleBEnd.getFullYear()}}`
+              }}
+            }}
+          }});
+        }}
+      }}
+
+      const d = now;
+      const dStr = `${{d.getFullYear()}}-${{pad(d.getMonth() + 1)}}-${{pad(d.getDate())}}`;
+      const nowFormatted = `${{pad(d.getDate())}}/${{pad(d.getMonth() + 1)}}/${{d.getFullYear()}} ${{pad(d.getHours())}}:${{pad(d.getMinutes())}}:${{pad(d.getSeconds())}}`;
+
+      return {{
+        updated_at: nowFormatted,
+        today: dStr,
+        today_display: `${{pad(d.getDate())}}/${{pad(d.getMonth() + 1)}}/${{d.getFullYear()}}`,
+        spreadsheet_url: 'https://docs.google.com/spreadsheets/d/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/edit',
+        dates: datesList,
+        employees: empList
+      }};
+    }}
 
     function _base64UrlEncodeStr(str) {{
       const b64 = btoa(unescape(encodeURIComponent(str)));
@@ -4925,12 +5199,32 @@ body.tv-kiosk-mode .tv-exit-pill {{
         return _gSaToken;
       }}
 
-      if (!SA_CONFIG || !SA_CONFIG.enc_pk) {{
-        throw new Error('Chưa có cấu hình Service Account');
+      // 1. Nạp credentials vào RAM biến _saCreds nếu chưa có
+      if (!_saCreds) {{
+        if (SA_CONFIG && SA_CONFIG.enc_pk) {{
+          _saCreds = {{
+            client_email: SA_CONFIG.client_email,
+            private_key: atob(SA_CONFIG.enc_pk),
+            token_uri: SA_CONFIG.token_uri || 'https://oauth2.googleapis.com/token'
+          }};
+        }} else {{
+          try {{
+            const res = await fetch(APPS_SCRIPT_AUTH_URL);
+            const json = await res.json();
+            if (json && json.credentials && json.credentials.private_key) {{
+              _saCreds = json.credentials;
+            }}
+          }} catch (e) {{
+            console.warn('Lỗi lấy credentials qua Apps Script:', e);
+          }}
+        }}
       }}
 
-      const rawPrivateKey = atob(SA_CONFIG.enc_pk);
-      const binaryDer = _pemToBinary(rawPrivateKey);
+      if (!_saCreds || !_saCreds.private_key) {{
+        throw new Error('Chưa lấy được thông tin xác thực Service Account');
+      }}
+
+      const binaryDer = _pemToBinary(_saCreds.private_key);
       const cryptoObj = window.crypto || window.msCrypto;
       if (!cryptoObj || !cryptoObj.subtle) {{
         throw new Error('Trình duyệt không hỗ trợ WebCrypto');
@@ -4946,9 +5240,9 @@ body.tv-kiosk-mode .tv-exit-pill {{
 
       const header = _base64UrlEncodeStr(JSON.stringify({{ alg: 'RS256', typ: 'JWT' }}));
       const payload = _base64UrlEncodeStr(JSON.stringify({{
-        iss: SA_CONFIG.client_email,
+        iss: _saCreds.client_email,
         scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-        aud: SA_CONFIG.token_uri,
+        aud: _saCreds.token_uri || 'https://oauth2.googleapis.com/token',
         exp: now + 3600,
         iat: now
       }}));
@@ -4958,7 +5252,8 @@ body.tv-kiosk-mode .tv-exit-pill {{
       const sigB64 = _arrayBufferToBase64Url(signature);
       const jwtAssertion = header + '.' + payload + '.' + sigB64;
 
-      const res = await fetch(SA_CONFIG.token_uri, {{
+      const tokenUri = _saCreds.token_uri || 'https://oauth2.googleapis.com/token';
+      const res = await fetch(tokenUri, {{
         method: 'POST',
         headers: {{ 'Content-Type': 'application/x-www-form-urlencoded' }},
         body: 'grant_type=' + encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer') + '&assertion=' + encodeURIComponent(jwtAssertion)
@@ -4971,8 +5266,10 @@ body.tv-kiosk-mode .tv-exit-pill {{
 
       _gSaToken = data.access_token;
       _gSaTokenExp = now + (data.expires_in || 3600);
-      sessionStorage.setItem('kpicto_sa_token', _gSaToken);
-      sessionStorage.setItem('kpicto_sa_exp', String(_gSaTokenExp));
+      try {{
+        sessionStorage.setItem('kpicto_sa_token', _gSaToken);
+        sessionStorage.setItem('kpicto_sa_exp', String(_gSaTokenExp));
+      }} catch (e) {{}}
       return _gSaToken;
     }}
 
@@ -5003,28 +5300,38 @@ body.tv-kiosk-mode .tv-exit-pill {{
         let rowsKpi = [];
         let rowsHs = [];
 
-        if (APPS_SCRIPT_API) {{
-          const cacheBusterUrl = APPS_SCRIPT_API + (APPS_SCRIPT_API.includes('?') ? '&' : '?') + 'sheet=all&_t=' + Date.now();
-          const res = await fetch(cacheBusterUrl);
-          if (!res.ok) throw new Error('Google Apps Script error: ' + res.status);
-          const json = await res.json();
-          rowsKpi = json.rowsKpi || json.kpi_tong || (json.sheet === 'KPI tong' ? json.data : []) || [];
-          rowsHs = json.rowsHs || json.hs_ca_truc || (json.sheet === 'HS ca truc' ? json.data : []) || [];
-          if (json.updated_at) foundUpdateTime = formatPbiTimeClient(json.updated_at);
-        }} else if (SA_CONFIG && SA_CONFIG.client_email && SA_CONFIG.enc_pk) {{
+        // 1. Thử đọc trực tiếp Google Sheets qua token bot trong RAM
+        try {{
           const token = await getGoogleServiceAccountToken();
           const url = `https://sheets.googleapis.com/v4/spreadsheets/${{SPREADSHEET_ID}}/values:batchGet?ranges=KPI%20tong!A1:P30&ranges=HS%20ca%20truc!A1:AC30&t=${{Date.now()}}`;
           const res = await fetch(url, {{
             headers: {{ 'Authorization': 'Bearer ' + token }}
           }});
 
-          if (!res.ok) throw new Error('Google Sheets API error: ' + res.status);
-          const json = await res.json();
-          const valRanges = json.valueRanges || [];
-          rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
-          rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
-        }} else {{
-          // Thử tải cache kpi_data.json mới nhất
+          if (res.ok) {{
+            const json = await res.json();
+            const valRanges = json.valueRanges || [];
+            rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
+            rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
+          }}
+        }} catch (eTok) {{
+          console.warn('Đọc trực tiếp Google Sheets API không thành công:', eTok);
+        }}
+
+        // 2. Nếu có Apps Script API phụ trợ
+        if ((!rowsKpi || rowsKpi.length === 0) && APPS_SCRIPT_API) {{
+          const cacheBusterUrl = APPS_SCRIPT_API + (APPS_SCRIPT_API.includes('?') ? '&' : '?') + 'sheet=all&_t=' + Date.now();
+          const res = await fetch(cacheBusterUrl);
+          if (res.ok) {{
+            const json = await res.json();
+            rowsKpi = json.rowsKpi || json.kpi_tong || (json.sheet === 'KPI tong' ? json.data : []) || [];
+            rowsHs = json.rowsHs || json.hs_ca_truc || (json.sheet === 'HS ca truc' ? json.data : []) || [];
+            if (json.updated_at) foundUpdateTime = formatPbiTimeClient(json.updated_at);
+          }}
+        }}
+
+        // 3. Fallback nạp từ cache kpi_data.json
+        if (!rowsKpi || rowsKpi.length === 0) {{
           try {{
             const kRes = await fetch('./kpi_data.json?t=' + Date.now());
             if (kRes.ok) {{
@@ -5047,11 +5354,6 @@ body.tv-kiosk-mode .tv-exit-pill {{
               return;
             }}
           }} catch (e) {{}}
-
-          if (showStatus) {{
-            showToast('✅ Dữ liệu số liệu đang là bản mới nhất (' + DATA.updated_at + ')!');
-          }}
-          return;
         }}
 
         // Đọc thời gian PBI từ ô P1 của header row
@@ -5071,7 +5373,6 @@ body.tv-kiosk-mode .tv-exit-pill {{
           return n;
         }};
 
-        let foundUpdateTime = null;
         const newKpiData = [];
         for (let i = 1; i < rowsKpi.length; i++) {{
           const r = rowsKpi[i];
