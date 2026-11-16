@@ -7,3 +7,5 @@ temp_pbi_download/
 
 build_dashboard_backup.py
 index_backup.html
+
+*.zip
