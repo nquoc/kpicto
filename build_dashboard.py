@@ -900,7 +900,39 @@ tbody tr:hover {{
 }}
 
 /* Progress bar inside table cells */
-.progress-bar-wrapper,
+.progress-bar-wrapper {{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 110px;
+}}
+
+.progress-track {{
+  flex: 1;
+  height: 6px;
+  background: var(--surface-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  min-width: 45px;
+}}
+
+.progress-fill {{
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}}
+
+.progress-pct-val {{
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: var(--mono-font);
+  color: var(--text-main);
+  min-width: 46px;
+  text-align: right;
+  flex-shrink: 0;
+}}
+
 .progress-bar-wrap {{
   width: 100%;
   height: 6px;
@@ -910,16 +942,18 @@ tbody tr:hover {{
   margin-top: 5px;
 }}
 
-.progress-fill,
 .progress-bar-fill {{
   height: 100%;
   border-radius: 9999px;
   transition: width 0.4s ease;
 }}
 
-.bg-good {{ background: linear-gradient(90deg, #10b981, #34d399); }}
-.bg-ok   {{ background: linear-gradient(90deg, #0ea5e9, #38bdf8); }}
-.bg-low  {{ background: linear-gradient(90deg, #f59e0b, #fbbf24); }}
+.bg-excel {{ background: linear-gradient(90deg, #10b981, #34d399); }}
+.bg-good  {{ background: linear-gradient(90deg, #10b981, #34d399); }}
+.bg-ok    {{ background: linear-gradient(90deg, #0ea5e9, #38bdf8); }}
+.bg-low   {{ background: linear-gradient(90deg, #f59e0b, #fbbf24); }}
+.bg-warn  {{ background: linear-gradient(90deg, #f59e0b, #fbbf24); }}
+.bg-danger{{ background: linear-gradient(90deg, #ef4444, #f87171); }}
 
 /* Row Highlights */
 tr.my-row-highlight td {{
@@ -3411,7 +3445,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
               <div class="progress-track">
                 <div class="progress-fill ${{pctTicket >= targetPacing ? 'bg-excel' : 'bg-ok'}}" style="width:${{Math.min(pctTicket * 100, 100)}}%;"></div>
               </div>
-              <span style="font-size:11px;font-weight:600;">${{(pctTicket * 100).toFixed(1)}}%</span>
+              <span class="progress-pct-val">${{(pctTicket * 100).toFixed(1)}}%</span>
             </div>
           </td>
           <td class="numeric">${{item.kpi_cv.toLocaleString('vi-VN')}}</td>
@@ -3421,7 +3455,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
               <div class="progress-track">
                 <div class="progress-fill ${{pctCv >= targetPacing ? 'bg-excel' : 'bg-ok'}}" style="width:${{Math.min(pctCv * 100, 100)}}%;"></div>
               </div>
-              <span style="font-size:11px;font-weight:600;">${{(pctCv * 100).toFixed(1)}}%</span>
+              <span class="progress-pct-val">${{(pctCv * 100).toFixed(1)}}%</span>
             </div>
           </td>
           <td class="text-center">${{item.no_ticket_2ht > 0 ? `<span class="badge badge-ticket-2ht">${{item.no_ticket_2ht}}</span>` : '0'}}</td>
@@ -3430,7 +3464,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
               <div class="progress-track">
                 <div class="progress-fill ${{pctTong >= targetPacing ? 'bg-excel' : 'bg-low'}}" style="width:${{Math.min(pctTong * 100, 100)}}%;"></div>
               </div>
-              <span style="font-size:12px;font-weight:700;">${{(pctTong * 100).toFixed(2)}}%</span>
+              <span class="progress-pct-val" style="color:${{pctTong >= targetPacing ? '#10b981' : '#f59e0b'}};">${{(pctTong * 100).toFixed(2)}}%</span>
             </div>
           </td>
           <td>

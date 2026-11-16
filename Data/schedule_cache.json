@@ -1,5 +1,5 @@
 {
-  "updated_at": "16/11/2026 00:24:53",
+  "updated_at": "16/11/2026 11:20:20",
   "today": "2026-11-16",
   "today_display": "16/11/2026",
   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/edit",
@@ -1083,12 +1083,12 @@
             "val": "TK"
           },
           {
-            "ca": "TR",
+            "ca": "HC-C",
             "val": "FC1"
           },
           {
-            "ca": "HC-C",
-            "val": "FC1"
+            "ca": "T",
+            "val": "Miss"
           }
         ],
         "2026-11-17": [
@@ -1212,7 +1212,7 @@
         "2026-11-13": "HC-S: FC2 | HC-C: FC2 | T: N",
         "2026-11-14": "S: FB | HC-S: TK | HC-C: P/2",
         "2026-11-15": "HC-S: FB | HC-C: FC1 | T: Miss",
-        "2026-11-16": "HC-S: TK | TR: FC1 | HC-C: FC1",
+        "2026-11-16": "HC-S: TK | HC-C: FC1 | T: Miss",
         "2026-11-17": "S: FC1 | HC-S: FC1 | HC-C: TK",
         "2026-11-18": "HC-C: TK | T: CH",
         "2026-11-19": "S: FB | HC-S: FC5 | HC-C: x",
@@ -3317,7 +3317,7 @@
           },
           {
             "ca": "HC-C",
-            "val": "x"
+            "val": "Miss"
           }
         ],
         "2026-11-17": [
@@ -3429,7 +3429,7 @@
         "2026-11-13": "HC-S: TK | TR: FC15 | HC-C: FC15",
         "2026-11-14": "S: FC17 | HC-S: FC17 | TR: FC17 | HC-C: x",
         "2026-11-15": "HC-S: FC15 | HC-C: x | T: TK",
-        "2026-11-16": "S: TK | HC-S: FC17 | HC-C: x",
+        "2026-11-16": "S: TK | HC-S: FC17 | HC-C: Miss",
         "2026-11-17": "S: OFF",
         "2026-11-18": "HC-C: x | T: CH",
         "2026-11-19": "HC-S: x | HC-C: x",
@@ -3738,7 +3738,7 @@
           },
           {
             "ca": "HC-C",
-            "val": "Miss"
+            "val": "x"
           },
           {
             "ca": "T",
@@ -3795,12 +3795,12 @@
             "val": "x"
           },
           {
-            "ca": "TR",
-            "val": "TK"
-          },
-          {
             "ca": "HC-C",
             "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "N"
           }
         ],
         "2026-11-22": [
@@ -3870,12 +3870,12 @@
         "2026-11-13": "S: OFF",
         "2026-11-14": "S: OFF",
         "2026-11-15": "S: OFF",
-        "2026-11-16": "HC-S: Miss | HC-C: Miss | T: FC15",
+        "2026-11-16": "HC-S: Miss | HC-C: x | T: FC15",
         "2026-11-17": "HC-S: x | TR | HC-C: x",
         "2026-11-18": "S: TK | HC-S: x | HC-C: x",
         "2026-11-19": "S: OFF",
         "2026-11-20": "HC-C: x | T: CH/FC18",
-        "2026-11-21": "HC-S: x | TR: TK | HC-C: x",
+        "2026-11-21": "HC-S: x | HC-C: x | T: N",
         "2026-11-22": "S | HC-S: FC15 | HC-C: x",
         "2026-11-23": "HC-S: x | HC-C: x",
         "2026-11-24": "HC-S: x | HC-C: x",
@@ -4659,6 +4659,10 @@
             "val": "x"
           },
           {
+            "ca": "TR",
+            "val": "TR"
+          },
+          {
             "ca": "HC-C",
             "val": "FC15"
           }
@@ -4792,7 +4796,7 @@
         "2026-11-13": "HC-S: x | HC-C: x | T: N",
         "2026-11-14": "S | HC-S: x | HC-C: x",
         "2026-11-15": "S | HC-S: x | HC-C: x | T: FC17",
-        "2026-11-16": "HC-S: x | HC-C: FC15",
+        "2026-11-16": "HC-S: x | TR | HC-C: FC15",
         "2026-11-17": "S | HC-S: x | HC-C: x",
         "2026-11-18": "S: FC18 | HC-S: FC18 | HC-C: x | T: N",
         "2026-11-19": "S: FC15 | HC-S: x | HC-C: x",
