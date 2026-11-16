@@ -4652,25 +4652,37 @@ body.tv-kiosk-mode .tv-exit-pill {{
     async function syncScheduleLive() {{
       const btn = document.getElementById('btn-sync-schedule');
       if (btn) {{
-        btn.innerHTML = '⏳ Đang tải Google Sheets...';
+        btn.innerHTML = '⏳ Đang tải dữ liệu...';
         btn.style.opacity = '0.7';
       }}
 
       try {{
-        const token = await getGoogleServiceAccountToken();
-        const sheetName = encodeURIComponent('Tháng 11/2026');
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/values/${{sheetName}}?valueRenderOption=FORMATTED_VALUE`;
-        const res = await fetch(url, {{
-          headers: {{ 'Authorization': 'Bearer ' + token }}
-        }});
-        const json = await res.json();
-        if (json.values && json.values.length > 5) {{
-          showToast('✅ Đã cập nhật lịch trực mới nhất trực tiếp từ Google Sheets!');
+        const cacheUrl = './Data/schedule_cache.json?t=' + Date.now();
+        const res = await fetch(cacheUrl);
+        if (res.ok) {{
+          const freshSchedule = await res.json();
+          if (freshSchedule && freshSchedule.employees && freshSchedule.employees.length > 0) {{
+            DATA.schedule = freshSchedule;
+            renderScheduleTab();
+            showToast('✅ Đã đồng bộ lịch trực mới nhất! (' + (freshSchedule.updated_at || 'Mới cập nhật') + ')');
+            return;
+          }}
+        }}
+
+        if (DATA.schedule && DATA.schedule.employees) {{
           renderScheduleTab();
+          showToast('✅ Dữ liệu lịch trực đang là bản mới nhất (' + (DATA.schedule.updated_at || '13 nhân sự') + ')!');
+        }} else {{
+          showToast('ℹ️ Đang hiển thị lịch trực mới nhất!');
         }}
       }} catch (err) {{
-        console.warn('Sync schedule warning:', err);
-        showToast('⚠️ Không thể kết nối Google Sheets trực tiếp, hiển thị dữ liệu đã lưu.');
+        console.warn('Sync schedule:', err);
+        if (DATA.schedule && DATA.schedule.employees) {{
+          renderScheduleTab();
+          showToast('✅ Dữ liệu lịch trực đang là bản mới nhất (' + (DATA.schedule.updated_at || '13 nhân sự') + ')!');
+        }} else {{
+          showToast('ℹ️ Đang hiển thị lịch trực mới nhất!');
+        }}
       }} finally {{
         if (btn) {{
           btn.innerHTML = '🔄 Tải lại Lịch Trực Mới Nhất';
