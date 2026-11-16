@@ -49,8 +49,12 @@ def sync_sheets_to_dashboard(push_github=True):
     update_time_val = None
     try:
         p1_val = ws_kpi.acell("P1").value
-        if p1_val and "Cập nhật" in p1_val:
-            update_time_val = p1_val.replace("Cập nhật PBI:", "").replace("Cập nhật:", "").strip()
+        if p1_val:
+            try:
+                from build_dashboard import format_pbi_time
+                update_time_val = format_pbi_time(p1_val)
+            except Exception:
+                update_time_val = p1_val.replace("Cập nhật PBI:", "").replace("Cập nhật:", "").strip()
     except Exception:
         pass
 

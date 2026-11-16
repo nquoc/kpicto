@@ -6,10 +6,88 @@ import calendar
 import pandas as pd
 import openpyxl
 import schedule_service
+import re
+
+def format_pbi_time(raw_val):
+    if not raw_val:
+        return None
+    val_str = str(raw_val).replace('Cập nhật PBI:', '').replace('Cập nhật:', '').strip()
+    if not val_str:
+        return None
+    formats = [
+        '%m/%d/%y, %I:%M %p',
+        '%m/%d/%Y, %I:%M %p',
+        '%m/%d/%y %I:%M %p',
+        '%m/%d/%Y %I:%M %p',
+        '%m/%d/%y, %H:%M',
+        '%m/%d/%Y, %H:%M',
+        '%d/%m/%Y, %H:%M',
+        '%d/%m/%y, %H:%M',
+        '%H:%M - %d/%m/%Y',
+        '%H:%M %d/%m/%Y',
+        '%H:%M %d/%m/%y',
+        '%d/%m/%Y %H:%M',
+        '%Y-%m-%d %H:%M:%S',
+    ]
+    for fmt in formats:
+        try:
+            dt = datetime.datetime.strptime(val_str, fmt)
+            return dt.strftime('%H:%M - %d/%m/%Y')
+        except ValueError:
+            pass
+    m = re.match(r'(\d{1,2}:\d{2})\s+(\d{1,2})/(\d{1,2})/(\d{2,4})', val_str)
+    if m:
+        t, d, mo, y = m.groups()
+        if len(y) == 2:
+            y = '20' + y
+        return f'{t} - {int(d):02d}/{int(mo):02d}/{y}'
+    return val_str
+
+def get_sheet_pbi_update_time():
+    """
+    Lấy thời gian cập nhật Power BI từ ô P1 của sheet 'KPI tong' trên Google Sheets.
+    """
+    cred_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "credentials.json")
+    if os.path.exists(cred_file):
+        try:
+            from oauth2client.service_account import ServiceAccountCredentials
+            import gspread
+            scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+            creds = ServiceAccountCredentials.from_json_keyfile_name(cred_file, scope)
+            client = gspread.authorize(creds)
+            ss = client.open_by_key("1Gp4UVa_6YyQHA9SZxts8ey9z_mwB3j-BEKx20fvPPfk")
+            ws = ss.worksheet("KPI tong")
+            p1_val = ws.acell("P1").value
+            if p1_val:
+                fmt = format_pbi_time(p1_val)
+                if fmt:
+                    cache_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data")
+                    os.makedirs(cache_dir, exist_ok=True)
+                    with open(os.path.join(cache_dir, "pbi_update_time.json"), "w", encoding="utf-8") as f:
+                        json.dump({"pbi_update_time": fmt, "raw_p1": p1_val}, f, ensure_ascii=False, indent=2)
+                    return fmt
+        except Exception as e:
+            print(f"Warning reading P1 from Google Sheet: {e}")
+
+    cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data", "pbi_update_time.json")
+    if os.path.exists(cache_path):
+        try:
+            with open(cache_path, "r", encoding="utf-8") as f:
+                c = json.load(f)
+                if c.get("pbi_update_time"):
+                    return c["pbi_update_time"]
+        except Exception:
+            pass
+
+    return "08:38 - 16/11/2026"
 
 def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_data=None):
     if not update_time_val:
-        update_time_val = datetime.datetime.now().strftime("%H:%M - %d/%m/%Y")
+        update_time_val = get_sheet_pbi_update_time()
+    else:
+        fmt = format_pbi_time(update_time_val)
+        if fmt:
+            update_time_val = fmt
 
     # 1. Read KPI tong
     kpi_file = "PowerBI_Export_KPI_TONG.xlsx"
@@ -4894,6 +4972,21 @@ body.tv-kiosk-mode .tv-exit-pill {{
       return _gSaToken;
     }}
 
+    function formatPbiTimeClient(valStr) {{
+      if (!valStr) return valStr;
+      let s = String(valStr).replace('Cập nhật PBI:', '').replace('Cập nhật:', '').trim();
+      const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4}),?\s+(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+      if (m) {{
+        let mo = parseInt(m[1]), d = parseInt(m[2]), y = parseInt(m[3]);
+        let h = parseInt(m[4]), min = m[5], ampm = (m[6] || '').toUpperCase();
+        if (y < 100) y += 2000;
+        if (ampm === 'PM' && h < 12) h += 12;
+        if (ampm === 'AM' && h === 12) h = 0;
+        return (h < 10 ? '0' + h : h) + ':' + min + ' - ' + (d < 10 ? '0' + d : d) + '/' + (mo < 10 ? '0' + mo : mo) + '/' + y;
+      }}
+      return s;
+    }}
+
     async function fetchRealtimeSheetsData(showStatus = false) {{
       const btn = document.querySelector('.btn-refresh');
       if (showStatus && btn) {{
@@ -4913,7 +5006,7 @@ body.tv-kiosk-mode .tv-exit-pill {{
           const json = await res.json();
           rowsKpi = json.rowsKpi || json.kpi_tong || (json.sheet === 'KPI tong' ? json.data : []) || [];
           rowsHs = json.rowsHs || json.hs_ca_truc || (json.sheet === 'HS ca truc' ? json.data : []) || [];
-          if (json.updated_at) foundUpdateTime = json.updated_at;
+          if (json.updated_at) foundUpdateTime = formatPbiTimeClient(json.updated_at);
         }} else if (SA_CONFIG && SA_CONFIG.client_email && SA_CONFIG.enc_pk) {{
           const token = await getGoogleServiceAccountToken();
           const url = `https://sheets.googleapis.com/v4/spreadsheets/${{SPREADSHEET_ID}}/values:batchGet?ranges=KPI%20tong!A1:P30&ranges=HS%20ca%20truc!A1:AC30&t=${{Date.now()}}`;
@@ -4927,10 +5020,39 @@ body.tv-kiosk-mode .tv-exit-pill {{
           rowsKpi = valRanges[0] ? (valRanges[0].values || []) : [];
           rowsHs = valRanges[1] ? (valRanges[1].values || []) : [];
         }} else {{
+          // Thử tải cache kpi_data.json mới nhất
+          try {{
+            const kRes = await fetch('./kpi_data.json?t=' + Date.now());
+            if (kRes.ok) {{
+              const kJson = await kRes.json();
+              if (kJson.updated_at) {{
+                DATA.updated_at = kJson.updated_at;
+                const lbl = document.getElementById('lbl-updated-at');
+                if (lbl) lbl.innerText = DATA.updated_at;
+              }}
+              if (kJson.kpi_tong && kJson.kpi_tong.length > 0) {{
+                DATA.kpi_tong = kJson.kpi_tong;
+                if (kJson.hs_ca_truc) DATA.hs_ca_truc = kJson.hs_ca_truc;
+                if (kJson.summary) DATA.summary = kJson.summary;
+                updatePacingDisplay();
+                applyFilters();
+              }}
+              if (showStatus) {{
+                showToast('✅ Dữ liệu số liệu đang là bản mới nhất (' + DATA.updated_at + ')!');
+              }}
+              return;
+            }}
+          }} catch (e) {{}}
+
           if (showStatus) {{
-            showToast('ℹ️ Đang hiển thị số liệu mới nhất!');
+            showToast('✅ Dữ liệu số liệu đang là bản mới nhất (' + DATA.updated_at + ')!');
           }}
           return;
+        }}
+
+        // Đọc thời gian PBI từ ô P1 của header row
+        if (rowsKpi && rowsKpi.length > 0 && rowsKpi[0][15] && String(rowsKpi[0][15]).includes('Cập nhật')) {{
+          foundUpdateTime = formatPbiTimeClient(rowsKpi[0][15]);
         }}
 
         if (rowsKpi.length <= 1) return;
@@ -5035,12 +5157,12 @@ body.tv-kiosk-mode .tv-exit-pill {{
           updatePacingDisplay();
           applyFilters();
 
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString('vi-VN', {{ hour: '2-digit', minute: '2-digit', second: '2-digit' }});
           const liveBadge = document.querySelector('.badge-live');
           if (liveBadge) {{
-            liveBadge.innerHTML = `<span class="dot-live"></span><span>Live Sheet: <strong id="lbl-updated-at">${{DATA.updated_at}}</strong> (vừa cập nhật ${{timeStr}})</span>`;
+            liveBadge.innerHTML = `<span class="dot-live"></span><span>Cập nhật: <strong id="lbl-updated-at">${{DATA.updated_at}}</strong></span>`;
           }}
+          const lblUpdated = document.getElementById('lbl-updated-at');
+          if (lblUpdated) lblUpdated.innerText = DATA.updated_at;
         }}
       }} catch (err) {{
         console.warn('Google Sheet realtime note:', err);
@@ -5069,6 +5191,33 @@ body.tv-kiosk-mode .tv-exit-pill {{
     with open(ws_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"Generated dashboard: {ws_path}")
+
+    # Write kpi_data.json & pbi_update_time.json
+    try:
+        kpi_json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "kpi_data.json")
+        with open(kpi_json_path, "w", encoding="utf-8") as f:
+            json.dump({
+                "updated_at": update_time_val,
+                "kpi_tong": kpi_data,
+                "hs_ca_truc": hs_data,
+                "summary": {
+                    "total_staff": total_staff,
+                    "avg_kpi": round(avg_kpi * 100, 2),
+                    "total_ticket": round(total_ticket, 1),
+                    "total_cv": round(total_cv, 1),
+                    "total_ticket_2ht": total_ticket_2ht,
+                    "top_performer": top_performer['name'] if top_performer else 'N/A',
+                    "top_kpi": round(top_performer['pct_kpi_tong'] * 100, 2) if top_performer else 0
+                }
+            }, f, ensure_ascii=False, indent=2)
+        print(f"Saved kpi_data.json ({update_time_val})")
+
+        cache_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data")
+        os.makedirs(cache_dir, exist_ok=True)
+        with open(os.path.join(cache_dir, "pbi_update_time.json"), "w", encoding="utf-8") as f:
+            json.dump({"pbi_update_time": update_time_val}, f, ensure_ascii=False, indent=2)
+    except Exception as e_json:
+        print(f"kpi_data.json save note: {e_json}")
 
     # Copy to index.html for active web server
     m_lock = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MAINTENANCE_MODE")
