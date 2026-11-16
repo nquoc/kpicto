@@ -1,5 +1,5 @@
 {
-  "updated_at": "16/11/2026 11:40:39",
+  "updated_at": "16/11/2026 11:48:15",
   "today": "2026-11-16",
   "today_display": "16/11/2026",
   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ct8owykbsFzzlvjBHAPk_I44tr9bSbGB5KI4d5jJixo/edit",
@@ -647,7 +647,19 @@
         "2026-11-16": [
           {
             "ca": "S",
-            "val": "OFF"
+            "val": "S"
+          },
+          {
+            "ca": "HC-S",
+            "val": "x"
+          },
+          {
+            "ca": "HC-C",
+            "val": "x"
+          },
+          {
+            "ca": "T",
+            "val": "T"
           }
         ],
         "2026-11-17": [
@@ -775,7 +787,7 @@
         "2026-11-13": "HC-S: x | HC-C: x | T: N",
         "2026-11-14": "HC-S: x | HC-C: x | T: N",
         "2026-11-15": "HC-S: x | HC-C: x",
-        "2026-11-16": "S: OFF",
+        "2026-11-16": "S | HC-S: x | HC-C: x | T",
         "2026-11-17": "HC-S: x | HC-C: x | T: N",
         "2026-11-18": "HC-S: x | HC-C: x | T: N",
         "2026-11-19": "HC-S: x | HC-C: x | T: N",
@@ -789,16 +801,16 @@
       "stats": {
         "cycle_a": {
           "to_date": {
-            "off": 4.0,
+            "off": 3.0,
             "p": 3.0,
-            "work": 15.0,
+            "work": 16.0,
             "total": 22.0,
             "days_counted": 22
           },
           "full": {
-            "off": 6.0,
+            "off": 5.0,
             "p": 3.0,
-            "work": 22.0,
+            "work": 23.0,
             "total": 31.0,
             "days_counted": 31
           },
@@ -807,16 +819,16 @@
         },
         "cycle_b": {
           "to_date": {
-            "off": 3.0,
+            "off": 2.0,
             "p": 3.0,
-            "work": 10.0,
+            "work": 11.0,
             "total": 16.0,
             "days_counted": 16
           },
           "full": {
-            "off": 5.0,
+            "off": 4.0,
             "p": 3.0,
-            "work": 17.0,
+            "work": 18.0,
             "total": 25.0,
             "days_counted": 25
           },
