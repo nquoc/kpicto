@@ -5025,12 +5025,16 @@ body.tv-kiosk-mode .tv-exit-pill {{
     print(f"Generated dashboard: {ws_path}")
 
     # Copy to index.html for active web server
-    index_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
-    try:
-        shutil.copyfile(ws_path, index_path)
-        print(f"Synced to index.html: {index_path}")
-    except Exception as e:
-        print(f"Index sync note: {e}")
+    m_lock = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MAINTENANCE_MODE")
+    if not os.path.exists(m_lock):
+        index_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
+        try:
+            shutil.copyfile(ws_path, index_path)
+            print(f"Synced to index.html: {index_path}")
+        except Exception as e:
+            print(f"Index sync note: {e}")
+    else:
+        print("MAINTENANCE_MODE is active: index.html preserved as maintenance page.")
 
     # Write to artifact directory
     artifact_path = r"C:\Users\quoc\.gemini\antigravity\brain\1a3f1ada-6c32-4202-95be-30efc04b91ec\kpi_dashboard.html"
