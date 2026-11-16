@@ -139,7 +139,7 @@ def sync_sheets_to_dashboard(push_github=True):
     if push_github:
         print("🐙 Đang đồng bộ lên GitHub Pages...")
         cwd = os.path.dirname(os.path.abspath(__file__))
-        subprocess.run(["git", "add", "index.html", "kpi_dashboard.html", "kpi_data.json"], cwd=cwd)
+        subprocess.run(["git", "add", "index.html", "kpi_dashboard.html", "kpi_data.json", "Data/schedule_cache.json", "Data/pbi_update_time.json"], cwd=cwd)
         subprocess.run(["git", "commit", "-m", f"Sync from Google Sheets ({update_time_val})"], cwd=cwd)
         subprocess.run(["git", "push", "origin", "main"], cwd=cwd)
         print("🎉 ĐÃ ĐỒNG BỘ XONG LÊN GITHUB PAGES!")
