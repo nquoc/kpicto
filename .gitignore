@@ -9,3 +9,6 @@ build_dashboard_backup.py
 index_backup.html
 
 *.zip
+
+index_live_backup.html
+kpi_dashboard_live.html
