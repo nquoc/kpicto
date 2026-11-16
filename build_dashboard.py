@@ -202,6 +202,9 @@ def generate_dashboard(update_time_val=None, custom_kpi_data=None, custom_hs_dat
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực - Team CTO 1</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
@@ -1009,6 +1012,7 @@ tbody tr:hover {{
   min-width: 46px;
   text-align: right;
   flex-shrink: 0;
+  white-space: nowrap;
 }}
 
 .progress-bar-wrap {{
