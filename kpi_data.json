@@ -1,5 +1,5 @@
 {
-  "updated_at": "08:21 - 17/11/2026",
+  "updated_at": "08:16 - 18/11/2026",
   "kpi_tong": [
     {
       "id": 1,
@@ -9,13 +9,13 @@
       "team": "Team CTO 1",
       "level": "3",
       "kpi_ticket": 1200.0,
-      "slg_kh": 1130.4,
-      "pct_kpi_ticket": 0.942,
+      "slg_kh": 1158.5,
+      "pct_kpi_ticket": 0.965416666666667,
       "kpi_cv": 1250.0,
-      "slg_cv": 826.4,
-      "pct_kpi_cv": 0.66112,
-      "no_ticket_2ht": 10,
-      "pct_kpi_tong": 0.80156
+      "slg_cv": 864.5,
+      "pct_kpi_cv": 0.6916,
+      "no_ticket_2ht": 11,
+      "pct_kpi_tong": 0.828508333333333
     },
     {
       "id": 2,
@@ -25,16 +25,32 @@
       "team": "Team CTO 1",
       "level": "3",
       "kpi_ticket": 1200.0,
-      "slg_kh": 736.5,
-      "pct_kpi_ticket": 0.61375,
+      "slg_kh": 780.9,
+      "pct_kpi_ticket": 0.65075,
       "kpi_cv": 1250.0,
-      "slg_cv": 833.5,
-      "pct_kpi_cv": 0.6668,
-      "no_ticket_2ht": 45,
-      "pct_kpi_tong": 0.640275
+      "slg_cv": 888.9,
+      "pct_kpi_cv": 0.71112,
+      "no_ticket_2ht": 51,
+      "pct_kpi_tong": 0.680935
     },
     {
       "id": 3,
+      "ma": "8116",
+      "name": "Lưu Cẩm Tú",
+      "full_name": "8116 - Lưu Cẩm Tú - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "4",
+      "kpi_ticket": 1350.0,
+      "slg_kh": 848.1,
+      "pct_kpi_ticket": 0.628222222222222,
+      "kpi_cv": 1400.0,
+      "slg_cv": 959.1,
+      "pct_kpi_cv": 0.685071428571429,
+      "no_ticket_2ht": 44,
+      "pct_kpi_tong": 0.656646825396825
+    },
+    {
+      "id": 4,
       "ma": "8257",
       "name": "Phạm Hoàng Hậu",
       "full_name": "8257 - Phạm Hoàng Hậu - Customer Service - CTO",
@@ -50,22 +66,6 @@
       "pct_kpi_tong": 0.614918660287081
     },
     {
-      "id": 4,
-      "ma": "8116",
-      "name": "Lưu Cẩm Tú",
-      "full_name": "8116 - Lưu Cẩm Tú - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "4",
-      "kpi_ticket": 1350.0,
-      "slg_kh": 777.0,
-      "pct_kpi_ticket": 0.575555555555556,
-      "kpi_cv": 1400.0,
-      "slg_cv": 877.5,
-      "pct_kpi_cv": 0.626785714285714,
-      "no_ticket_2ht": 40,
-      "pct_kpi_tong": 0.601170634920635
-    },
-    {
       "id": 5,
       "ma": "8285",
       "name": "Trương Thiết Long",
@@ -73,16 +73,64 @@
       "team": "Team CTO 1",
       "level": "3",
       "kpi_ticket": 950.0,
-      "slg_kh": 531.0,
-      "pct_kpi_ticket": 0.558947368421053,
+      "slg_kh": 563.5,
+      "pct_kpi_ticket": 0.593157894736842,
       "kpi_cv": 1100.0,
-      "slg_cv": 646.5,
-      "pct_kpi_cv": 0.587727272727273,
-      "no_ticket_2ht": 105,
-      "pct_kpi_tong": 0.573337320574163
+      "slg_cv": 686.0,
+      "pct_kpi_cv": 0.623636363636364,
+      "no_ticket_2ht": 110,
+      "pct_kpi_tong": 0.608397129186603
     },
     {
       "id": 6,
+      "ma": "8607",
+      "name": "Nguyễn Thị Việt Trinh",
+      "full_name": "8607 - Nguyễn Thị Việt Trinh - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "1",
+      "kpi_ticket": 630.0,
+      "slg_kh": 366.6,
+      "pct_kpi_ticket": 0.581904761904762,
+      "kpi_cv": 665.0,
+      "slg_cv": 406.1,
+      "pct_kpi_cv": 0.610676691729323,
+      "no_ticket_2ht": 4,
+      "pct_kpi_tong": 0.596290726817043
+    },
+    {
+      "id": 7,
+      "ma": "8222",
+      "name": "Bùi Đăng Quang",
+      "full_name": "8222 - Bùi Đăng Quang - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "5",
+      "kpi_ticket": 1100.0,
+      "slg_kh": 628.3,
+      "pct_kpi_ticket": 0.571181818181818,
+      "kpi_cv": 1300.0,
+      "slg_cv": 789.8,
+      "pct_kpi_cv": 0.607538461538462,
+      "no_ticket_2ht": 63,
+      "pct_kpi_tong": 0.58936013986014
+    },
+    {
+      "id": 8,
+      "ma": "8274",
+      "name": "Nguyễn Hửu Thuận",
+      "full_name": "8274 - Nguyễn Hửu Thuận - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "2",
+      "kpi_ticket": 850.0,
+      "slg_kh": 506.0,
+      "pct_kpi_ticket": 0.595294117647059,
+      "kpi_cv": 1020.0,
+      "slg_cv": 587.0,
+      "pct_kpi_cv": 0.575490196078431,
+      "no_ticket_2ht": 64,
+      "pct_kpi_tong": 0.585392156862745
+    },
+    {
+      "id": 9,
       "ma": "8284",
       "name": "Lê Nhựt Toàn",
       "full_name": "8284 - Lê Nhựt Toàn - Customer Service - CTO",
@@ -98,68 +146,20 @@
       "pct_kpi_tong": 0.570533492822967
     },
     {
-      "id": 7,
+      "id": 10,
       "ma": "8177",
       "name": "Hồ Hồng Nhi",
       "full_name": "8177 - Hồ Hồng Nhi - Customer Service - CTO",
       "team": "Team CTO 1",
       "level": "3",
       "kpi_ticket": 1200.0,
-      "slg_kh": 663.5,
-      "pct_kpi_ticket": 0.552916666666667,
+      "slg_kh": 664.5,
+      "pct_kpi_ticket": 0.55375,
       "kpi_cv": 1250.0,
-      "slg_cv": 710.0,
-      "pct_kpi_cv": 0.568,
+      "slg_cv": 711.0,
+      "pct_kpi_cv": 0.5688,
       "no_ticket_2ht": 3,
-      "pct_kpi_tong": 0.560458333333333
-    },
-    {
-      "id": 8,
-      "ma": "8607",
-      "name": "Nguyễn Thị Việt Trinh",
-      "full_name": "8607 - Nguyễn Thị Việt Trinh - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "1",
-      "kpi_ticket": 630.0,
-      "slg_kh": 335.6,
-      "pct_kpi_ticket": 0.532698412698413,
-      "kpi_cv": 665.0,
-      "slg_cv": 370.6,
-      "pct_kpi_cv": 0.557293233082707,
-      "no_ticket_2ht": 3,
-      "pct_kpi_tong": 0.54499582289056
-    },
-    {
-      "id": 9,
-      "ma": "8274",
-      "name": "Nguyễn Hửu Thuận",
-      "full_name": "8274 - Nguyễn Hửu Thuận - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "2",
-      "kpi_ticket": 850.0,
-      "slg_kh": 471.0,
-      "pct_kpi_ticket": 0.554117647058823,
-      "kpi_cv": 1020.0,
-      "slg_cv": 546.0,
-      "pct_kpi_cv": 0.535294117647059,
-      "no_ticket_2ht": 60,
-      "pct_kpi_tong": 0.544705882352941
-    },
-    {
-      "id": 10,
-      "ma": "8222",
-      "name": "Bùi Đăng Quang",
-      "full_name": "8222 - Bùi Đăng Quang - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "5",
-      "kpi_ticket": 1100.0,
-      "slg_kh": 580.8,
-      "pct_kpi_ticket": 0.528,
-      "kpi_cv": 1300.0,
-      "slg_cv": 729.8,
-      "pct_kpi_cv": 0.561384615384615,
-      "no_ticket_2ht": 59,
-      "pct_kpi_tong": 0.544692307692308
+      "pct_kpi_tong": 0.561275
     },
     {
       "id": 11,
@@ -169,13 +169,13 @@
       "team": "Team CTO 1",
       "level": "2",
       "kpi_ticket": 770.0,
-      "slg_kh": 329.8,
-      "pct_kpi_ticket": 0.428311688311688,
+      "slg_kh": 360.8,
+      "pct_kpi_ticket": 0.468571428571429,
       "kpi_cv": 805.0,
-      "slg_cv": 365.8,
-      "pct_kpi_cv": 0.454409937888199,
+      "slg_cv": 398.8,
+      "pct_kpi_cv": 0.495403726708075,
       "no_ticket_2ht": 0,
-      "pct_kpi_tong": 0.441360813099944
+      "pct_kpi_tong": 0.481987577639752
     },
     {
       "id": 12,
@@ -185,13 +185,13 @@
       "team": "Team CTO 1",
       "level": "1",
       "kpi_ticket": 630.0,
-      "slg_kh": 247.6,
-      "pct_kpi_ticket": 0.393015873015873,
+      "slg_kh": 270.2,
+      "pct_kpi_ticket": 0.428888888888889,
       "kpi_cv": 665.0,
-      "slg_cv": 294.1,
-      "pct_kpi_cv": 0.442255639097744,
-      "no_ticket_2ht": 30,
-      "pct_kpi_tong": 0.417635756056809
+      "slg_cv": 320.7,
+      "pct_kpi_cv": 0.482255639097744,
+      "no_ticket_2ht": 33,
+      "pct_kpi_tong": 0.455572263993317
     }
   ],
   "hs_ca_truc": [
@@ -205,16 +205,16 @@
           "pct_kpi": 0.0008
         },
         "S": {
-          "hours": 12.0,
-          "cv": 36.4,
-          "kh": 32.9,
-          "pct_kpi": 0.029
+          "hours": 13.5,
+          "cv": 43.4,
+          "kh": 39.9,
+          "pct_kpi": 0.0348
         },
         "HCS": {
-          "hours": 35.0,
-          "cv": 252.2,
-          "kh": 196.7,
-          "pct_kpi": 0.1864
+          "hours": 38.5,
+          "cv": 279.6,
+          "kh": 213.6,
+          "pct_kpi": 0.2046
         },
         "TR": {
           "hours": 8.0,
@@ -223,10 +223,10 @@
           "pct_kpi": 0.0144
         },
         "HCC": {
-          "hours": 52.25,
-          "cv": 368.8,
-          "kh": 289.8,
-          "pct_kpi": 0.2736
+          "hours": 57.0,
+          "cv": 394.4,
+          "kh": 313.4,
+          "pct_kpi": 0.2941
         },
         "T": {
           "hours": 16.0,
@@ -235,10 +235,10 @@
           "pct_kpi": 0.0405
         },
         "Total": {
-          "hours": 126.75,
-          "cv": 729.8,
-          "kh": 580.8,
-          "pct_kpi": 0.5447
+          "hours": 136.5,
+          "cv": 789.8,
+          "kh": 628.3,
+          "pct_kpi": 0.5894
         }
       }
     },
@@ -258,10 +258,10 @@
           "pct_kpi": 0.0062
         },
         "HCS": {
-          "hours": 38.5,
-          "cv": 102.6,
-          "kh": 82.6,
-          "pct_kpi": 0.1427
+          "hours": 42.0,
+          "cv": 112.0,
+          "kh": 91.0,
+          "pct_kpi": 0.1564
         },
         "TR": {
           "hours": 8.0,
@@ -270,10 +270,10 @@
           "pct_kpi": 0.0193
         },
         "HCC": {
-          "hours": 57.0,
-          "cv": 139.6,
-          "kh": 122.6,
-          "pct_kpi": 0.2023
+          "hours": 61.75,
+          "cv": 156.8,
+          "kh": 136.8,
+          "pct_kpi": 0.2265
         },
         "T": {
           "hours": 36.0,
@@ -282,10 +282,10 @@
           "pct_kpi": 0.0472
         },
         "Total": {
-          "hours": 145.5,
-          "cv": 294.1,
-          "kh": 247.6,
-          "pct_kpi": 0.4176
+          "hours": 153.75,
+          "cv": 320.7,
+          "kh": 270.2,
+          "pct_kpi": 0.4556
         }
       }
     },
@@ -293,10 +293,10 @@
       "user_name": "Hồ Hồng Nhi",
       "shifts": {
         "Khác": {
-          "hours": 9.5,
-          "cv": 6.9,
-          "kh": 6.9,
-          "pct_kpi": 0.0056
+          "hours": 14.25,
+          "cv": 7.9,
+          "kh": 7.9,
+          "pct_kpi": 0.0065
         },
         "S": {
           "hours": 12.0,
@@ -329,10 +329,10 @@
           "pct_kpi": 0.1169
         },
         "Total": {
-          "hours": 184.75,
-          "cv": 710.0,
-          "kh": 663.5,
-          "pct_kpi": 0.5605
+          "hours": 189.5,
+          "cv": 711.0,
+          "kh": 664.5,
+          "pct_kpi": 0.5613
         }
       }
     },
@@ -393,16 +393,16 @@
           "pct_kpi": 0.0216
         },
         "S": {
-          "hours": 15.0,
-          "cv": 30.6,
-          "kh": 47.6,
-          "pct_kpi": 0.0321
+          "hours": 16.5,
+          "cv": 33.9,
+          "kh": 49.9,
+          "pct_kpi": 0.0344
         },
         "HCS": {
-          "hours": 42.0,
-          "cv": 302.1,
-          "kh": 429.1,
-          "pct_kpi": 0.2996
+          "hours": 45.5,
+          "cv": 318.3,
+          "kh": 444.3,
+          "pct_kpi": 0.3124
         },
         "TR": {
           "hours": 12.0,
@@ -411,10 +411,10 @@
           "pct_kpi": 0.0138
         },
         "HCC": {
-          "hours": 57.0,
-          "cv": 265.9,
-          "kh": 311.4,
-          "pct_kpi": 0.2361
+          "hours": 61.75,
+          "cv": 284.5,
+          "kh": 322.0,
+          "pct_kpi": 0.248
         },
         "T": {
           "hours": 32.0,
@@ -423,10 +423,10 @@
           "pct_kpi": 0.1983
         },
         "Total": {
-          "hours": 158.0,
-          "cv": 826.4,
-          "kh": 1130.4,
-          "pct_kpi": 0.8016
+          "hours": 167.75,
+          "cv": 864.5,
+          "kh": 1158.5,
+          "pct_kpi": 0.8285
         }
       }
     },
@@ -440,16 +440,16 @@
           "pct_kpi": 0.0025
         },
         "S": {
-          "hours": 16.5,
-          "cv": 82.6,
-          "kh": 74.1,
-          "pct_kpi": 0.0569
+          "hours": 18.0,
+          "cv": 86.6,
+          "kh": 78.1,
+          "pct_kpi": 0.0599
         },
         "HCS": {
-          "hours": 45.5,
-          "cv": 309.9,
-          "kh": 273.4,
-          "pct_kpi": 0.2119
+          "hours": 49.0,
+          "cv": 329.3,
+          "kh": 291.3,
+          "pct_kpi": 0.2255
         },
         "TR": {
           "hours": 12.0,
@@ -458,22 +458,22 @@
           "pct_kpi": 0.0141
         },
         "HCC": {
-          "hours": 66.5,
-          "cv": 307.6,
-          "kh": 270.6,
-          "pct_kpi": 0.2101
+          "hours": 71.25,
+          "cv": 343.1,
+          "kh": 302.6,
+          "pct_kpi": 0.2346
         },
         "T": {
-          "hours": 24.0,
-          "cv": 153.7,
-          "kh": 136.7,
-          "pct_kpi": 0.1055
+          "hours": 28.0,
+          "cv": 176.4,
+          "kh": 153.9,
+          "pct_kpi": 0.12
         },
         "Total": {
-          "hours": 168.0,
-          "cv": 877.5,
-          "kh": 777.0,
-          "pct_kpi": 0.6012
+          "hours": 181.75,
+          "cv": 959.1,
+          "kh": 848.1,
+          "pct_kpi": 0.6566
         }
       }
     },
@@ -493,22 +493,22 @@
           "pct_kpi": 0.0223
         },
         "HCS": {
-          "hours": 35.0,
-          "cv": 151.2,
-          "kh": 129.7,
-          "pct_kpi": 0.1504
+          "hours": 38.5,
+          "cv": 163.4,
+          "kh": 141.9,
+          "pct_kpi": 0.1636
         },
         "TR": {
-          "hours": 12.0,
-          "cv": 23.6,
-          "kh": 22.6,
-          "pct_kpi": 0.0249
+          "hours": 14.0,
+          "cv": 25.6,
+          "kh": 24.6,
+          "pct_kpi": 0.027
         },
         "HCC": {
-          "hours": 57.0,
-          "cv": 249.6,
-          "kh": 212.6,
-          "pct_kpi": 0.2474
+          "hours": 61.75,
+          "cv": 276.4,
+          "kh": 233.4,
+          "pct_kpi": 0.2728
         },
         "T": {
           "hours": 24.0,
@@ -517,10 +517,10 @@
           "pct_kpi": 0.0997
         },
         "Total": {
-          "hours": 138.5,
-          "cv": 546.0,
-          "kh": 471.0,
-          "pct_kpi": 0.5447
+          "hours": 148.75,
+          "cv": 587.0,
+          "kh": 506.0,
+          "pct_kpi": 0.5854
         }
       }
     },
@@ -540,22 +540,22 @@
           "pct_kpi": 0.0276
         },
         "HCS": {
-          "hours": 38.5,
-          "cv": 128.3,
-          "kh": 110.8,
-          "pct_kpi": 0.1516
+          "hours": 42.0,
+          "cv": 141.8,
+          "kh": 123.8,
+          "pct_kpi": 0.1685
         },
         "TR": {
-          "hours": 4.0,
-          "cv": 2.0,
-          "kh": 2.0,
-          "pct_kpi": 0.0025
+          "hours": 6.0,
+          "cv": 7.0,
+          "kh": 7.0,
+          "pct_kpi": 0.0089
         },
         "HCC": {
-          "hours": 52.25,
-          "cv": 160.3,
-          "kh": 150.8,
-          "pct_kpi": 0.1975
+          "hours": 57.0,
+          "cv": 174.8,
+          "kh": 163.8,
+          "pct_kpi": 0.2149
         },
         "T": {
           "hours": 24.0,
@@ -564,10 +564,10 @@
           "pct_kpi": 0.0621
         },
         "Total": {
-          "hours": 130.75,
-          "cv": 365.8,
-          "kh": 329.8,
-          "pct_kpi": 0.4414
+          "hours": 141.0,
+          "cv": 398.8,
+          "kh": 360.8,
+          "pct_kpi": 0.482
         }
       }
     },
@@ -581,40 +581,40 @@
           "pct_kpi": 0.0043
         },
         "S": {
-          "hours": 10.5,
-          "cv": 11.3,
-          "kh": 10.3,
-          "pct_kpi": 0.0088
+          "hours": 12.0,
+          "cv": 14.1,
+          "kh": 11.6,
+          "pct_kpi": 0.0105
         },
         "HCS": {
-          "hours": 42.0,
-          "cv": 233.4,
-          "kh": 204.4,
-          "pct_kpi": 0.1785
+          "hours": 45.5,
+          "cv": 251.8,
+          "kh": 220.3,
+          "pct_kpi": 0.1925
         },
         "TR": {
-          "hours": 16.0,
-          "cv": 43.5,
-          "kh": 41.0,
-          "pct_kpi": 0.0345
+          "hours": 18.0,
+          "cv": 45.5,
+          "kh": 43.0,
+          "pct_kpi": 0.0361
         },
         "HCC": {
-          "hours": 61.75,
-          "cv": 320.2,
-          "kh": 273.2,
-          "pct_kpi": 0.2419
+          "hours": 66.5,
+          "cv": 332.0,
+          "kh": 280.5,
+          "pct_kpi": 0.2497
         },
         "T": {
-          "hours": 48.0,
-          "cv": 219.8,
-          "kh": 202.3,
-          "pct_kpi": 0.1722
+          "hours": 52.0,
+          "cv": 240.2,
+          "kh": 220.2,
+          "pct_kpi": 0.1878
         },
         "Total": {
-          "hours": 186.5,
-          "cv": 833.5,
-          "kh": 736.5,
-          "pct_kpi": 0.6403
+          "hours": 202.25,
+          "cv": 888.9,
+          "kh": 780.9,
+          "pct_kpi": 0.6809
         }
       }
     },
@@ -634,10 +634,10 @@
           "pct_kpi": 0.0146
         },
         "HCS": {
-          "hours": 31.5,
-          "cv": 100.6,
-          "kh": 88.6,
-          "pct_kpi": 0.146
+          "hours": 35.0,
+          "cv": 113.6,
+          "kh": 98.6,
+          "pct_kpi": 0.1637
         },
         "TR": {
           "hours": 10.0,
@@ -646,22 +646,22 @@
           "pct_kpi": 0.0118
         },
         "HCC": {
-          "hours": 57.0,
-          "cv": 163.8,
-          "kh": 150.8,
-          "pct_kpi": 0.2428
+          "hours": 61.75,
+          "cv": 177.3,
+          "kh": 162.8,
+          "pct_kpi": 0.2625
         },
         "T": {
-          "hours": 44.0,
-          "cv": 86.6,
-          "kh": 77.6,
-          "pct_kpi": 0.1267
+          "hours": 48.0,
+          "cv": 95.6,
+          "kh": 86.6,
+          "pct_kpi": 0.1406
         },
         "Total": {
-          "hours": 154.75,
-          "cv": 370.6,
-          "kh": 335.6,
-          "pct_kpi": 0.545
+          "hours": 167.0,
+          "cv": 406.1,
+          "kh": 366.6,
+          "pct_kpi": 0.5963
         }
       }
     },
@@ -722,16 +722,16 @@
           "pct_kpi": 0.0007
         },
         "S": {
-          "hours": 15.0,
-          "cv": 55.5,
-          "kh": 44.0,
-          "pct_kpi": 0.0484
+          "hours": 16.5,
+          "cv": 59.0,
+          "kh": 46.0,
+          "pct_kpi": 0.051
         },
         "HCS": {
-          "hours": 42.0,
-          "cv": 229.7,
-          "kh": 189.2,
-          "pct_kpi": 0.204
+          "hours": 45.5,
+          "cv": 245.2,
+          "kh": 202.2,
+          "pct_kpi": 0.2179
         },
         "TR": {
           "hours": 10.0,
@@ -740,10 +740,10 @@
           "pct_kpi": 0.0237
         },
         "HCC": {
-          "hours": 61.75,
-          "cv": 264.0,
-          "kh": 220.0,
-          "pct_kpi": 0.2358
+          "hours": 66.5,
+          "cv": 284.5,
+          "kh": 237.5,
+          "pct_kpi": 0.2543
         },
         "T": {
           "hours": 28.0,
@@ -752,21 +752,21 @@
           "pct_kpi": 0.0608
         },
         "Total": {
-          "hours": 156.75,
-          "cv": 646.5,
-          "kh": 531.0,
-          "pct_kpi": 0.5733
+          "hours": 166.5,
+          "cv": 686.0,
+          "kh": 563.5,
+          "pct_kpi": 0.6084
         }
       }
     }
   ],
   "summary": {
     "total_staff": 12,
-    "avg_kpi": 57.13,
-    "total_ticket": 6881.1,
-    "total_cv": 7560.1,
-    "total_ticket_2ht": 604,
+    "avg_kpi": 60.25,
+    "total_ticket": 7225.3,
+    "total_cv": 7971.8,
+    "total_ticket_2ht": 632,
     "top_performer": "Lê Thị Trúc Linh",
-    "top_kpi": 80.16
+    "top_kpi": 82.85
   }
 }
