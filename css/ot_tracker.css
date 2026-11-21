@@ -1,0 +1,767 @@
+/* ============================================================
+     OT TRACKER STYLES (Tra cứu & Sao chép Giờ OT)
+     ============================================================ */
+  .ot-caution-banner {
+    margin-top: 10px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-main);
+  }
+
+  .ot-caution-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .ot-caution-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .ot-collab-credit {
+    font-size: 12px;
+    color: #a855f7;
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  [data-theme="dark"] .ot-collab-credit {
+    color: #c084fc;
+  }
+
+  .ot-caution-text {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #dc2626;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+  }
+
+  [data-theme="dark"] .ot-caution-text {
+    color: #fca5a5;
+  }
+
+  .ot-panel {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--elevation-card);
+  }
+
+  .ot-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ot-panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .ot-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .ot-stat-card {
+    background: var(--surface-subtle);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .ot-stat-card:hover {
+    border-color: var(--primary);
+  }
+
+  .ot-stat-card .stat-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .ot-stat-card .stat-val {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-top: 6px;
+    font-family: var(--mono-font);
+  }
+
+  .ot-stat-card.stat-primary .stat-val { color: #818cf8; }
+  .ot-stat-card.stat-warning .stat-val { color: #f59e0b; }
+  .ot-stat-card.stat-info .stat-val { color: #38bdf8; }
+  .ot-stat-card.stat-purple .stat-val { color: #c084fc; }
+
+  .ot-search-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .ot-select {
+    width: 100%;
+    height: 44px;
+    padding: 0 38px 0 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-strong);
+    background-color: var(--surface-subtle);
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .ot-select:focus,
+  .ot-select:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+  }
+
+  .ot-select option {
+    background: var(--surface);
+    color: var(--text-main);
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .ot-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-strong);
+    background: var(--surface-subtle);
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .ot-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+  }
+
+  .ot-suggestions {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    max-height: 280px;
+    overflow-y: auto;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    box-shadow: var(--elevation-modal);
+  }
+
+  .ot-suggestion-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 14px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-main);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .ot-suggestion-item:last-child {
+    border-bottom: none;
+  }
+
+  .ot-suggestion-item:hover,
+  .ot-suggestion-item:focus {
+    background: var(--primary-light);
+    color: var(--primary);
+    outline: none;
+  }
+
+  .ot-suggestion-code {
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--mono-font);
+  }
+
+  .ot-chips-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .ot-chip {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    background: var(--surface-subtle);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .ot-chip:hover {
+    background: var(--primary-light);
+    color: var(--text-main);
+    border-color: var(--primary);
+  }
+
+  .ot-chip.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    font-weight: 700;
+    box-shadow: 0 0 10px var(--primary-glow);
+  }
+
+  .ot-table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+  }
+
+  .ot-shift-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    text-align: center;
+  }
+
+  .ot-shift-table th,
+  .ot-shift-table td {
+    border: 1px solid var(--card-border);
+    padding: 8px 10px;
+    min-width: 36px;
+    white-space: nowrap;
+  }
+
+  .ot-shift-table th {
+    background: var(--table-header);
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 11.5px;
+  }
+
+  .ot-shift-table th.th-weekend {
+    color: #f87171;
+  }
+
+  .ot-shift-table th.th-today {
+    background: var(--primary-light);
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
+  }
+
+  .ot-shift-table .name-cell {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: var(--surface);
+    text-align: left;
+    font-weight: 700;
+    min-width: 180px;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.15);
+  }
+
+  .ot-shift-table tbody tr:hover td {
+    background: var(--row-hover);
+  }
+
+  .ot-shift-table tbody tr:hover .name-cell {
+    background: var(--row-hover);
+  }
+
+  .ot-shift-table td[contenteditable="true"] {
+    cursor: text;
+    transition: background 0.15s;
+  }
+
+  .ot-shift-table td[contenteditable="true"]:focus {
+    background: rgba(99,102,241,0.25);
+    outline: 2px solid var(--primary);
+  }
+
+  .ot-val-active {
+    font-weight: 800;
+    color: #10b981;
+  }
+
+  .ot-val-t {
+    font-weight: 800;
+    color: #a855f7;
+  }
+
+  .ot-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    background: var(--surface-overlay);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .ot-copy-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  .ot-copy-btn.copied {
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+    color: #fff !important;
+  }
+
+  .ot-daily-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .ot-daily-table th,
+  .ot-daily-table td {
+    padding: 10px 12px;
+    border: 1px solid var(--card-border);
+  }
+
+  .ot-daily-table th {
+    background: var(--table-header);
+    color: var(--text-muted);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  /* ============================================================
+     BẢNG HÀNG NGANG ĐỐI CHIẾU LỊCH TRỰC VS GIỜ OT
+     ============================================================ */
+  .ot-compare-matrix {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12px;
+  }
+
+  .ot-compare-matrix th,
+  .ot-compare-matrix td {
+    padding: 8px 6px;
+    border-right: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+    text-align: center;
+    min-width: 52px;
+    vertical-align: middle;
+  }
+
+  .ot-compare-matrix thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--table-header);
+    color: var(--text-muted);
+    font-weight: 700;
+    padding: 8px 4px;
+  }
+
+  .ot-compare-matrix .cmp-day-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-main);
+    display: block;
+    line-height: 1.2;
+  }
+
+  .ot-compare-matrix .cmp-day-thu {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .ot-compare-matrix th.th-weekend .cmp-day-num,
+  .ot-compare-matrix th.th-weekend .cmp-day-thu {
+    color: #f87171;
+  }
+
+  .ot-compare-matrix th.th-today {
+    background: #f59e0b !important;
+    color: #000 !important;
+  }
+  .ot-compare-matrix th.th-today .cmp-day-num,
+  .ot-compare-matrix th.th-today .cmp-day-thu {
+    color: #000 !important;
+    font-weight: 900;
+  }
+
+  /* Cột cố định nhãn hàng bên trái (Sticky First Column) */
+  .ot-compare-matrix .cmp-label-cell {
+    position: sticky;
+    left: 0;
+    z-index: 12;
+    background: var(--surface) !important;
+    min-width: 195px !important;
+    max-width: 220px !important;
+    text-align: left !important;
+    padding: 8px 12px !important;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .ot-compare-matrix thead .cmp-label-cell {
+    z-index: 20;
+    background: var(--table-header) !important;
+  }
+
+  /* Cột cố định Tổng cộng bên phải */
+  .ot-compare-matrix .cmp-total-cell {
+    min-width: 110px !important;
+    background: var(--surface-subtle);
+  }
+
+  .ot-compare-matrix thead .cmp-total-cell {
+    background: var(--table-header);
+  }
+
+  /* Hover rows */
+  .ot-compare-matrix tbody tr:hover td {
+    background: var(--row-hover);
+  }
+  .ot-compare-matrix tbody tr:hover .cmp-label-cell {
+    background: var(--row-hover) !important;
+  }
+
+  /* Row Highlights */
+  .ot-compare-matrix tr.row-sched {
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .ot-compare-matrix tr.row-ot-total {
+    background: rgba(16, 185, 129, 0.05);
+    font-weight: 700;
+  }
+  .ot-compare-matrix tr.row-sub-shift {
+    background: rgba(255, 255, 255, 0.008);
+    font-size: 11.5px;
+  }
+
+  /* Cell Badges */
+  .ot-cmp-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    justify-content: center;
+    min-height: 28px;
+  }
+
+  .ot-cmp-total-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 13px;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+
+  .ot-cmp-dash {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+  }
+  .light-theme .ot-cmp-dash {
+    color: #cbd5e1;
+  }
+
+  .ot-cmp-chip-t {
+    display: inline-block;
+    color: #c084fc;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: rgba(192, 132, 252, 0.12);
+  }
+  .ot-cmp-chip-tr {
+    display: inline-block;
+    color: #38bdf8;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: rgba(56, 189, 248, 0.12);
+  }
+  .ot-cmp-chip-s {
+    display: inline-block;
+    color: #f59e0b;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: rgba(245, 158, 11, 0.12);
+  }
+
+  .ot-compare-matrix td.has-ot {
+    background: rgba(16, 185, 129, 0.06);
+  }
+  .ot-compare-matrix td.has-ot:hover {
+    background: rgba(16, 185, 129, 0.14) !important;
+  }
+
+  .ot-compare-matrix .col-today {
+    background: rgba(245, 158, 11, 0.12) !important;
+    border-left: 2px solid #f59e0b !important;
+    border-right: 2px solid #f59e0b !important;
+  }
+  .ot-compare-matrix .col-weekend {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Nút Copy từng dòng trên nhãn ma trận */
+  .ot-row-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
+    background: var(--surface-overlay);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .ot-row-copy-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--primary-glow);
+  }
+
+  .ot-row-copy-btn.copied {
+    background: #10b981 !important;
+    color: #fff !important;
+    border-color: #10b981 !important;
+  }
+
+  /* Ô bảng OT cho phép gõ trực tiếp (editable) */
+  .ot-editable-cell {
+    cursor: text;
+    font-family: var(--mono-font);
+    font-weight: 700;
+    font-size: 13px;
+    min-width: 50px;
+    position: relative;
+    user-select: text;
+  }
+
+  .ot-editable-cell:hover {
+    background: rgba(99, 102, 241, 0.12) !important;
+  }
+
+  .ot-editable-cell:focus {
+    outline: 2px solid var(--primary) !important;
+    background: rgba(99, 102, 241, 0.25) !important;
+    border-radius: 4px;
+  }
+
+  .ot-editable-cell.has-val {
+    font-weight: 800;
+  }
+
+  @media (max-width: 768px) {
+    .ot-summary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .ot-stat-card .stat-val {
+      font-size: 20px;
+    }
+    .ot-panel {
+      padding: 14px;
+    }
+  }
+
+  /* ============================================================
+     ẨN THANH CÔNG CỤ HEADER ACTIONS KHI VÀO TAB OT THEO YÊU CẦU
+     ============================================================ */
+  body.view-is-ot .header-actions {
+    display: none !important;
+  }
+
+  /* ============================================================
+     BỘ CHỌN KHOẢNG NGÀY SAO CHÉP (DATE RANGE COPY TOOLBAR)
+     ============================================================ */
+  .ot-range-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: var(--surface-overlay);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  .ot-range-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ot-range-label {
+    font-size: 13px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .ot-range-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  .ot-range-select {
+    padding: 6px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--card-border);
+    background: var(--bg);
+    color: var(--text-main);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .ot-range-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-glow);
+  }
+
+  .ot-range-summary-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ot-range-presets {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ot-preset-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
+    background: var(--bg);
+    color: var(--text-main);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .ot-preset-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 2px 6px var(--primary-glow);
+  }
+
+  /* Highlight & Dim các cột theo khoảng ngày đang chọn */
+  #ot-compare-table .out-of-copy-range {
+    opacity: 0.35 !important;
+    filter: grayscale(0.5);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+
+  #ot-compare-table .out-of-copy-range:hover {
+    opacity: 0.75 !important;
+  }
+
+  #ot-compare-table th.in-copy-range {
+    background: rgba(16, 185, 129, 0.12) !important;
+    box-shadow: inset 0 -2px 0 #10b981;
+  }
+
+  #ot-compare-table td.in-copy-range {
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }

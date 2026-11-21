@@ -1,0 +1,272 @@
+/* ============================================================
+   SCHEDULE MATRIX STYLES
+   ============================================================ */
+
+.schedule-controls-card,
+.schedule-section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--elevation-card);
+}
+
+.schedule-controls-header,
+.schedule-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.schedule-title-wrap h3,
+.schedule-section-title span {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.schedule-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.schedule-filters-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.segmented-control {
+  display: inline-flex;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.segmented-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.segmented-btn:hover {
+  color: var(--text-main);
+}
+
+.segmented-btn.active {
+  background: var(--surface);
+  color: var(--text-main);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.today-roster-banner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--elevation-card);
+}
+
+.today-roster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.today-roster-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.roster-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.roster-group-card {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.roster-group-label {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.roster-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.roster-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.matrix-scroll-container {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  max-height: 680px;
+  position: relative;
+}
+
+.matrix-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}
+
+.matrix-table th,
+.matrix-table td {
+  padding: 7px 8px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  min-width: 48px;
+}
+
+.matrix-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--table-header);
+}
+
+.sticky-col-id {
+  position: sticky;
+  left: 0;
+  z-index: 12;
+  background: var(--surface) !important;
+  min-width: 70px !important;
+  font-family: var(--mono-font);
+}
+
+.sticky-col-name {
+  position: sticky;
+  left: 70px;
+  z-index: 12;
+  background: var(--surface) !important;
+  min-width: 175px !important;
+  text-align: left !important;
+  font-weight: 600;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.matrix-table thead .sticky-col-id,
+.matrix-table thead .sticky-col-name {
+  z-index: 20;
+  background: var(--table-header) !important;
+}
+
+.matrix-table tbody tr:hover td,
+.matrix-table tbody tr:hover .sticky-col-id,
+.matrix-table tbody tr:hover .sticky-col-name {
+  background: var(--row-hover) !important;
+}
+
+.matrix-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.matrix-table tbody tr.matrix-row-selected td,
+.matrix-table tbody tr.matrix-row-selected .sticky-col-id,
+.matrix-table tbody tr.matrix-row-selected .sticky-col-name {
+  background: rgba(99, 102, 241, 0.22) !important;
+  border-top: 1px solid var(--primary) !important;
+  border-bottom: 1px solid var(--primary) !important;
+}
+
+/* Shift Badges */
+.badge-shift {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1px 0;
+}
+
+.badge-shift-s { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }
+.badge-shift-tr { background: rgba(217, 119, 6, 0.2); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.4); }
+.badge-shift-t { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+.badge-shift-hc { background: rgba(5, 150, 105, 0.2); color: #34d399; border: 1px solid rgba(5, 150, 105, 0.4); }
+.badge-shift-off { background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.4); }
+.badge-shift-p { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+.badge-shift-other { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+
+/* Today Column Highlight */
+.col-today,
+.matrix-table .col-today {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-left: 2px solid #f59e0b !important;
+  border-right: 2px solid #f59e0b !important;
+}
+
+.matrix-table thead th.col-today {
+  background: #f59e0b !important;
+  color: #000000 !important;
+}
+
+@keyframes pulseTodayCol {
+  0% { box-shadow: inset 0 0 0px #f59e0b; }
+  50% { box-shadow: inset 0 0 14px #f59e0b; }
+  100% { box-shadow: inset 0 0 0px #f59e0b; }
+}
+
+.col-weekend,
+.matrix-table .col-weekend {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.matrix-nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

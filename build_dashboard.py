@@ -5519,6 +5519,12 @@ body.tv-kiosk-mode .tv-exit-pill {{
             }, f, ensure_ascii=False, indent=2)
         print(f"Saved kpi_data.json ({update_time_val})")
 
+        js_data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "js", "data.js")
+        if os.path.exists(os.path.dirname(js_data_path)):
+            with open(js_data_path, "w", encoding="utf-8") as f_js:
+                f_js.write(f"const DATA = {dataset_json};\n")
+            print(f"Saved js/data.js ({update_time_val})")
+
         cache_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Data")
         os.makedirs(cache_dir, exist_ok=True)
         with open(os.path.join(cache_dir, "pbi_update_time.json"), "w", encoding="utf-8") as f:
@@ -5530,11 +5536,22 @@ body.tv-kiosk-mode .tv-exit-pill {{
     m_lock = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MAINTENANCE_MODE")
     if not os.path.exists(m_lock):
         index_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
-        try:
-            shutil.copyfile(ws_path, index_path)
-            print(f"Synced to index.html: {index_path}")
-        except Exception as e:
-            print(f"Index sync note: {e}")
+        is_modular = False
+        if os.path.exists(index_path):
+            try:
+                with open(index_path, "r", encoding="utf-8") as f_idx:
+                    if 'css/main.css' in f_idx.read():
+                        is_modular = True
+            except Exception:
+                pass
+        if not is_modular:
+            try:
+                shutil.copyfile(ws_path, index_path)
+                print(f"Synced to index.html: {index_path}")
+            except Exception as e:
+                print(f"Index sync note: {e}")
+        else:
+            print("Modular index.html detected: Preserving modern HTML and updating data files.")
     else:
         print("MAINTENANCE_MODE is active: index.html preserved as maintenance page.")
 

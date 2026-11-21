@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Tra Cứu & Copy Overtime (OT) - Team CTO 1</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/kpi.css">
+  <link rel="stylesheet" href="css/schedule.css">
+  <link rel="stylesheet" href="css/ot_tracker.css">
+</head>
+<body class="view-is-ot">
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-badge">CTO</div>
+        <div class="brand-title">
+          <h1>Dashboard KPI & Đánh Giá Tiến Độ Ca Trực</h1>
+          <p>Đội ngũ Chăm Sóc Khách Hàng (Customer Service) • Team CTO 1</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="badge-live">
+          <span class="dot-live"></span>
+          <span>Cập nhật: <strong id="lbl-updated-at">13:13 - 20/11/2026</strong></span>
+        </div>
+        <button class="btn btn-refresh" onclick="reloadLatestData()" title="Tải lại số liệu mới nhất">
+          🔄 Tải lại số liệu mới nhất
+        </button>
+        <button class="btn" id="btn-snap-zalo" onclick="captureReportImage()" title="Xuất ảnh báo cáo gửi Zalo / Telegram">
+          📸 Xuất ảnh Zalo
+        </button>
+        <button class="btn" onclick="toggleTvMode()" title="Bật chế độ TV trình chiếu văn phòng">
+          📺 Chế độ TV
+        </button>
+        <button class="btn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">
+          <span id="theme-icon">🌙</span> Sáng/Tối
+        </button>
+        <button class="btn" onclick="exportCurrentTableToCSV()">
+          📥 Xuất CSV / Excel
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          🖨️ In Báo Cáo
+        </button>
+        <button class="btn btn-primary" id="hdr-btn-toggle-sched" onclick="toggleMainView()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;font-weight:700;">
+          ⏰ Lịch Trực & Giờ OT
+        </button>
+      </div>
+    </header>
+
+    <!-- TOP LEVEL MAIN VIEW SWITCHER -->
+    <div class="top-nav-bar">
+      <button class="top-nav-tab active" id="nav-tab-kpi" onclick="switchMainView('kpi')">
+        📊 BÁO CÁO & TIẾN ĐỘ KPI
+      </button>
+      <button class="top-nav-tab" id="nav-tab-ot" onclick="switchMainView('ot')">
+        ⏰ LỊCH TRỰC & TRA CỨU GIỜ OT (TEAM ÔNG MINH NHỰT)
+        <span class="top-nav-badge" style="background:#10b981;color:#fff;">Copy 1-Click</span>
+      </button>
+    </div>
+
+    <!-- WRAPPER: SECTION KPI MAIN (Ẩn khi chuyển sang xem Lịch Trực) -->
+    <div id="section-kpi-main">
+
+    <!-- Pacing Status Banner (Tiến Độ Tháng) -->
+    <section class="pacing-bar">
+      <div class="pacing-info">
+        <div class="pacing-title">
+          <span>📅 Tiến Độ Tháng:</span>
+        </div>
+        <div class="pacing-day-selector">
+          <span>Hôm nay là Ngày:</span>
+          <input type="number" id="input-current-day" min="1" max="31" value="14" onchange="onDayChange()">
+          <span>/</span>
+          <input type="number" id="input-total-days" min="28" max="31" value="30" onchange="onTotalDaysChange()" style="width:48px;padding:4px 6px;border:1px solid var(--card-border);border-radius:6px;background-color:var(--bg);color:var(--text-main);font-size:14px;font-weight:700;text-align:center;outline:none;" title="Tổng số ngày trong tháng">
+          <span>ngày</span>
+        </div>
+        <div class="pacing-target-badge">
+          🎯 KPI Chuẩn Cần Đạt: <span id="lbl-target-pacing">46.67%</span>
+        </div>
+      </div>
+      <div>
+        <span style="font-size:12px;color:var(--text-muted);" id="pacing-note-text">
+          💡 Mặc định tháng 11 có 30 ngày. Anh có thể tự chỉnh lại số ngày tại ô nhập trên khi cần nhé.
+        </span>
+      </div>
+    </section>
+
+    <!-- Top KPI Stat Cards -->
+    <section class="stats-grid">
+      <div class="stat-card card-primary">
+        <div class="stat-label">Tổng Nhân Sự</div>
+        <div class="stat-value" id="card-total-staff">--</div>
+        <div class="stat-sub">Team CTO 1 hoạt động</div>
+      </div>
+      <div class="stat-card card-info">
+        <div class="stat-label">% KPI Trung Bình</div>
+        <div class="stat-value" id="card-avg-kpi">--%</div>
+        <div class="stat-sub" id="card-avg-status">So với chuẩn: --</div>
+      </div>
+      <div class="stat-card card-success">
+        <div class="stat-label">Vượt / Đạt Tiến Độ</div>
+        <div class="stat-value" id="card-count-ahead" style="color:var(--success);">--</div>
+        <div class="stat-sub">Nhân viên đạt chuẩn ngày</div>
+      </div>
+      <div class="stat-card card-danger">
+        <div class="stat-label">Cảnh Báo Chậm Tiến Độ</div>
+        <div class="stat-value" id="card-count-behind" style="color:var(--danger);">--</div>
+        <div class="stat-sub">Cần nhắc nhở & thúc đẩy</div>
+      </div>
+      <div class="stat-card card-info">
+        <div class="stat-label">TK Có 2 CV Hỗ Trợ</div>
+        <div class="stat-value" id="card-total-ticket-2ht">--</div>
+        <div class="stat-sub">Tổng số lượng ticket có 2 CV</div>
+      </div>
+    </section>
+
+    <!-- Filter & Control Bar -->
+    <section class="controls-card">
+      <div class="filter-group">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="filter-search" placeholder="Tìm theo tên hoặc mã nhân viên..." oninput="applyFilters()">
+        </div>
+        <select class="select-filter" id="filter-pacing" onchange="applyFilters()">
+          <option value="ALL">⏱️ Tiến Độ Tháng (Tất cả)</option>
+          <option value="AHEAD">🚀 Vượt tiến độ (&gt; Chuẩn)</option>
+          <option value="ON_TRACK">🟢 Đúng tiến độ (Xấp xỉ Chuẩn)</option>
+          <option value="BEHIND">⚠️ Chậm tiến độ (Cảnh báo)</option>
+          <option value="CRITICAL">🚨 Báo động chậm (Rất chậm &gt; 5%)</option>
+        </select>
+        <select class="select-filter" id="filter-level" onchange="applyFilters()">
+          <option value="ALL">🎯 Tất cả Level</option>
+          <option value="1">Level 1</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+          <option value="5">Level 5</option>
+        </select>
+        <div class="find-me-box">
+          <select class="select-filter select-my-name" id="select-my-name" onchange="onSelectMyName(this.value)" title="Chọn tên bạn để zoom và làm nổi bật số liệu">
+            <option value="">👤 Tôi là ai? (Chọn tên bạn...)</option>
+          </select>
+          <button class="btn btn-outline" id="btn-open-my-card" style="display:none;background:var(--card-bg);border:1px solid #818cf8;color:#818cf8;font-weight:700;" onclick="openMySelectedCard()">
+            ✨ Thẻ Của Tôi
+          </button>
+        </div>
+      </div>
+      <div>
+        <button class="btn" onclick="resetFilters()">🔄 Đặt lại bộ lọc</button>
+      </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tab-btn-kpi" onclick="switchTab('kpi')">
+        📊 Bảng KPI & Đánh Giá Tiến Độ
+        <span class="tab-badge" id="badge-count-kpi">0</span>
+      </button>
+      <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts')">
+        📈 Biểu Đồ & Thống Kê
+      </button>
+      <button class="tab-btn" id="tab-btn-podium" onclick="switchTab('podium')">
+        🏆 Vinh Danh & Danh Hiệu
+      </button>
+    </div>
+
+    <!-- TAB 1: KPI TONG -->
+    <div id="tab-pane-kpi" class="table-card">
+      <!-- MOBILE VIEW TOGGLE (CHỈ HIỆN TRÊN MOBILE) -->
+      <div class="mobile-view-toggle">
+        <button class="mv-btn active" id="btn-view-cards" onclick="setKpiMobileView('cards')">
+          📱 Dạng Thẻ Nhân Sự
+        </button>
+        <button class="mv-btn" id="btn-view-table" onclick="setKpiMobileView('table')">
+          📊 Dạng Bảng Vuốt Ngang
+        </button>
+      </div>
+
+      <!-- CONTAINER DẠNG THẺ MOBILE -->
+      <div id="kpi-mobile-cards" class="mobile-kpi-cards-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- CONTAINER DẠNG BẢNG (DESKTOP HOẶC KHI BẬT) -->
+      <div id="kpi-table-view-wrap">
+        <div class="swipe-hint">
+          <span>👉</span>
+          <span>Vuốt ngang bảng để xem đầy đủ 13 cột số liệu</span>
+        </div>
+        <div class="table-responsive">
+          <table id="table-kpi">
+          <thead>
+            <tr>
+              <th onclick="sortTable('kpi', 'id')">STT ⬍</th>
+              <th onclick="sortTable('kpi', 'ma')">Mã NV ⬍</th>
+              <th onclick="sortTable('kpi', 'name')">Họ và Tên ⬍</th>
+              <th class="text-center" onclick="sortTable('kpi', 'level')">Level ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'kpi_ticket')">KPI Ticket ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'slg_kh')">Thực Đạt KH ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_ticket')">% KPI Ticket ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'kpi_cv')">KPI CV ⬍</th>
+              <th class="numeric" onclick="sortTable('kpi', 'slg_cv')">Thực Đạt CV ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_cv')">% KPI CV ⬍</th>
+              <th class="text-center" onclick="sortTable('kpi', 'no_ticket_2ht')">TK 2 CV Hỗ Trợ ⬍</th>
+              <th onclick="sortTable('kpi', 'pct_kpi_tong')">% KPI Tổng ⬍</th>
+              <th onclick="sortTable('kpi', 'pacing_diff')">Đánh Giá Tiến Độ ⬍</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-kpi">
+            <!-- Rows rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+      </div> <!-- /#kpi-table-view-wrap -->
+    </div>
+
+    <!-- TAB 2: CHARTS -->
+    <div id="tab-pane-charts" style="display:none;">
+      <div class="charts-grid">
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>🏆 Xếp Hạng % KPI Tổng Hợp & Tiến Độ Chuẩn</span>
+            <span style="font-size:12px;color:var(--text-muted);" id="chart-target-line">Chuẩn: 46.7%</span>
+          </div>
+          <div id="chart-kpi-bars">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>💼 Xếp Hạng Sản Lượng Công Việc (CV) Quy Đổi</span>
+            <span style="font-size:12px;color:var(--text-muted);">Toàn Team CTO 1</span>
+          </div>
+          <div id="chart-shift-hours">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: PODIUM & DANH HIỆU -->
+    <div id="tab-pane-podium" class="table-card" style="display:none;padding:24px;">
+      <h2 style="font-size:18px;font-weight:800;margin-bottom:6px;text-align:center;">🏆 BẢNG VINH DANH TOP 3 XUẤT SẮC THÁNG</h2>
+      <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:18px;">Dẫn đầu về % KPI Tổng Hợp của Team CTO 1</p>
+      
+      <div class="podium-container" id="podium-content">
+        <!-- Rendered by JS -->
+      </div>
+
+      <h3 style="font-size:15px;font-weight:800;margin-top:20px;margin-bottom:12px;">🎖️ BẢNG DANH HIỆU THI ĐUA ĐẶC BIỆT</h3>
+      <div class="awards-grid" id="awards-content">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    </div> <!-- end #section-kpi-main (Ẩn khi chuyển sang xem Lịch Trực) -->
+
+    <!-- TOP LEVEL VIEW: TRA CỨU & COPY GIỜ OT (OVERTIME TRACKER) -->
+  <div id="tab-pane-ot" style="display:none;">
+    <!-- Controls Card -->
+    <div class="schedule-controls-card">
+      <div class="schedule-controls-header">
+        <div class="schedule-title-wrap">
+          <h3>⏰ TRA CỨU & COPY GIỜ OT (OVERTIME TRACKER) - TEAM ÔNG MINH NHỰT</h3>
+          <div class="schedule-subtitle ot-caution-banner">
+            <div class="ot-caution-head">
+              <span class="ot-caution-badge">⚠️ CAUTION</span>
+              <span class="ot-collab-credit">Make collab logic by <strong>Trương Thiết Long</strong></span>
+            </div>
+            <div class="ot-caution-text">
+              TOOLS CHỈ CÓ TÍNH CHẤT THAM KHẢO, NGƯỜI VIẾT RA KHÔNG CHỊU TRÁCH NHIỆM VỚI MỌI HÌNH THỨC KHI BỊ SAI OT, THIẾU THÌ CHỊU DƯ THÌ ANH THUYẾT CÚ ĐẦU LIU LIU...
+            </div>
+          </div>
+        </div>
+        <div class="schedule-actions">
+          <button class="btn btn-outline" onclick="copyAllOtShifts(this)" title="Copy cả 3 hàng ca trực (T, TR, S) để dán nhanh">
+            📋 Copy Cả 3 Ca (TSV)
+          </button>
+          <button class="btn btn-primary" onclick="syncScheduleLive()">
+            🔄 Tải lại Lịch Trực Mới Nhất
+          </button>
+        </div>
+      </div>
+
+      <!-- Quy tắc tính OT Banner -->
+      <div style="background:var(--surface-subtle);border:1px solid var(--card-border);border-left:4px solid var(--primary);border-radius:10px;padding:12px 16px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div style="font-size:12.5px;color:var(--text-main);line-height:1.6;">
+            💡 <strong>Quy tắc tính OT chuẩn:</strong>
+            <span style="display:inline-block;margin-left:4px;">🌅 <strong>Ca Sáng (S):</strong> 1h</span> •
+            <span style="display:inline-block;">☀️ <strong>Ca Trưa (TR):</strong> 1h</span> •
+            <span style="display:inline-block;">🌙 <strong>Ca Tối (T):</strong> 3h (hoặc 4h với ca N, FB)</span> •
+            <span style="display:inline-block;color:var(--text-muted);">🌴 Phép P cả ngày: không tính OT</span> •
+            <span style="display:inline-block;color:var(--text-muted);">Ca Chiều (CH): không tính OT Ca Tối</span>
+          </div>
+          <div style="font-size:12px;color:#c084fc;font-weight:700;">
+            ✏️ Bấm vào ô bất kỳ trong bảng để gõ sửa số OT trước khi nhấn Copy!
+          </div>
+        </div>
+      </div>
+
+      <!-- Employee Selector & Quick Chips -->
+      <div>
+        <div class="ot-selector-row" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px;">
+          <div style="flex:1.2;min-width:260px;">
+            <label for="ot-select-employee" style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">
+              👥 Chọn Nhân Viên (Select Box):
+            </label>
+            <select id="ot-select-employee" class="ot-select" onchange="selectOtEmployee(this.value)">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+          <div style="flex:1;min-width:240px;">
+            <label for="ot-target-name" style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">
+              🔍 Hoặc Tìm Nhanh (Mã / Tên):
+            </label>
+            <div class="ot-search-wrapper">
+              <input
+                id="ot-target-name"
+                type="text"
+                class="ot-input"
+                placeholder="Nhập mã hoặc tên nhân viên..."
+                autocomplete="off"
+              />
+              <div id="ot-employee-suggestions" class="ot-suggestions"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Chips for 13 Members -->
+        <div class="ot-chips-bar" id="ot-quick-chips">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Container -->
+    <div id="ot-result-wrap">
+      <!-- Stats Summary Card -->
+      <div class="ot-panel">
+        <div class="ot-panel-header">
+          <div>
+            <h2 id="ot-employee-name" style="margin:0;font-size:18px;font-weight:800;color:var(--text-main);">--</h2>
+            <div id="ot-cycle-period" style="font-size:12.5px;color:var(--text-muted);margin-top:4px;">
+              Chu kỳ chấm công: 26/10/2026 – 25/11/2026
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="copyAllOtShifts(this)" style="font-size:12.5px;padding:8px 14px;">
+              📋 Copy Cả 3 Ca
+            </button>
+          </div>
+        </div>
+
+        <div class="ot-summary-grid">
+          <div class="ot-stat-card stat-primary">
+            <div class="stat-label">⚡ Tổng Giờ OT</div>
+            <div class="stat-val" id="ot-total-hours">0 giờ</div>
+          </div>
+          <div class="ot-stat-card stat-warning">
+            <div class="stat-label">🌅 OT Ca Sáng (S)</div>
+            <div class="stat-val" id="ot-total-s">0 giờ</div>
+          </div>
+          <div class="ot-stat-card stat-info">
+            <div class="stat-label">☀️ OT Ca Trưa (TR)</div>
+            <div class="stat-val" id="ot-total-tr">0 giờ</div>
+          </div>
+          <div class="ot-stat-card stat-purple">
+            <div class="stat-label">🌙 OT Ca Tối (T)</div>
+            <div class="stat-val" id="ot-total-t">0 giờ</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bảng Ma Trận Hàng Ngang: Đối Chiếu Lịch Trực vs Giờ OT & 1-Click Copy -->
+      <div class="ot-panel">
+        <div class="ot-panel-header">
+          <div>
+            <h3 class="ot-panel-title">📅 Ma Trận Đối Chiếu Lịch Trực vs Giờ OT (1-Click Copy & Chỉnh Sửa)</h3>
+            <div style="font-size:12.5px;color:var(--text-muted);margin-top:3px;">
+              📊 <strong>Hàng trên:</strong> Ca làm việc từ Lịch trực • <strong>Hàng dưới:</strong> Giờ OT (nhấp trực tiếp vào ô để sửa nếu có phát sinh) • Bấm nút <strong>"Copy"</strong> để dán ngay vào Google Sheets
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary" onclick="copyAllOtShifts(this)" style="font-size:12.5px;padding:7px 14px;" title="Sao chép cả 3 ca theo khoảng ngày đã chọn để dán cùng lúc 3 dòng vào Google Sheets">
+              📋 Copy Cả 3 Ca
+            </button>
+            <button type="button" class="btn btn-sm" id="btn-toggle-ot-cmp-detail" onclick="toggleOtCompareDetail()" style="font-size:12px;padding:6px 12px;">
+              👁️ <span id="lbl-toggle-ot-cmp-detail">Thu Gọn (2 Dòng)</span>
+            </button>
+            <button type="button" class="btn btn-sm" onclick="jumpToOtTodayColumn()" style="font-size:12px;padding:6px 12px;" title="Cuộn nhanh tới cột ngày hôm nay">
+              🎯 Hôm Nay
+            </button>
+            <button type="button" class="btn btn-sm" onclick="resetOtModifications()" style="font-size:12px;padding:6px 10px;" title="Xóa các chỉnh sửa thủ công và tính lại từ đầu theo Lịch">
+              ↺ Đặt lại
+            </button>
+          </div>
+        </div>
+
+        <!-- Bộ chọn khoảng ngày Copy (Theo yêu cầu) -->
+        <div class="ot-range-toolbar" id="ot-range-toolbar">
+          <div class="ot-range-group">
+            <span class="ot-range-label">✂️ <strong>Khoảng ngày Copy:</strong></span>
+            <div class="ot-range-select-wrap">
+              <span>Từ:</span>
+              <select id="ot-range-from" class="ot-range-select" onchange="onOtDateRangeChange()"></select>
+            </div>
+            <div class="ot-range-select-wrap">
+              <span>Đến:</span>
+              <select id="ot-range-to" class="ot-range-select" onchange="onOtDateRangeChange()"></select>
+            </div>
+            <span class="ot-range-summary-badge" id="ot-range-summary-badge">
+              Đang chọn: 31 ngày (26/10 ➔ 25/11)
+            </span>
+          </div>
+          <div class="ot-range-presets">
+            <button type="button" class="ot-preset-btn" onclick="setOtCopyRangePreset('full')" title="Chọn toàn bộ chu kỳ (26 đến 25)">
+              📅 Toàn chu kỳ
+            </button>
+            <button type="button" class="ot-preset-btn" onclick="setOtCopyRangePreset('today')" title="Chọn từ ngày 26 đến ngày hôm nay">
+              🎯 Đến hôm nay
+            </button>
+          </div>
+        </div>
+
+        <div class="ot-table-wrap" id="ot-compare-table-wrap">
+          <table id="ot-compare-table" class="ot-compare-matrix">
+            <!-- Rendered by renderOtCompareTable in ot_tracker.js -->
+          </table>
+        </div>
+
+        <div id="ot-empty-result" style="display:none;text-align:center;padding:24px;color:var(--text-muted);font-size:13.5px;">
+          🏖️ Nhân viên này không có giờ OT phát sinh trong chu kỳ này.
+        </div>
+      </div>
+
+            <!-- SECTION: MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG (TEAM ÔNG MINH NHỰT) -->
+      <div class="ot-panel schedule-section-card" id="card-matrix-schedule">
+        <div class="schedule-section-header">
+          <div class="schedule-section-title">
+            <span style="font-size:15px;font-weight:800;color:var(--text-main);">🗓️ MA TRẬN LỊCH TRỰC CHI TIẾT CẢ THÁNG (TEAM ÔNG MINH NHỰT)</span>
+          </div>
+          <div class="matrix-nav-buttons">
+            <button type="button" class="btn btn-sm btn-primary" onclick="jumpToTodayColumn()" style="font-weight:700;padding:5px 12px;font-size:12px;">
+              <span class="btn-jump-today-label">📍 Nhảy đến Hôm nay</span>
+            </button>
+            <div class="segmented-control">
+              <button type="button" class="segmented-btn" id="btn-matrix-all-top" onclick="setMatrixDateFilter('all')">
+                🗓️ Cả tháng
+              </button>
+              <button type="button" class="segmented-btn active" id="btn-matrix-week-top" onclick="setMatrixDateFilter('week')">
+                📅 Tuần này
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-muted);margin-bottom:12px;flex-wrap:wrap;">
+          <span>Chú thích ca:</span>
+          <span class="badge-shift badge-shift-off">OFF (Nghỉ)</span>
+          <span class="badge-shift badge-shift-p">P (Phép)</span>
+          <span class="badge-shift badge-shift-s">S (Sáng)</span>
+          <span class="badge-shift badge-shift-tr">TR (Trưa)</span>
+          <span class="badge-shift badge-shift-t">T (Tối)</span>
+          <span class="badge-shift badge-shift-hc">HC / Kênh</span>
+          <span style="margin-left:auto;font-size:11.5px;color:var(--primary);font-weight:600;">
+            💡 Click vào hàng của nhân sự để chuyển nhanh sang bảng Copy OT cá nhân ở trên
+          </span>
+        </div>
+
+        <div class="matrix-scroll-container" id="matrix-scroll-box">
+          <table class="matrix-table" id="table-matrix-schedule">
+            <thead id="thead-matrix-schedule">
+              <!-- Rendered by JS -->
+            </thead>
+            <tbody id="tbody-matrix-schedule">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border-color);flex-wrap:wrap;gap:10px;">
+          <div style="font-size:12px;color:var(--text-muted);" id="sched-tip-today">
+            💡 Mẹo: Bấm <strong>"📍 Nhảy đến Hôm nay"</strong> để cuộn ngay đến cột ngày hôm nay. Bấm <strong>"📅 Tuần này"</strong> để xem 7 ngày tuần hiện tại.
+          </div>
+          <div class="matrix-nav-buttons">
+            <button type="button" class="btn btn-sm btn-primary" onclick="jumpToTodayColumn()" style="font-weight:700;padding:6px 14px;font-size:12px;">
+              <span class="btn-jump-today-label">📍 Nhảy đến Hôm nay</span>
+            </button>
+            <div class="segmented-control">
+              <button type="button" class="segmented-btn" id="btn-matrix-all-bottom" onclick="setMatrixDateFilter('all')">
+                🗓️ Cả tháng
+              </button>
+              <button type="button" class="segmented-btn active" id="btn-matrix-week-bottom" onclick="setMatrixDateFilter('week')">
+                📅 Tuần này
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end #tab-pane-ot -->
+
+  <!-- Employee Detail Modal (Personal Card) -->
+  <div class="modal-backdrop" id="emp-modal" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <!-- Card Header -->
+      <div class="card-profile-header">
+        <div class="profile-avatar" id="modal-avatar">TL</div>
+        <div class="profile-meta">
+          <div class="profile-name" id="modal-name">8131 - Lê Thị Trúc Linh</div>
+          <div class="profile-badges">
+            <span class="badge-rank" id="modal-rank">🏆 Hạng #1 / 12</span>
+            <span class="badge-level-tag" id="modal-level">Level 3</span>
+            <span id="modal-pacing-status">--</span>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal()" title="Đóng">✕</button>
+      </div>
+
+      <!-- Khối 1: Máy tính dự báo mục tiêu tháng (Forecast Target) -->
+      <div class="forecast-box">
+        <div class="forecast-title">
+          <span>🔮 DỰ BÁO KẾT THÚC THÁNG</span>
+          <span style="font-size:11px;font-weight:600;opacity:0.85;" id="modal-pacing-tag">(Tốc độ ngày 14/30)</span>
+        </div>
+        <div class="forecast-value" id="modal-forecast-val">149.9% KPI</div>
+        <div class="forecast-plan" id="modal-forecast-plan">
+          <!-- Text kế hoạch hành động -->
+        </div>
+      </div>
+
+      <!-- Khối 2: Tỷ trọng Đóng góp & Điểm mạnh (Ticket vs CV) -->
+      <h3 style="font-size:12.5px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.5px;">
+        ⚖️ Năng Lực & Tỷ Trọng Đóng Góp
+      </h3>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <div class="strength-label">Ticket Khách Hàng</div>
+          <div class="strength-val" id="modal-ticket-val">995.2 / 1.200</div>
+          <div class="strength-badge" id="modal-ticket-badge" style="background:var(--primary-light);color:var(--primary);">82.9% KPI</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-label">Công Việc (CV)</div>
+          <div class="strength-val" id="modal-cv-val">712.2 / 1.250</div>
+          <div class="strength-badge" id="modal-cv-badge" style="background:rgba(236,72,153,0.15);color:#ec4899;">57.0% KPI</div>
+        </div>
+      </div>
+      
+      <div style="background:var(--bg);border:1px solid var(--card-border);border-radius:10px;padding:12px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-size:12px;font-weight:700;" id="modal-strength-assessment">⚡ Điểm mạnh: Gánh Ticket vượt trội</span>
+          <span id="modal-ticket-2ht-badge" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--primary-light);color:var(--primary);">📋 0 Ticket có 2 CV HT</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);" id="modal-strength-desc">
+          Tỷ lệ hoàn thành Ticket cao hơn CV. Tốc độ giải quyết khách hàng rất tốt.
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:10px;">
+        <button class="btn btn-outline" onclick="closeModal()">Đóng</button>
+        <button class="btn btn-primary" onclick="openOtForCurrentModal()" style="background:linear-gradient(135deg,#059669,#10b981);border:none;font-weight:700;">
+          ⏰ Tra Cứu & Copy Giờ OT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TV Mode Progress Bar and Exit Button -->
+  <div class="tv-bar-wrap">
+    <div class="tv-progress" id="tv-progress-bar"></div>
+  </div>
+  <button class="tv-exit-pill" onclick="toggleTvMode()">
+    <span>✕ Thoát TV</span>
+    <span style="font-size:10px;opacity:0.7;">(Phím ESC)</span>
+  </button>
+
+  <!-- Hidden Container specifically prepared for high-res Zalo Report Snapshot -->
+  <div id="zalo-snapshot-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #334155;padding-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg, #6366f1, #ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;">CTO</div>
+        <div>
+          <h2 style="font-size:18px;font-weight:800;color:#fff;margin:0;">BÁO CÁO TIẾN ĐỘ & KPI TEAM CTO 1</h2>
+          <p style="font-size:12px;color:#94a3b8;margin:2px 0 0 0;">Customer Service • KiotViet</p>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;font-weight:700;color:#38bdf8;" id="zalo-snap-time">Cập nhật: --</div>
+        <div style="font-size:11px;color:#94a3b8;" id="zalo-snap-pacing">Tiến độ: Ngày 14/30 (Chuẩn: 46.67%)</div>
+      </div>
+    </div>
+
+    <!-- 4 Stats Cards -->
+    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;margin-bottom:16px;">
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Tổng Quân Số</div>
+        <div style="font-size:20px;font-weight:800;color:#f8fafc;" id="zalo-snap-staff">--</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">% KPI Trung Bình</div>
+        <div style="font-size:20px;font-weight:800;color:#38bdf8;" id="zalo-snap-avg">--%</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Đạt / Vượt Tiến Độ</div>
+        <div style="font-size:20px;font-weight:800;color:#10b981;" id="zalo-snap-ahead">--</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;font-weight:700;">Top 1 Xuất Sắc</div>
+        <div style="font-size:15px;font-weight:800;color:#f59e0b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="zalo-snap-top">--</div>
+      </div>
+    </div>
+
+    <!-- Compact Table -->
+    <div style="background:#1e293b;border:1px solid #334155;border-radius:10px;overflow:hidden;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;color:#f8fafc;">
+        <thead>
+          <tr style="background:#0f172a;border-bottom:1px solid #334155;color:#94a3b8;text-align:left;">
+            <th style="padding:8px 10px;">Hạng</th>
+            <th style="padding:8px 10px;">Mã NV</th>
+            <th style="padding:8px 10px;">Họ và Tên</th>
+            <th style="padding:8px 10px;text-align:right;">Thực Đạt KH</th>
+            <th style="padding:8px 10px;text-align:right;">Thực Đạt CV</th>
+            <th style="padding:8px 10px;text-align:center;">TK 2 CV Hỗ Trợ</th>
+            <th style="padding:8px 10px;text-align:right;">% KPI Tổng</th>
+            <th style="padding:8px 10px;text-align:center;">Đánh Giá</th>
+          </tr>
+        </thead>
+        <tbody id="zalo-snap-tbody">
+          <!-- Rows rendered by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#64748b;padding-top:4px;">
+      <span>💡 Được tạo tự động bởi Auto CRM PowerBI Tool • Team CTO 1</span>
+      <span>⚡ KPI Dashboard • Team CTO 1</span>
+    </div>
+  </div>
+
+    <!-- Modular Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/sheets_api.js"></script>
+  <script src="js/kpi.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/ot_tracker.js"></script>
+  <script>window.DEFAULT_MAIN_VIEW = "ot";</script>
+  <script src="js/app.js"></script>
+</body>
+</html>

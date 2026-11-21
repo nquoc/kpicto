@@ -1,646 +1,206 @@
 {
-  "updated_at": "08:18 - 21/11/2026",
+  "updated_at": "13:13 - 20/11/2026",
   "kpi_tong": [
     {
       "id": 1,
-      "ma": "8284",
-      "name": "Lê Nhựt Toàn",
-      "full_name": "8284 - Lê Nhựt Toàn - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "3",
-      "kpi_ticket": 950.0,
-      "slg_kh": 71.9,
-      "pct_kpi_ticket": 0.0756842105263158,
-      "kpi_cv": 1100.0,
-      "slg_cv": 83.9,
-      "pct_kpi_cv": 0.0762727272727273,
-      "no_ticket_2ht": 12,
-      "pct_kpi_tong": 0.0759784688995215
-    },
-    {
-      "id": 2,
-      "ma": "8607",
-      "name": "Nguyễn Thị Việt Trinh",
-      "full_name": "8607 - Nguyễn Thị Việt Trinh - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "1",
-      "kpi_ticket": 630.0,
-      "slg_kh": 39.0,
-      "pct_kpi_ticket": 0.0619047619047619,
-      "kpi_cv": 665.0,
-      "slg_cv": 42.0,
-      "pct_kpi_cv": 0.0631578947368421,
-      "no_ticket_2ht": 1,
-      "pct_kpi_tong": 0.062531328320802
-    },
-    {
-      "id": 3,
-      "ma": "8257",
-      "name": "Phạm Hoàng Hậu",
-      "full_name": "8257 - Phạm Hoàng Hậu - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "3",
-      "kpi_ticket": 950.0,
-      "slg_kh": 51.4,
-      "pct_kpi_ticket": 0.0541052631578947,
-      "kpi_cv": 1100.0,
-      "slg_cv": 65.4,
-      "pct_kpi_cv": 0.0594545454545455,
-      "no_ticket_2ht": 14,
-      "pct_kpi_tong": 0.0567799043062201
-    },
-    {
-      "id": 4,
-      "ma": "8274",
-      "name": "Nguyễn Hửu Thuận",
-      "full_name": "8274 - Nguyễn Hửu Thuận - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "2",
-      "kpi_ticket": 850.0,
-      "slg_kh": 36.7,
-      "pct_kpi_ticket": 0.0431764705882353,
-      "kpi_cv": 1020.0,
-      "slg_cv": 47.7,
-      "pct_kpi_cv": 0.0467647058823529,
-      "no_ticket_2ht": 9,
-      "pct_kpi_tong": 0.0449705882352941
-    },
-    {
-      "id": 5,
-      "ma": "8817",
-      "name": "Nguyễn Thanh Tố Trân",
-      "full_name": "8817 - Nguyễn Thanh Tố Trân - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "2",
-      "kpi_ticket": 770.0,
-      "slg_kh": 31.4,
-      "pct_kpi_ticket": 0.0407792207792208,
-      "kpi_cv": 805.0,
-      "slg_cv": 37.4,
-      "pct_kpi_cv": 0.0464596273291925,
-      "no_ticket_2ht": 0,
-      "pct_kpi_tong": 0.0436194240542067
-    },
-    {
-      "id": 6,
-      "ma": "8177",
-      "name": "Hồ Hồng Nhi",
-      "full_name": "8177 - Hồ Hồng Nhi - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "3",
-      "kpi_ticket": 1200.0,
-      "slg_kh": 50.9,
-      "pct_kpi_ticket": 0.0424166666666667,
-      "kpi_cv": 1250.0,
-      "slg_cv": 55.9,
-      "pct_kpi_cv": 0.04472,
-      "no_ticket_2ht": 2,
-      "pct_kpi_tong": 0.0435683333333333
-    },
-    {
-      "id": 7,
-      "ma": "8171",
-      "name": "Nguyễn Thị Ngọc Trâm",
-      "full_name": "8171 - Nguyễn Thị Ngọc Trâm - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "3",
-      "kpi_ticket": 1200.0,
-      "slg_kh": 40.1,
-      "pct_kpi_ticket": 0.0334166666666667,
-      "kpi_cv": 1250.0,
-      "slg_cv": 51.1,
-      "pct_kpi_cv": 0.04088,
-      "no_ticket_2ht": 6,
-      "pct_kpi_tong": 0.0371483333333333
-    },
-    {
-      "id": 8,
-      "ma": "8818",
-      "name": "Đoàn Thị Ngọc Duyên",
-      "full_name": "8818 - Đoàn Thị Ngọc Duyên - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "1",
-      "kpi_ticket": 630.0,
-      "slg_kh": 19.0,
-      "pct_kpi_ticket": 0.0301587301587302,
-      "kpi_cv": 665.0,
-      "slg_cv": 23.0,
-      "pct_kpi_cv": 0.0345864661654135,
-      "no_ticket_2ht": 4,
-      "pct_kpi_tong": 0.0323725981620718
-    },
-    {
-      "id": 9,
-      "ma": "8116",
-      "name": "Lưu Cẩm Tú",
-      "full_name": "8116 - Lưu Cẩm Tú - Customer Service - CTO",
-      "team": "Team CTO 1",
-      "level": "4",
-      "kpi_ticket": 1350.0,
-      "slg_kh": 40.5,
-      "pct_kpi_ticket": 0.03,
-      "kpi_cv": 1400.0,
-      "slg_cv": 43.5,
-      "pct_kpi_cv": 0.0310714285714286,
-      "no_ticket_2ht": 1,
-      "pct_kpi_tong": 0.0305357142857143
-    },
-    {
-      "id": 10,
       "ma": "8131",
       "name": "Lê Thị Trúc Linh",
       "full_name": "8131 - Lê Thị Trúc Linh - Customer Service - CTO",
       "team": "Team CTO 1",
       "level": "3",
       "kpi_ticket": 1200.0,
-      "slg_kh": 1.0,
-      "pct_kpi_ticket": 0.000833333333333333,
+      "slg_kh": 1245.0,
+      "pct_kpi_ticket": 1.0378,
       "kpi_cv": 1250.0,
-      "slg_cv": 1.0,
-      "pct_kpi_cv": 0.0008,
+      "slg_cv": 942.8,
+      "pct_kpi_cv": 0.7542,
+      "no_ticket_2ht": 14,
+      "pct_kpi_tong": 0.8959999999999999
+    },
+    {
+      "id": 2,
+      "ma": "8116",
+      "name": "Lưu Cẩm Tú",
+      "full_name": "8116 - Lưu Cẩm Tú - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "4",
+      "kpi_ticket": 1350.0,
+      "slg_kh": 1035.1,
+      "pct_kpi_ticket": 0.7667,
+      "kpi_cv": 1400.0,
+      "slg_cv": 1163.1,
+      "pct_kpi_cv": 0.8308,
+      "no_ticket_2ht": 52,
+      "pct_kpi_tong": 0.7988
+    },
+    {
+      "id": 3,
+      "ma": "8171",
+      "name": "Nguyễn Thị Ngọc Trâm",
+      "full_name": "8171 - Nguyễn Thị Ngọc Trâm - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "3",
+      "kpi_ticket": 1200.0,
+      "slg_kh": 887.7,
+      "pct_kpi_ticket": 0.7398,
+      "kpi_cv": 1250.0,
+      "slg_cv": 1019.2,
+      "pct_kpi_cv": 0.8154,
+      "no_ticket_2ht": 66,
+      "pct_kpi_tong": 0.7776000000000001
+    },
+    {
+      "id": 4,
+      "ma": "8257",
+      "name": "Phạm Hoàng Hậu",
+      "full_name": "8257 - Phạm Hoàng Hậu - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "3",
+      "kpi_ticket": 950.0,
+      "slg_kh": 653.9,
+      "pct_kpi_ticket": 0.6883,
+      "kpi_cv": 1100.0,
+      "slg_cv": 851.4,
+      "pct_kpi_cv": 0.774,
+      "no_ticket_2ht": 181,
+      "pct_kpi_tong": 0.7312000000000001
+    },
+    {
+      "id": 5,
+      "ma": "8607",
+      "name": "Nguyễn Thị Việt Trinh",
+      "full_name": "8607 - Nguyễn Thị Việt Trinh - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "1",
+      "kpi_ticket": 630.0,
+      "slg_kh": 446.0,
+      "pct_kpi_ticket": 0.7079000000000001,
+      "kpi_cv": 665.0,
+      "slg_cv": 495.5,
+      "pct_kpi_cv": 0.7451000000000001,
+      "no_ticket_2ht": 5,
+      "pct_kpi_tong": 0.7265
+    },
+    {
+      "id": 6,
+      "ma": "8285",
+      "name": "Trương Thiết Long",
+      "full_name": "8285 - Trương Thiết Long - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "3",
+      "kpi_ticket": 950.0,
+      "slg_kh": 650.1,
+      "pct_kpi_ticket": 0.6843,
+      "kpi_cv": 1100.0,
+      "slg_cv": 793.6,
+      "pct_kpi_cv": 0.7215,
+      "no_ticket_2ht": 128,
+      "pct_kpi_tong": 0.7029000000000001
+    },
+    {
+      "id": 7,
+      "ma": "8222",
+      "name": "Bùi Đăng Quang",
+      "full_name": "8222 - Bùi Đăng Quang - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "5",
+      "kpi_ticket": 1100.0,
+      "slg_kh": 751.3,
+      "pct_kpi_ticket": 0.6829999999999999,
+      "kpi_cv": 1300.0,
+      "slg_cv": 937.3,
+      "pct_kpi_cv": 0.721,
+      "no_ticket_2ht": 77,
+      "pct_kpi_tong": 0.7020000000000001
+    },
+    {
+      "id": 8,
+      "ma": "8284",
+      "name": "Lê Nhựt Toàn",
+      "full_name": "8284 - Lê Nhựt Toàn - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "3",
+      "kpi_ticket": 950.0,
+      "slg_kh": 595.7,
+      "pct_kpi_ticket": 0.6271,
+      "kpi_cv": 1100.0,
+      "slg_cv": 731.2,
+      "pct_kpi_cv": 0.6647,
+      "no_ticket_2ht": 115,
+      "pct_kpi_tong": 0.6459
+    },
+    {
+      "id": 9,
+      "ma": "8177",
+      "name": "Hồ Hồng Nhi",
+      "full_name": "8177 - Hồ Hồng Nhi - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "3",
+      "kpi_ticket": 1200.0,
+      "slg_kh": 741.7,
+      "pct_kpi_ticket": 0.6181,
+      "kpi_cv": 1250.0,
+      "slg_cv": 793.2,
+      "pct_kpi_cv": 0.6346,
+      "no_ticket_2ht": 4,
+      "pct_kpi_tong": 0.6263000000000001
+    },
+    {
+      "id": 10,
+      "ma": "8274",
+      "name": "Nguyễn Hửu Thuận",
+      "full_name": "8274 - Nguyễn Hửu Thuận - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "2",
+      "kpi_ticket": 850.0,
+      "slg_kh": 539.1,
+      "pct_kpi_ticket": 0.6342,
+      "kpi_cv": 1020.0,
+      "slg_cv": 622.6,
+      "pct_kpi_cv": 0.6103999999999999,
+      "no_ticket_2ht": 66,
+      "pct_kpi_tong": 0.6223
+    },
+    {
+      "id": 11,
+      "ma": "8817",
+      "name": "Nguyễn Thanh Tố Trân",
+      "full_name": "8817 - Nguyễn Thanh Tố Trân - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "2",
+      "kpi_ticket": 770.0,
+      "slg_kh": 424.4,
+      "pct_kpi_ticket": 0.5512,
+      "kpi_cv": 805.0,
+      "slg_cv": 468.4,
+      "pct_kpi_cv": 0.5819,
       "no_ticket_2ht": 0,
-      "pct_kpi_tong": 0.000816666666666667
-    }
-  ],
-  "hs_ca_truc": [
-    {
-      "user_name": "Đoàn Thị Ngọc Duyên",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0015
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 11.0,
-          "kh": 7.0,
-          "pct_kpi": 0.0138
-        },
-        "TR": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 11.0,
-          "kh": 11.0,
-          "pct_kpi": 0.017
-        },
-        "T": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "Total": {
-          "hours": 9.75,
-          "cv": 23.0,
-          "kh": 19.0,
-          "pct_kpi": 0.0324
-        }
-      }
+      "pct_kpi_tong": 0.5665
     },
     {
-      "user_name": "Hồ Hồng Nhi",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 21.0,
-          "kh": 20.5,
-          "pct_kpi": 0.0169
-        },
-        "TR": {
-          "hours": 2.0,
-          "cv": 5.5,
-          "kh": 5.0,
-          "pct_kpi": 0.0043
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 27.1,
-          "kh": 23.1,
-          "pct_kpi": 0.0205
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 2.3,
-          "kh": 2.3,
-          "pct_kpi": 0.0019
-        },
-        "Total": {
-          "hours": 14.25,
-          "cv": 55.9,
-          "kh": 50.9,
-          "pct_kpi": 0.0436
-        }
-      }
-    },
-    {
-      "user_name": "Lê Nhựt Toàn",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 23.1,
-          "kh": 19.1,
-          "pct_kpi": 0.0206
-        },
-        "TR": {
-          "hours": 2.0,
-          "cv": 11.3,
-          "kh": 8.3,
-          "pct_kpi": 0.0095
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 47.2,
-          "kh": 42.2,
-          "pct_kpi": 0.0437
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 2.3,
-          "kh": 2.3,
-          "pct_kpi": 0.0023
-        },
-        "Total": {
-          "hours": 14.25,
-          "cv": 83.9,
-          "kh": 71.9,
-          "pct_kpi": 0.076
-        }
-      }
-    },
-    {
-      "user_name": "Lê Thị Trúc Linh",
-      "shifts": {
-        "Khác": {
-          "hours": 4.75,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0008
-        },
-        "S": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCS": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "TR": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCC": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "T": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "Total": {
-          "hours": 4.75,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0008
-        }
-      }
-    },
-    {
-      "user_name": "Lưu Cẩm Tú",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 8.5,
-          "kh": 7.0,
-          "pct_kpi": 0.0056
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 23.7,
-          "kh": 23.2,
-          "pct_kpi": 0.0171
-        },
-        "TR": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 11.3,
-          "kh": 10.3,
-          "pct_kpi": 0.0079
-        },
-        "T": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "Total": {
-          "hours": 9.75,
-          "cv": 43.5,
-          "kh": 40.5,
-          "pct_kpi": 0.0305
-        }
-      }
-    },
-    {
-      "user_name": "Nguyễn Hửu Thuận",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCS": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "TR": {
-          "hours": 2.0,
-          "cv": 1.5,
-          "kh": 1.0,
-          "pct_kpi": 0.0013
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 27.9,
-          "kh": 22.4,
-          "pct_kpi": 0.0269
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 18.3,
-          "kh": 13.3,
-          "pct_kpi": 0.0168
-        },
-        "Total": {
-          "hours": 10.75,
-          "cv": 47.7,
-          "kh": 36.7,
-          "pct_kpi": 0.045
-        }
-      }
-    },
-    {
-      "user_name": "Nguyễn Thanh Tố Trân",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0013
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 15.5,
-          "kh": 12.0,
-          "pct_kpi": 0.0174
-        },
-        "TR": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 15.5,
-          "kh": 14.0,
-          "pct_kpi": 0.0187
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 5.4,
-          "kh": 4.4,
-          "pct_kpi": 0.0062
-        },
-        "Total": {
-          "hours": 13.75,
-          "cv": 37.4,
-          "kh": 31.4,
-          "pct_kpi": 0.0436
-        }
-      }
-    },
-    {
-      "user_name": "Nguyễn Thị Ngọc Trâm",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0008
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 17.5,
-          "kh": 12.5,
-          "pct_kpi": 0.0122
-        },
-        "TR": {
-          "hours": 2.0,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0008
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 11.4,
-          "kh": 8.4,
-          "pct_kpi": 0.0081
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 20.2,
-          "kh": 17.2,
-          "pct_kpi": 0.0152
-        },
-        "Total": {
-          "hours": 15.75,
-          "cv": 51.1,
-          "kh": 40.1,
-          "pct_kpi": 0.0371
-        }
-      }
-    },
-    {
-      "user_name": "Nguyễn Thị Việt Trinh",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 1.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0015
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 14.5,
-          "kh": 13.0,
-          "pct_kpi": 0.0212
-        },
-        "TR": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 16.5,
-          "kh": 15.0,
-          "pct_kpi": 0.0243
-        },
-        "T": {
-          "hours": 4.0,
-          "cv": 10.0,
-          "kh": 10.0,
-          "pct_kpi": 0.0155
-        },
-        "Total": {
-          "hours": 13.75,
-          "cv": 42.0,
-          "kh": 39.0,
-          "pct_kpi": 0.0625
-        }
-      }
-    },
-    {
-      "user_name": "Phạm Hoàng Hậu",
-      "shifts": {
-        "Khác": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "S": {
-          "hours": 1.5,
-          "cv": 7.0,
-          "kh": 4.0,
-          "pct_kpi": 0.0053
-        },
-        "HCS": {
-          "hours": 3.5,
-          "cv": 32.0,
-          "kh": 26.0,
-          "pct_kpi": 0.0282
-        },
-        "TR": {
-          "hours": 2.0,
-          "cv": 2.0,
-          "kh": 1.0,
-          "pct_kpi": 0.0014
-        },
-        "HCC": {
-          "hours": 4.75,
-          "cv": 24.4,
-          "kh": 20.4,
-          "pct_kpi": 0.0218
-        },
-        "T": {
-          "hours": 0.0,
-          "cv": 0.0,
-          "kh": 0.0,
-          "pct_kpi": 0.0
-        },
-        "Total": {
-          "hours": 11.75,
-          "cv": 65.4,
-          "kh": 51.4,
-          "pct_kpi": 0.0568
-        }
-      }
+      "id": 12,
+      "ma": "8818",
+      "name": "Đoàn Thị Ngọc Duyên",
+      "full_name": "8818 - Đoàn Thị Ngọc Duyên - Customer Service - CTO",
+      "team": "Team CTO 1",
+      "level": "1",
+      "kpi_ticket": 630.0,
+      "slg_kh": 327.0,
+      "pct_kpi_ticket": 0.519,
+      "kpi_cv": 665.0,
+      "slg_cv": 395.0,
+      "pct_kpi_cv": 0.594,
+      "no_ticket_2ht": 47,
+      "pct_kpi_tong": 0.5565
     }
   ],
   "summary": {
-    "total_staff": 10,
-    "avg_kpi": 4.28,
-    "total_ticket": 381.9,
-    "total_cv": 450.9,
-    "total_ticket_2ht": 49,
-    "top_performer": "Lê Nhựt Toàn",
-    "top_kpi": 7.6
+    "total_staff": 12,
+    "avg_kpi": 69.6,
+    "total_ticket": 8297.0,
+    "total_cv": 9213.3,
+    "total_ticket_2ht": 755,
+    "top_performer": "Lê Thị Trúc Linh",
+    "top_kpi": 89.6
   }
 }

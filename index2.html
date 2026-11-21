@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      margin: 0;
+      padding: 24px 14px;
+      color: #243247;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 3px 14px #0000000d;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .muted {
+      color: #667085;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+.muted1 {
+      color: #996699;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    label {
+      display: block;
+      margin: 20px 0 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd3df;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #243247;
+      background: #fff;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #2563eb1a;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .search-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px;
+      font-size: 16px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 12px;
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+  }
+.logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+    /* .suggestions {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      max-height: 280px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #d6dce5;
+      border-radius: 9px;
+      box-shadow: 0 6px 18px #00000018;
+    } */
+
+.suggestions {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #d6dce5;
+  border-radius: 9px;
+  box-shadow: 0 6px 18px #00000018;
+}
+
+    .suggestion-item {
+      display: block;
+      width: 100%;
+      padding: 12px 14px;
+      text-align: left;
+      background: #fff;
+      color: #243247;
+      border-radius: 0;
+      border-bottom: 1px solid #edf0f4;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover,
+    .suggestion-item:focus {
+      background: #eff6ff;
+      outline: none;
+    }
+
+    .suggestion-code {
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .suggestion-empty {
+      padding: 12px 14px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .error {
+      margin-top: 14px;
+      color: #c62828;
+      white-space: pre-wrap;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 10px;
+      background: #f1f5f9;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      margin-top: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .stat span {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 11px 9px;
+      border: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f8fafc;
+    }
+
+    .hours {
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+    }
+
+    .summary-table {
+      width: max-content;
+      min-width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      border: 1px solid #d1d5db;
+      text-align: center;
+      padding: 9px 10px;
+      min-width: 38px;
+      white-space: nowrap;
+    }
+
+    .summary-table th {
+      background: #f1f5f9;
+      font-weight: bold;
+    }
+
+    .summary-table .name-cell {
+      text-align: left;
+      font-weight: bold;
+      min-width: 180px;
+      background: #f8fafc;
+    }
+
+    .copy-btn {
+      display: inline-block;
+      width: auto;
+      margin: 12px 0 0;
+      padding: 10px 14px;
+      background: #C0C0C0;
+      color: white;
+      border-radius: 7px;
+      font-size: 13px;
+    }
+
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .copy-btn.copied {
+      background: #15803d;
+    }
+
+    @media (max-width: 600px) {
+      .summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel {
+        padding: 16px;
+      }
+
+      body {
+        padding: 14px 8px;
+      }
+
+      .stat strong {
+        font-size: 20px;
+      }
+
+      h2 {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="panel">
+    <!-- <h2>Overtime Tracker</h2> -->
+<h2 class="panel-title">
+    <img
+      src="https://media.licdn.com/dms/image/v2/C560BAQHF2WuoftuW_g/company-logo_200_200/company-logo_200_200/0/1675147134247/kiotviet_logo?e=2147483647&v=beta&t=slM4ki2z0m_CFopNUfjnqS25rBa-EKBfuTc5_Mm_cLs"
+      alt="KiotViet Logo"
+      class="logo"
+    />
+    <span>Overtime Tracker</span>
+  </h2>
+    <div class="muted">
+      Đối chiếu lịch làm việc từ Google Sheets.
+      Chu kỳ tính từ ngày 26 tháng trước đến ngày 25 tháng sau.
+    </div>
+    <div class="muted1">
+      Chú ý: OT tím tự note. TLong hong chịu trách nhiệm ạ!!!
+    </div>
+    <label for="targetName">Tên hoặc mã nhân viên</label>
+
+    <div class="search-wrapper">
+      <input
+        id="targetName"
+        type="text"
+        placeholder="Nhập mã hoặc tên nhân viên..."
+        autocomplete="off"
+        aria-autocomplete="list"
+        aria-controls="employeeSuggestions"
+        aria-expanded="false"
+      >
+
+      <div
+        id="employeeSuggestions"
+        class="suggestions"
+        role="listbox"
+      ></div>
+    </div>
+
+    <button
+      id="searchBtn"
+      class="search-btn"
+      onclick="searchOT()"
+    >
+      Tra cứu giờ OT
+    </button>
+
+    <div id="message" class="error"></div>
+  </div>
+
+  <div id="result" style="display:none">
+
+    <div class="panel">
+      <h2 id="employeeName"></h2>
+      <div id="period" class="muted"></div>
+
+      <div class="summary">
+        <div class="stat">
+          <span>Tổng giờ OT</span>
+          <strong id="totalHours">0 giờ</strong>
+        </div>
+
+        <div class="stat">
+          <span>OT ca sáng</span>
+          <strong id="totalS">0 giờ</strong>
+        </div>
+
+        <div class="stat">
+          <span>OT ca trưa</span>
+          <strong id="totalTR">0 giờ</strong>
+        </div>
+
+        <div class="stat">
+          <span>OT ca tối</span>
+          <strong id="totalT">0 giờ</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Chi tiết theo ngày</h2>
+      <div class="muted">Chỉ hiển thị các ngày có giờ OT được tính.</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ngày</th>
+              <th>Ca OT</th>
+              <th class="hours">Giờ OT</th>
+            </tr>
+          </thead>
+          <tbody id="dailyRows"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyResult" class="empty" style="display:none">
+        Không có giờ OT trong chu kỳ này.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ca Tối</h2>
+      <!-- <div class="muted">
+        OT 3 tiếng ghi 3, OT 4 tiếng ghi 4. Không có OT thì để trống.
+      </div> -->
+
+      <button class="copy-btn" onclick="copyShiftTable('tableT', this)">
+        🗐
+      </button>
+
+      <div class="table-wrap">
+        <table id="tableT" class="summary-table"></table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ca Trưa (TR)</h2>
+      <!-- <div class="muted">
+        Có OT ca trưa ghi 1, không có OT thì để trống.
+      </div> -->
+
+      <button class="copy-btn" onclick="copyShiftTable('tableTR', this)">
+        🗐
+      </button>
+
+      <div class="table-wrap">
+        <table id="tableTR" class="summary-table"></table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ca Sáng</h2>
+      <!-- <div class="muted">
+        Có OT ca sáng ghi 1, không có OT thì để trống.
+      </div> -->
+
+      <button class="copy-btn" onclick="copyShiftTable('tableS', this)">
+        🗐
+      </button>
+
+      <div class="table-wrap">
+        <table id="tableS" class="summary-table"></table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+  const EMPLOYEES = [
+    // { code: '8183', name: 'Nguyễn Huyền Diệp' },
+    // { code: '8102', name: 'Nguyễn Thị Thu Hòa' },
+    // { code: '8101', name: 'Cao Thu Hương' },
+    // { code: '8159', name: 'Lê Ngọc Anh' },
+    // { code: '8123', name: 'Nguyễn Thùy Dương' },
+    // { code: '8193', name: 'Diên Thùy Linh' },
+
+    // { code: '8207', name: 'Nguyễn Ngọc Thắng' },
+    // { code: '8242', name: 'Nguyễn Trường Sinh' },
+    // { code: '8206', name: 'Vũ Ngọc Tú' },
+    // { code: '8286', name: 'Phạm Trung Hiếu' },
+    // { code: '8291', name: 'Phạm Văn Mạnh' },
+    // { code: '8252', name: 'Dương Đức Huy' },
+
+    // { code: '8806', name: 'Phạm Linh Chi' },
+    // { code: '8802', name: 'Đào Mạnh Đạt' },
+    // { code: '8804', name: 'Nguyễn Lê Huy Dương' },
+    // { code: '8809', name: 'Bùi Minh Phương' },
+    // { code: '8808', name: 'Vũ Thu Hà' },
+    // { code: '8812', name: 'Nguyễn Đình Hoan' },
+    // { code: '8810', name: 'Lê Quang Thọ' },
+    // { code: '8811', name: 'Trần Văn Dương' },
+    // { code: '8814', name: 'Vũ Linh Chi' },
+    // { code: '8807', name: 'Hoàng Thị Mai Anh' },
+
+    // { code: '8152', name: 'Lê Thị Ngọc Lý' },
+    // { code: '8113', name: 'Phạm Thị Thúy Nga' },
+    // { code: '8181', name: 'Nguyễn Thị Thảo Ngân' },
+    // { code: '8150', name: 'Lê Thị Vân Anh' },
+    // { code: '8130', name: 'Đỗ Thị Huệ Mẩn' },
+    // { code: '8149', name: 'Phan Ngọc Quỳnh' },
+    // { code: '8168', name: 'Trần Thúy Quỳnh' },
+
+    // { code: '8815', name: 'Nguyễn Thị Như Thảo' },
+    // { code: '8816', name: 'Trần Thị Thanh Tuyền' },
+    // { code: '8820', name: 'Nhan Thị Ngọc Bích' },
+    // { code: '8823', name: 'Phan Thị Hoài Thư' },
+
+    // { code: '8209', name: 'Võ Duy Hải' },
+    // { code: '8238', name: 'Nguyễn Thành Đương' },
+    // { code: '8265', name: 'Nguyễn Lê Minh Thái' },
+    // { code: '8254', name: 'Vủ Duy Tùng' },
+    // { code: '8269', name: 'Lê Thanh Sơn' },
+    // { code: '8272', name: 'Lê Bảo Kha' },
+    // { code: '8273', name: 'Nguyễn Trần Hữu Nghĩa' },
+    // { code: '8281', name: 'Chiêm Hoàng Minh' },
+
+    { code: '8131', name: 'Lê Thị Trúc Linh' },
+    { code: '8171', name: 'Nguyễn Thị Ngọc Trâm' },
+    { code: '8116', name: 'Lưu Cẩm Tú' },
+    { code: '8177', name: 'Hồ Hồng Nhi' },
+
+    { code: '8817', name: 'Nguyễn Thanh Tố Trân' },
+    { code: '8818', name: 'Đoàn Thị Ngọc Duyên' },
+    { code: '8805', name: 'Nguyễn Thị Việt Trinh' },
+
+    { code: '8112', name: 'Bùi Đăng Quang' },
+    { code: '8257', name: 'Phạm Hoàng Hậu' },
+    { code: '8274', name: 'Nguyễn Hửu Thuận' },
+    { code: '8284', name: 'Lê Nhựt Toàn' },
+    { code: '8285', name: 'Trương Thiết Long' },
+
+    // { code: '8125', name: 'Nguyễn Thị Thu Ân' },
+    // { code: '8126', name: 'Lê Thị Khánh Ly' },
+    // { code: '8136', name: 'Nguyễn Thùy Anh' },
+    // { code: '8144', name: 'Trần Thị Diệu Linh' },
+    // { code: '8142', name: 'Nguyễn Thị Mỹ Diệu' },
+    // { code: '8140', name: 'Nguyễn Huỳnh Đông Phương' },
+    // { code: '8170', name: 'Nguyễn Thái Trâm' },
+    // { code: '8145', name: 'Nguyễn Thị Hồng' },
+    // { code: '8148', name: 'Nguyễn Lê Quỳnh Anh' },
+    // { code: '8129', name: 'Phạm Thị Lộc' },
+    // { code: '8139', name: 'Đinh Hồ Phương Trinh' },
+    // { code: '8118', name: 'Nguyễn Phạm Ny Na' },
+    // { code: '8198', name: 'Lê Thị Thanh Thúy' },
+    // { code: '8111', name: 'Nguyễn Kiều Loan' },
+
+    // { code: '8821', name: 'Phạm Nguyễn Vĩnh Kỳ' },
+
+    // { code: '8215', name: 'Nguyễn Thanh Bình' },
+    // { code: '8229', name: 'Nguyễn Minh Thiên' },
+    // { code: '8250', name: 'Nguyễn Nhật Tiến' },
+    // { code: '8211', name: 'Lương Nguyễn Duy Nam' },
+    // { code: '8244', name: 'Đỗ Thanh Toàn' },
+    // { code: '8240', name: 'Ngô Văn Tuấn' },
+    // { code: '8227', name: 'Phan Hồng Lĩnh' },
+    // { code: '8205', name: 'Đinh Đức Thịnh' },
+    // { code: '8216', name: 'Trần Hữu Đức' },
+    // { code: '8204', name: 'Nguyễn Quang Tiên' },
+
+    // { code: '8127', name: 'Phạm Mai Anh' },
+    // { code: '8263', name: 'Bùi Quang Linh' },
+
+    // { code: '8230', name: 'Nguyễn Công Trịnh' },
+    // { code: '8221', name: 'Nguyễn Văn Phương' },
+    // { code: '8243', name: 'Trần Thanh Sang' },
+    // { code: '8245', name: 'Nguyễn Trần Nhật Long' },
+    // { code: '8228', name: 'Đặng Huy Hoàng' },
+    // { code: '8279', name: 'Nguyễn Văn Phú' },
+    // { code: '8226', name: 'Nguyễn Ngọc Quân' },
+    // { code: '8236', name: 'Ngô Quốc Khánh' },
+    // { code: '8603', name: 'Nguyễn Hữu Đan' },
+
+    // { code: '8137', name: 'Lê Mai Anh' },
+    // { code: '8202', name: 'Đinh Bá Quang' },
+    // { code: '8146', name: 'Trần Huyền Trân' },
+
+    // { code: '8223', name: 'Lê Công Thịnh' },
+    // { code: '8151', name: 'Lê Huyền Trang' },
+    // { code: '8114', name: 'Ngô Thị Thủy' },
+    // { code: '8264', name: 'Phan Thanh Thảo' },
+
+    // { code: '8218', name: 'Lê Bá Thành (LD)' },
+    // { code: '8803', name: 'Kim Thuỳ Linh' },
+    // { code: '8233', name: 'Võ Văn Nhiệm (LD)' },
+    // { code: '8235', name: 'Nguyễn Hữu Đại' },
+    // { code: '8212', name: 'Võ Đình Ngọc' },
+    // { code: '8162', name: 'Ngô Khả Yến' },
+    { code: '8239', name: 'Ông Minh Nhựt' },
+    // { code: '8115', name: 'Trà Thị Phương Thảo' },
+
+    // { code: '8210', name: 'Đào Văn Tuấn' },
+    // { code: '8220', name: 'Huỳnh Ngọc Lâm' },
+    // { code: '8225', name: 'Võ Minh Thuyết' },
+    // { code: '8801', name: 'Đào Thị Hải Yến' },
+
+    // { code: '8262', name: 'Đặng Quốc Tiến (CC)' },
+    // { code: '8438', name: 'Trần Thị Lụa' },
+    // { code: '8427', name: 'Nguyễn Thị Thương' },
+    // { code: '8418', name: 'Dư Thị Kim Quyên' },
+    // { code: '8455', name: 'Lê Mai Phương Quyên' },
+    // { code: '8407', name: 'Nguyễn Hoài Phong' },
+    // { code: '8474', name: 'Huỳnh Ngọc Lợi' },
+    // { code: '8454', name: 'Lê Tấn Phương Sang' },
+    // { code: '8103', name: 'Trần Thị Thùy' },
+    // { code: '8439', name: 'Dương Quỳnh Chi' },
+    // { code: '8410', name: 'Nguyễn Thị Thúy Vân' },
+    // { code: '8479', name: 'Hoàng Trâm Anh' },
+    // { code: '8656', name: 'Nguyễn Thị Thương' },
+    // { code: '8432', name: 'Nguyễn Phương Anh' },
+    // { code: '8618', name: 'Mai Thị Hương' },
+    // { code: '8440', name: 'Doãn Việt Tùng' },
+    // { code: '8447', name: 'Võ Khánh Duy' },
+    // { code: '8437', name: 'Nguyễn Đoàn Hưng Phát' },
+    // { code: '8467', name: 'Nguyễn Thành Đạt' },
+    // { code: '8454', name: 'Nguyễn Đỗ Nhật Minh' },
+    // { code: '8462', name: 'Nguyễn Hoàng Khang' },
+    // { code: '8231', name: 'Thượng Thái Hiếu' },
+
+    { code: '8201', name: 'Nguyễn Ái Quốc (CC)' },
+    // { code: '8458', name: 'Đặng Duy Khương' },
+    // { code: '8466', name: 'Lê Cao Minh Đức' },
+    // { code: '8470', name: 'Lương Trọng Đạo' },
+    // { code: '8460', name: 'Lê Minh Hiển' },
+    // { code: '8461', name: 'Trịnh Đức Phong' },
+    // { code: '8489', name: 'Nguyễn Hà Anh Vũ' },
+    // { code: '8167', name: 'Phan Ngọc Nguyên' },
+    // { code: '8469', name: 'Nguyễn Hưng Hải' },
+    // { code: '8464', name: 'Lê Minh' },
+    // { code: '8409', name: 'Nguyễn Tiến Dũng' },
+
+    // { code: '8425', name: 'Lê Hoàng Anh' },
+    // { code: '8424', name: 'Hoàng Anh Vũ' },
+    // { code: '8446', name: 'Nguyễn Văn Khánh' },
+    // { code: '8246', name: 'Lê Văn Bách' },
+    // { code: '8280', name: 'Vũ Minh Đức' },
+    // { code: '8402', name: 'Lê Quốc Anh' },
+    // { code: '8403', name: 'Nguyễn Xuân Bách' },
+    // { code: '8456', name: 'Nguyễn Việt Anh' },
+    // { code: '8457', name: 'Đặng Lê Tiến Thành' },
+
+    // { code: '8420', name: 'Nguyễn Thị Ngọc Mai' },
+    // { code: '8426', name: 'Ngụy Hoàng Linh' },
+    // { code: '8433', name: 'Vũ Ngọc Phương Uyên' },
+    // { code: '8448', name: 'Nguyễn Thị Bích Vân' },
+    // { code: '8423', name: 'Lê Ngọc Sơn' },
+    // { code: '8442', name: 'Trần Phùng Anh Tú' },
+    // { code: '8426', name: 'Trần Thị Nhật Lệ' },
+    // { code: '8453', name: 'Nguyễn Thị Minh Anh' },
+    // { code: '8465', name: 'Võ Thị Thu Nga' },
+    // { code: '8433', name: 'Võ Thị Thùy Vương' },
+
+    // { code: '8248', name: 'Trần Việt Anh (CC)' },
+    // { code: '8463', name: 'Cao Minh Ngọc' },
+    // { code: '8413', name: 'Vũ Mạnh Tuấn' },
+    // { code: '8415', name: 'Vũ Tất Thắng' },
+    // { code: '8417', name: 'Nguyễn Hữu Thắng' },
+    // { code: '8480', name: 'Lê Ngọc Thắng' },
+    // { code: '8411', name: 'Lê Anh Tuấn' },
+    // { code: '8483', name: 'Hoàng Việt Đức' },
+    // { code: '8491', name: 'Lê Thế Bảo' },
+    // { code: '8258', name: 'Ngô Phi Tiệp' },
+    // { code: '8421', name: 'Trần Minh Đồng' },
+    // { code: '8486', name: 'Mai Đức Minh' },
+    // { code: '8422', name: 'Phạm Hưng Lập' }
+  ];
+
+  const targetInput = document.getElementById('targetName');
+  const suggestionBox = document.getElementById('employeeSuggestions');
+
+  let selectedEmployee = null;
+  let searchDebounceTimer = null;
+
+  function normalizeText(value) {
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D')
+      .toLowerCase()
+      .trim();
+  }
+
+  function hideSuggestions() {
+    suggestionBox.style.display = 'none';
+    suggestionBox.replaceChildren();
+    targetInput.setAttribute('aria-expanded', 'false');
+  }
+
+  function showSuggestions() {
+    suggestionBox.style.display = 'block';
+    targetInput.setAttribute('aria-expanded', 'true');
+  }
+
+  function createSuggestion(employee) {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'suggestion-item';
+    item.setAttribute('role', 'option');
+
+    const code = document.createElement('span');
+    code.className = 'suggestion-code';
+    code.textContent = employee.code;
+
+    const name = document.createElement('span');
+    name.textContent = ' - ' + employee.name;
+
+    item.append(code, name);
+
+    item.addEventListener('click', function() {
+      selectedEmployee = employee;
+      targetInput.value = employee.code + ' - ' + employee.name;
+      hideSuggestions();
+      document.getElementById('message').textContent = '';
+      targetInput.focus();
+    });
+
+    return item;
+  }
+
+  // Tìm kiếm hoàn toàn trong danh sách gán cứng.
+  function showEmployeeSuggestions() {
+    const keyword = targetInput.value.trim();
+    const normalizedKeyword = normalizeText(keyword);
+
+    selectedEmployee = null;
+    document.getElementById('message').textContent = '';
+
+    if (searchDebounceTimer) {
+      clearTimeout(searchDebounceTimer);
+    }
+
+    // if (!keyword) {
+    //   hideSuggestions();
+    //   return;
+    // }
+
+    searchDebounceTimer = setTimeout(function() {
+      // const matches = EMPLOYEES.filter(function(employee) {
+      //   return normalizeText(employee.code).includes(normalizedKeyword) ||
+      //     normalizeText(employee.name).includes(normalizedKeyword);
+      // }).slice(0, 20);
+const matches = EMPLOYEES.filter(function(employee) {
+        return normalizeText(employee.code).includes(normalizedKeyword) ||
+          normalizeText(employee.name).includes(normalizedKeyword);
+      });
+      suggestionBox.replaceChildren();
+
+      if (!matches.length) {
+        const empty = document.createElement('div');
+        empty.className = 'suggestion-empty';
+        empty.textContent = 'Không tìm thấy nhân viên phù hợp.';
+        suggestionBox.appendChild(empty);
+        showSuggestions();
+        return;
+      }
+
+      matches.forEach(function(employee) {
+        suggestionBox.appendChild(createSuggestion(employee));
+      });
+
+      showSuggestions();
+    }, 100);
+  }
+
+  // targetInput.addEventListener('input', showEmployeeSuggestions);
+  
+targetInput.addEventListener('focus', function() {
+  showEmployeeSuggestions();
+});
+
+targetInput.addEventListener('click', function() {
+  showEmployeeSuggestions();
+});
+
+targetInput.addEventListener('input', showEmployeeSuggestions);
+
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.search-wrapper')) {
+      hideSuggestions();
+    }
+  });
+
+  function searchOT() {
+    const inputValue = targetInput.value.trim();
+    const message = document.getElementById('message');
+    const button = document.getElementById('searchBtn');
+
+    message.textContent = '';
+
+    if (!inputValue) {
+      message.textContent = 'Vui lòng nhập hoặc chọn nhân viên.';
+      targetInput.focus();
+      return;
+    }
+
+    let employee = selectedEmployee;
+
+    if (!employee) {
+      const normalizedInput = normalizeText(inputValue);
+
+      // Cho phép nhập trực tiếp mã nhân viên.
+      const codeMatch = EMPLOYEES.filter(function(item) {
+        return item.code === inputValue;
+      });
+
+      if (codeMatch.length === 1) {
+        employee = codeMatch[0];
+      } else {
+        // Cho phép nhập trực tiếp tên đầy đủ, không phân biệt dấu.
+        const nameMatches = EMPLOYEES.filter(function(item) {
+          return normalizeText(item.name) === normalizedInput;
+        });
+
+        if (nameMatches.length === 1) {
+          employee = nameMatches[0];
+        } else {
+          // Hỗ trợ định dạng "8131 - Lê Thị Trúc Linh".
+          const match = inputValue.match(/^\s*(\d+)\s*-\s*(.+)$/);
+
+          if (match) {
+            const code = match[1];
+            const name = normalizeText(match[2]);
+
+            employee = EMPLOYEES.find(function(item) {
+              return item.code === code &&
+                normalizeText(item.name) === name;
+            }) || null;
+          }
+        }
+      }
+    }
+
+    if (!employee) {
+      message.textContent =
+        'Vui lòng chọn nhân viên từ danh sách gợi ý. ' +
+        'Nếu có nhiều nhân viên trùng mã hoặc tên, hãy chọn đúng người.';
+      showEmployeeSuggestions();
+      return;
+    }
+
+    hideSuggestions();
+
+    button.disabled = true;
+    button.textContent = 'Đang tính giờ OT...';
+    document.getElementById('result').style.display = 'none';
+
+    google.script.run
+      .withSuccessHandler(showResult)
+      .withFailureHandler(function(error) {
+        message.textContent =
+          error && error.message ? error.message : String(error);
+
+        button.disabled = false;
+        button.textContent = 'Tra cứu giờ OT';
+      })
+      .getOTSummary(employee.name);
+  }
+
+  function showResult(data) {
+    const button = document.getElementById('searchBtn');
+
+    button.disabled = false;
+    button.textContent = 'Tra cứu giờ OT';
+
+    document.getElementById('message').textContent = '';
+    document.getElementById('result').style.display = 'block';
+
+    document.getElementById('employeeName').textContent = data.name;
+    document.getElementById('period').textContent =
+      'Chu kỳ: ' + data.startDate + ' – ' + data.endDate;
+
+    document.getElementById('totalHours').textContent =
+      data.totalHours + ' giờ';
+    document.getElementById('totalS').textContent =
+      data.totalS + ' giờ';
+    document.getElementById('totalTR').textContent =
+      data.totalTR + ' giờ';
+    document.getElementById('totalT').textContent =
+      data.totalT + ' giờ';
+
+    const tbody = document.getElementById('dailyRows');
+    tbody.replaceChildren();
+
+    const rows = data.daily.filter(function(day) {
+      return day.hours > 0;
+    });
+
+    document.getElementById('emptyResult').style.display =
+      rows.length ? 'none' : 'block';
+
+    rows.forEach(function(day) {
+      const tr = document.createElement('tr');
+      const date = document.createElement('td');
+      const shifts = document.createElement('td');
+      const hours = document.createElement('td');
+
+      date.textContent = day.date;
+
+      shifts.textContent = day.shifts.map(function(item) {
+        return item.column + ': ' + item.code +
+          ' (' + item.hours + 'h)';
+      }).join(' | ');
+
+      hours.textContent = day.hours + ' giờ';
+      hours.className = 'hours';
+
+      tr.append(date, shifts, hours);
+      tbody.appendChild(tr);
+    });
+
+    renderShiftSummary(data, 'tableT', 'T');
+    renderShiftSummary(data, 'tableTR', 'TR');
+    renderShiftSummary(data, 'tableS', 'S');
+
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      if (btn._copyTimeout) {
+        clearTimeout(btn._copyTimeout);
+        btn._copyTimeout = null;
+      }
+
+      btn.classList.remove('copied');
+
+      if (btn.dataset.originalText) {
+        btn.textContent = btn.dataset.originalText;
+      }
+    });
+  }
+
+  function renderShiftSummary(data, tableId, shiftLabel) {
+    const table = document.getElementById(tableId);
+    table.replaceChildren();
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    const nameHeader = document.createElement('th');
+    nameHeader.textContent = 'Họ tên';
+    nameHeader.className = 'name-cell';
+    headerRow.appendChild(nameHeader);
+
+    data.daily.forEach(function(day) {
+      const th = document.createElement('th');
+      th.textContent = day.day;
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    const row = document.createElement('tr');
+
+    const nameCell = document.createElement('td');
+    nameCell.textContent = data.name;
+    nameCell.className = 'name-cell';
+    row.appendChild(nameCell);
+
+    data.daily.forEach(function(day) {
+      const td = document.createElement('td');
+
+      const shift = day.shifts.find(function(item) {
+        return item.column === shiftLabel;
+      });
+
+      if (shift) {
+        td.textContent = shiftLabel === 'T' ? shift.hours : '1';
+      } else {
+        td.textContent = '';
+      }
+
+      row.appendChild(td);
+    });
+
+    tbody.appendChild(row);
+    table.appendChild(tbody);
+  }
+
+  async function copyShiftTable(tableId, button) {
+    const table = document.getElementById(tableId);
+
+    if (!table || !table.tBodies.length ||
+        !table.tBodies[0].rows.length) {
+      alert('Chưa có dữ liệu để sao chép.');
+      return;
+    }
+
+    const dataRow = table.tBodies[0].rows[0];
+    const cells = Array.from(dataRow.cells).slice(1, 31);
+
+    if (cells.length !== 30) {
+      alert(
+        'Bảng hiện có ' + cells.length +
+        ' ô ngày, không đủ 30 ô. Vui lòng kiểm tra dữ liệu chu kỳ trong Code.gs.'
+      );
+      return;
+    }
+
+    const text = cells.map(function(cell) {
+      return cell.innerText.trim();
+    }).join('\t');
+
+    if (!button.dataset.originalText) {
+      button.dataset.originalText = button.textContent.trim();
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        copyWithFallback(text);
+      }
+
+      showCopySuccess(button);
+    } catch (error) {
+      try {
+        copyWithFallback(text);
+        showCopySuccess(button);
+      } catch (fallbackError) {
+        alert(
+          'Không thể copy dữ liệu tự động. ' +
+          'Vui lòng kiểm tra quyền clipboard của trình duyệt.'
+        );
+      }
+    }
+  }
+
+  function copyWithFallback(text) {
+    const textarea = document.createElement('textarea');
+
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    const success = document.execCommand('copy');
+    textarea.remove();
+
+    if (!success) {
+      throw new Error('Copy thất bại.');
+    }
+  }
+
+  function showCopySuccess(button) {
+    if (!button.dataset.originalText) {
+      button.dataset.originalText = button.textContent.trim();
+    }
+
+    button.textContent = '✓ Đã copy dữ liệu';
+    button.classList.add('copied');
+
+    if (button._copyTimeout) {
+      clearTimeout(button._copyTimeout);
+    }
+
+    button._copyTimeout = setTimeout(function() {
+      button.textContent = button.dataset.originalText;
+      button.classList.remove('copied');
+      button._copyTimeout = null;
+    }, 1800);
+  }
+
+  targetInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (searchDebounceTimer) {
+        clearTimeout(searchDebounceTimer);
+      }
+
+      searchOT();
+    }
+
+    if (event.key === 'Escape') {
+      hideSuggestions();
+    }
+  });
+</script>
+</body>
+</html>
