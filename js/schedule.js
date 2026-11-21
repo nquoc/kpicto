@@ -9,6 +9,7 @@
     let currentScheduleRange = 'to_date'; // 'to_date' or 'full'
     let scheduleSearchQuery = '';
     const TARGET_SCHEDULE_IDS = ["8239", "8131", "8171", "8116", "8177", "8222", "8257", "8274", "8284", "8285", "8817", "8818", "8805", "8607"];
+    const SUMMARY_KEYWORDS = ['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính'];
 
     function getCellVal(c) {
       if (c === null || c === undefined) return '';
@@ -49,7 +50,6 @@
       const caRow = rows[caRowIdx] || [];
 
       let endCol = caRow.length;
-      const SUMMARY_KEYWORDS = ['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính'];
       for (let i = 4; i < caRow.length; i++) {
         const caName = (getCellVal(caRow[i]) || getCellVal(ngayRow[i]) || '').toLowerCase().trim();
         if (SUMMARY_KEYWORDS.some(kw => caName.includes(kw))) {
