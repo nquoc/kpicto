@@ -493,7 +493,12 @@
         const inRange = (i >= fromIdx && i <= toIdx);
         td.classList.add(inRange ? 'in-copy-range' : 'out-of-copy-range');
 
-        const shifts = (targetEmp && targetEmp.shifts && targetEmp.shifts[d.date_str]) || [];
+        const rawShifts = (targetEmp && targetEmp.shifts && targetEmp.shifts[d.date_str]) || [];
+        const INVALID_CA_KEYWORDS = ['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính'];
+        const shifts = rawShifts.filter(s => {
+          const ca = (s.ca || '').toLowerCase().trim();
+          return !INVALID_CA_KEYWORDS.some(kw => ca.includes(kw));
+        });
         const vals = shifts.map(s => (s.val || '').toUpperCase().trim());
         if (vals.some(v => v.startsWith('P'))) pCount++;
         else if (vals.some(v => v.startsWith('OFF'))) offCount++;

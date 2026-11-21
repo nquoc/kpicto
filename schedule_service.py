@@ -87,9 +87,10 @@ def _fetch_from_sheets():
         ca_row = rows[ca_row_idx] if ca_row_idx < len(rows) else []
 
         end_col = len(ca_row)
+        summary_keywords = ['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính']
         for i in range(4, len(ca_row)):
             ca_name = (ca_row[i] or (ngay_row[i] if i < len(ngay_row) else '')).strip().lower()
-            if 'tổng' in ca_name or 'tong' in ca_name:
+            if any(kw in ca_name for kw in summary_keywords):
                 end_col = i
                 break
 
@@ -97,6 +98,9 @@ def _fetch_from_sheets():
         curr_day = ""
         curr_thu = ""
         for i in range(4, end_col):
+            ca_str = ca_row[i].strip().lower() if i < len(ca_row) else ''
+            if any(kw in ca_str for kw in summary_keywords):
+                break
             if i < len(thu_row) and thu_row[i].strip():
                 curr_thu = thu_row[i].strip()
             if i < len(ngay_row) and ngay_row[i].strip():
@@ -147,6 +151,8 @@ def _fetch_from_sheets():
                 if d_str not in emp_schedules[emp_id]['shifts']:
                     emp_schedules[emp_id]['shifts'][d_str] = []
                 if val:
+                    if any(kw in col_info['ca'].lower() for kw in summary_keywords):
+                        continue
                     emp_schedules[emp_id]['shifts'][d_str].append({
                         'ca': col_info['ca'],
                         'val': val

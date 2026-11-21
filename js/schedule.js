@@ -49,9 +49,10 @@
       const caRow = rows[caRowIdx] || [];
 
       let endCol = caRow.length;
+      const SUMMARY_KEYWORDS = ['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính'];
       for (let i = 4; i < caRow.length; i++) {
-        const caName = (getCellVal(caRow[i]) || getCellVal(ngayRow[i])).toLowerCase();
-        if (caName.includes('tổng') || caName.includes('tong')) {
+        const caName = (getCellVal(caRow[i]) || getCellVal(ngayRow[i]) || '').toLowerCase().trim();
+        if (SUMMARY_KEYWORDS.some(kw => caName.includes(kw))) {
           endCol = i;
           break;
         }
@@ -60,6 +61,10 @@
       const colToDate = {};
       let currDay = "", currThu = "";
       for (let i = 4; i < endCol; i++) {
+        const caName = getCellVal(caRow[i]).toLowerCase().trim();
+        if (SUMMARY_KEYWORDS.some(kw => caName.includes(kw))) {
+          break;
+        }
         const thuVal = getCellVal(thuRow[i]);
         const dayVal = getCellVal(ngayRow[i]);
         if (thuVal) currThu = thuVal;
@@ -230,11 +235,15 @@
 
           const displayShifts = {};
           for (const [dStr, sItems] of Object.entries(shifts)) {
-            if (!sItems || sItems.length === 0) {
+            const validItems = (sItems || []).filter(x => {
+              const ca = (x.ca || '').toLowerCase().trim();
+              return !SUMMARY_KEYWORDS.some(kw => ca.includes(kw));
+            });
+            if (!validItems || validItems.length === 0) {
               displayShifts[dStr] = "";
               continue;
             }
-            const vals = sItems.map(x => (x.ca && x.ca !== x.val) ? `${x.ca}: ${x.val}` : x.val);
+            const vals = validItems.map(x => (x.ca && x.ca !== x.val) ? `${x.ca}: ${x.val}` : x.val);
             displayShifts[dStr] = vals.join(' | ');
           }
 
@@ -641,7 +650,11 @@
               </div>
             </td>
             ${dates.map(d => {
-              const shifts = (emp.shifts && emp.shifts[d.date_str]) || [];
+              const rawShifts = (emp.shifts && emp.shifts[d.date_str]) || [];
+              const shifts = rawShifts.filter(s => {
+                const ca = (s.ca || '').toLowerCase().trim();
+                return !['tổng', 'tong', 'sl ', 'sl\n', 'overtime', 'ot\n', 'ot ', 'chiều', 'chưa tính', 'đã tính'].some(kw => ca.includes(kw));
+              });
               let content = '';
               if (!shifts.length) {
                 content = '<span style="color:rgba(255,255,255,0.15);">-</span>';
